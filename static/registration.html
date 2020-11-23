@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hello</title>
+  <meta charset="utf-8">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <form class="form" action="#">
+      <legend>Регистрация</legend>  
+      <fieldset>
+        <label>
+          Имя
+          <input type="text" name="first_name">
+        </label>
+        <label>
+          Фамилия 
+          <input type="text" name="second_name">
+        </label>
+        <label>
+          Логин
+          <input type="text" name="display_name">
+        </label>
+        <label>
+          Почта
+          <input type="email" name="email" required>
+        </label>
+        <label>
+          Телефон
+          <input type="tel" name="phone">
+        </label>
+        <label>
+          Пароль
+          <input type="text" name="password">
+        </label>
+        <label>
+          Подтвердите пароль
+          <input type="text" name="password">
+        </label>
+        <label>
+          <input type="submit" value="Зарегистрироваться">
+        </label>
+        <p class="registration">Войти</p>
+      </fieldset>
+    </form>
+  </main>
+  <script>
+
+    function formData() {
+      let elements = document.querySelector("form").elements;
+      let obj ={};
+      for (let i = 0 ; i < elements.length ; i++) {
+        let item = elements.item(i);
+        obj[item.name] = item.value;
+      }
+      console.log(obj);
+    }
+
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      formData();
+    });    
+
+  </script>
+</body>
+</html> 
+
+
+
