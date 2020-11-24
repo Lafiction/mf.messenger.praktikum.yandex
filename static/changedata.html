@@ -7,7 +7,7 @@
 </head>
 <body>
   <main>
-    <form action="#">
+    <form class="form" action="#">
       <div class="avatar">
         <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
       </div>
@@ -31,14 +31,34 @@
         </label>
         <label>
           Телефон
-          <input type="tel" name="phone" pattern="">
+          <input type="tel" name="phone">
         </label>
         <label>
           <input type="submit" value="Сохранить">
         </label>
       </fieldset>
     </form>
-  </main>                   
+  </main>  
+  <script>
+
+    function formData() {
+      let elements = document.querySelector("form").elements;
+      let obj ={};
+      for (let i = 0 ; i < elements.length ; i++) {
+        let item = elements.item(i);
+        obj[item.name] = item.value;
+      }
+      console.log(obj);
+    }
+
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      formData();
+    });    
+
+  </script>                 
   
 </body>
 </html> 
