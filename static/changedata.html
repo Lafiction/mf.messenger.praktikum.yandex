@@ -4,61 +4,13 @@
   <title>Hello</title>
   <meta charset="utf-8">
   <link href="style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 <body>
-  <main>
-    <form class="form" action="#">
-      <div class="avatar">
-        <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
-      </div>
-      <legend>Иван</legend>  
-      <fieldset>
-        <label>
-          Имя
-          <input type="text" name="first_name">
-        </label>
-        <label>
-          Фамилия 
-          <input type="text" name="second_name">
-        </label>
-        <label>
-          Логин
-          <input type="text" name="display_name">
-        </label>
-        <label>
-          Почта
-          <input type="email" name="email" required>
-        </label>
-        <label>
-          Телефон
-          <input type="tel" name="phone">
-        </label>
-        <label>
-          <input type="submit" value="Сохранить">
-        </label>
-      </fieldset>
-    </form>
-  </main>  
-  <script>
 
-    function formData() {
-      let elements = document.querySelector("form").elements;
-      let obj ={};
-      for (let i = 0 ; i < elements.length ; i++) {
-        let item = elements.item(i);
-        obj[item.name] = item.value;
-      }
-      console.log(obj);
-    }
-
-    const form = document.querySelector("form");
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      formData();
-    });    
-
-  </script>                 
+  <main class="changedataPage"></main>
+  
+  <script src="js/changedata.js" type="module"></script>    
   
 </body>
 </html> 
