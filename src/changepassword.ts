@@ -1,6 +1,6 @@
 import { attachCollector } from './formDataCollector.js';
 
-const Handlebars = window['Handlebars'];
+const Handlebars = (window as any)['Handlebars'];
 
 const pageContent = `
   <form class="form" action="">

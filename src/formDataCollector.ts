@@ -2,9 +2,9 @@ function formData() {
   const myForm = document.querySelector("form");
   if (myForm) {
     let elements = myForm.elements;
-    let obj = {};
+    let obj: any = {};
     for (let i = 0; i < elements.length; i++) {
-      let item = elements.item(i);
+      let item: any = elements.item(i);
       if (item && item['name']) {
         obj[item['name']] = item['value'];
       }

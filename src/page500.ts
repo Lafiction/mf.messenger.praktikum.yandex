@@ -1,4 +1,4 @@
-const Handlebars = window['Handlebars'];
+const Handlebars = (window as any)['Handlebars'];
 
 const pageContent = `
   <p class="mistake-page__header">500</p>

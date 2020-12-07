@@ -1,5 +1,5 @@
 // 1
-const Handlebars = window['Handlebars'];
+const Handlebars = (window as any)['Handlebars'];
 
 const pageContent = `
   <aside class="sidebar">
