@@ -5,7 +5,7 @@ function formData() {
     let obj = {};
     for (let i = 0; i < elements.length; i++) {
       let item = elements.item(i);
-      if (item) {
+      if (item['name']) {
         obj[item['name']] = item['value'];
       }
     }
