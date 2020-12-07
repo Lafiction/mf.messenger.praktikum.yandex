@@ -52,19 +52,34 @@ const chatProfile = `
   </div>
 `;
 
-const messageSent = `
-  <li class="messages__item sent">
-    <img class="messages__img" src="http://placekitten.com/50/50" alt="">
-     <p class="messages__text">At vero eos et accusamus et iusto odio dignissimos ducimus qui.</p>
-  </li>
-`;
+function makeMessage(sent: boolean): string {
+  let messageType;
+  let text;
 
-const messageReplies = `
-  <li class="messages__item replies">
-    <img class="messages__img" src="http://placekitten.com/50/50" alt="">
-    <p class="messages__text">Et harum quidem rerum facilis est et expedita distinctio.</p>
-  </li>
-`;
+  if (sent) {
+    messageType = 'sent';
+    text = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
+  } else {
+    messageType = 'replies';
+    text = 'Et harum quidem rerum facilis est et expedita distinctio.';
+  }
+
+  const messageContent = `
+    <li class="messages__item {{ messageType }}">
+      <img class="messages__img" src="http://placekitten.com/50/50" alt="">
+      <p class="messages__text">{{ text }}</p>
+    </li>
+  `;
+
+  const messageTemplate = Handlebars.compile(messageContent);
+
+  const message = messageTemplate({
+    messageType,
+    text
+  });
+
+  return message;
+}
 
 const messageArea = `
   <div class="message-area">
@@ -78,7 +93,15 @@ const messageArea = `
 
 const chatPreviews = [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview];
 
-const messages = [messageSent, messageReplies, messageReplies, messageSent, messageReplies, messageReplies, messageSent, messageSent];
+function generateMessages() {
+  const arr = [];
+  for (let i = 0; i < 10; i++) {
+    arr.push(makeMessage(Math.random() < 0.5));
+  }
+  return arr;
+}
+
+const messages = generateMessages();
 
 const pageContent = `
   <aside class="sidebar">
@@ -125,19 +148,17 @@ const pageContent = `
 
 const template = Handlebars.compile(pageContent);
 
-const chatPage = template(
-  { 
-    avatar,  
-    profileBtn,
-    search, 
-    chatPreviews,
-    chatPreviewActive,
-    bottombar,
-    chatProfile,
-    messages,
-    messageArea
-  }
-);
+const chatPage = template({ 
+  avatar,  
+  profileBtn,
+  search, 
+  chatPreviews,
+  chatPreviewActive,
+  bottombar,
+  chatProfile,
+  messages,
+  messageArea
+});
 
 const mainDiv = document.querySelector('.chatPage');
 
