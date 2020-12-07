@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "outDir": "static/js",
     "target": "es2016",
     "declaration": false,
