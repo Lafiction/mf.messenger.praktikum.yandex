@@ -55,36 +55,13 @@ const pageContent = `
     {{{ search }}}
   <!-- end search -->
   <ul class="contacts">
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreviewActive }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
-    <!-- chat preview -->
-      {{{ chatPreview }}}
-    <!-- end chat preview -->
+  
+    {{{ chatPreviewActive }}}
+
+    {{#each chatPreviews}}
+      {{{ this }}}
+    {{/each}}
+    
   </ul>
   <!-- bottombar -->
     {{{ bottombar }}}
@@ -104,7 +81,7 @@ const messengerPage = template(
     avatar,  
     profileBtn,
     search, 
-    chatPreview,
+    chatPreviews: [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview],
     chatPreviewActive,
     bottombar
   }
