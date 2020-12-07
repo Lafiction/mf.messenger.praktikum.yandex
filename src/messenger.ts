@@ -41,6 +41,8 @@ const bottombar = `
   </div>
 `;
 
+const chatPreviews = [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview];
+
 const pageContent = `
   <aside class="sidebar">
   <div class="profile">
@@ -81,7 +83,7 @@ const messengerPage = template(
     avatar,  
     profileBtn,
     search, 
-    chatPreviews: [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview],
+    chatPreviews,
     chatPreviewActive,
     bottombar
   }

@@ -76,6 +76,10 @@ const messageArea = `
   </div>
 `;
 
+const chatPreviews = [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview];
+
+const messages = [messageSent, messageReplies, messageReplies, messageSent, messageReplies, messageReplies, messageSent, messageSent];
+
 const pageContent = `
   <aside class="sidebar">
     <div class="profile">
@@ -107,30 +111,11 @@ const pageContent = `
       {{{ chatProfile }}}
     <!-- end chat profile -->
     <ul class="messages">
-      <!-- message -->
-        {{{ messageSent }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageReplies }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageReplies }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageSent }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageReplies }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageReplies }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageSent }}}
-      <!-- end message -->
-      <!-- message -->
-        {{{ messageSent }}}
-      <!-- end message -->
+
+      {{#each messages}}
+        {{{ this }}}
+      {{/each}}
+      
     </ul>
     <!-- message area -->
       {{{ messageArea }}}
@@ -145,12 +130,11 @@ const chatPage = template(
     avatar,  
     profileBtn,
     search, 
-    chatPreviews: [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview],
+    chatPreviews,
     chatPreviewActive,
     bottombar,
     chatProfile,
-    messageSent,
-    messageReplies,
+    messages,
     messageArea
   }
 );
