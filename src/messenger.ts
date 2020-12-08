@@ -1,79 +1,58 @@
+import { makeAvatar } from './components/avatar.js';
+import { makeProfileBtn } from './components/profileBtn.js';
+import { makeSearch } from './components/search.js';
+import { makeChatPreview } from './components/chatPreviews.js';
+import { makeBottomBar } from './components/bottomBar.js';
+
 const Handlebars = (window as any)['Handlebars'];
 
-const avatar = `<img class="profile__img" src="http://placekitten.com/50/50" alt="">`;
+const avatar = makeAvatar();
+const profileBtn = makeProfileBtn();
+const search = makeSearch();
+const bottomBar = makeBottomBar();
 
-const profileBtn = `<button class="profile__btn">⚙️<span>Профиль</span></button>`;
-
-const search = `
-  <div class="search">
-    <label class="search__label" for="">🔍</label>
-    <input class="search__input" type="text" placeholder="Search contacts...">
-  </div>
-`;
-
-const chatPreview = `
-  <li class="contacts__item">
-    <div class="wrap">
-      <img src="http://placekitten.com/50/50" alt="">
-      <div class="meta">
-        <p class="name">Lincoln Williamson</p>
-        <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
-      </div>
-    </div>
-  </li>
-`;
-
-const chatPreviewActive = `
-  <li class="contacts__item active">
-    <div class="wrap">
-      <img src="http://placekitten.com/50/50" alt="">
-      <div class="meta">
-        <p class="name">Lincoln Williamson</p>
-        <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
-      </div>
-    </div>
-  </li>
-`;
-
-const bottombar = `
-  <div class="bottombar">
-    <button class="bottombar__btn">➕ <span>Add contact</span></button>
-  </div>
-`;
-
-const chatPreviews = [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview];
+function generateChatPreviews() {
+  const arr = [];
+  const activeIndex = Math.floor(Math.random()*10);
+  for (let i = 0; i < 10; i++) {
+    if (i === activeIndex) {
+      arr.push(makeChatPreview(true));
+    } else {
+      arr.push(makeChatPreview(false));
+    } 
+  }
+  return arr;
+}
+const chatPreviews = generateChatPreviews();
 
 const pageContent = `
   <aside class="sidebar">
-  <div class="profile">
-    <!-- profile img -->
-      {{{ avatar }}}
-    <!-- end profile img -->
-    <!-- profile btn -->
-      {{{ profileBtn }}}
-    <!-- end profile btn -->
-  </div>
-  <!-- search -->
-    {{{ search }}}
-  <!-- end search -->
-  <ul class="contacts">
-  
-    {{{ chatPreviewActive }}}
+    <div class="profile">
 
-    {{#each chatPreviews}}
-      {{{ this }}}
-    {{/each}}
+      {{{ avatar }}}
+
+      {{{ profileBtn }}}
+
+    </div>
+
+    {{{ search }}}
+
+    <ul class="contacts">
     
-  </ul>
-  <!-- bottombar -->
-    {{{ bottombar }}}
-  <!-- end bottombar -->
+      {{{ chatPreviewActive }}}
+
+      {{#each chatPreviews}}
+        {{{ this }}}
+      {{/each}}
+      
+    </ul>
+
+    {{{ bottomBar }}}
+    
   </aside>
-  <!-- change chat -->
   <div class="change-chat">
-  <span>Выберите чат, чтобы отправить сообщение</span>
+    <span>Выберите чат, чтобы отправить сообщение</span>
   </div>
-  <!-- end change chat -->
 `; 
 
 const template = Handlebars.compile(pageContent);
@@ -84,8 +63,7 @@ const messengerPage = template(
     profileBtn,
     search, 
     chatPreviews,
-    chatPreviewActive,
-    bottombar
+    bottomBar
   }
 );
 
