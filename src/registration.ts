@@ -1,5 +1,4 @@
 import { attachCollector } from './formDataCollector.js';
-
 import { makeTextField } from './components/textField.js';
 
 const Handlebars = (window as any)['Handlebars'];

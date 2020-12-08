@@ -1,4 +1,5 @@
 import { attachCollector } from './formDataCollector.js';
+import { makeTextField } from './components/textField.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -8,43 +9,34 @@ const avatar = `
   </div>
 `;
 
-const nameField = `<input type="text" name="first_name" placeholder="Имя">`;
-
-const lastNameField = `<input type="text" name="second_name" placeholder="Фамилия">`;
-
-const displayNameField = `<input type="text" name="display_name" placeholder="Логин">`;
-
-const emailField = `<input type="email" name="email" placeholder="Почта" required>`;
-
-const phoneField = `<input type="tel" name="phone" placeholder="Телефон">`;
+const nameField = makeTextField('text', 'first_name', 'Имя');
+const lastNameField = makeTextField('text', 'last_name', 'Фамилия');
+const loginField = makeTextField('text', 'login', 'Логин');
+const emailField = makeTextField('email', 'email', 'Почта', true);
+const phoneField = makeTextField('tel', 'phone', 'Телефон');
 
 const submitField = `<input type="submit" value="Сохранить">`;
 
 const pageContent = `
   <form class="form" action="#">
-    <!-- avatar -->
+    
       {{{ avatar }}}
-    <!-- end avatar -->
+    
     <legend>Иван</legend>
     <fieldset>
-      <!-- name field -->
-        {{{ nameField }}}
-      <!-- end name field -->
-      <!-- last name field -->
-        {{{ lastNameField }}}
-      <!-- end last name field -->
-      <!-- display name field -->
-        {{{ displayNameField }}}
-      <!-- end display name field -->
-      <!-- email field -->
-        {{{ emailNameField }}}
-      <!-- end email field -->
-      <!-- phone field -->
-        {{{ phoneField }}}
-      <!-- end phone field -->
-      <!-- submit field -->
-        {{{ submitField }}}
-      <!-- end submit field -->
+      
+      {{{ nameField }}}
+    
+      {{{ lastNameField }}}
+    
+      {{{ displayNameField }}}
+    
+      {{{ emailNameField }}}
+    
+      {{{ phoneField }}}
+    
+      {{{ submitField }}}
+      
     </fieldset>
   </form>
 `;

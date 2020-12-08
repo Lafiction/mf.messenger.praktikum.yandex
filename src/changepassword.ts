@@ -1,4 +1,5 @@
 import { attachCollector } from './formDataCollector.js';
+import { makeTextField } from './components/textField.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -8,33 +9,28 @@ const avatar = `
   </div>
 `;
 
-const oldPassword = `<input type="text" name="Старый пароль">`;
-
-const newPassword = `<input type="text" name="Новый пароль">`;
-
-const repeatPassword = `<input type="text" name="Повторите пароль">`;
+const oldPassword = makeTextField('text', 'password', 'Старый пароль');
+const newPassword = makeTextField('text', 'password', 'Новый пароль');
+const repeatPassword = makeTextField('text', 'password', 'Повторите пароль');
 
 const submitField = `<input type="submit" value="Сохранить">`;
 
 const pageContent = `
   <form class="form" action="">
-    <!-- avatar -->
+    
       {{{ avatar }}}
-    <!-- end avatar -->
+   
     <legend>Иван</legend>
     <fieldset>
-      <!-- old password field -->
-        {{{ oldPassword }}}
-      <!-- end old password field -->
-      <!-- new password field -->
-        {{{ newPassword }}}
-      <!-- end new password field -->
-      <!-- new password field -->
-        {{{ repeatPassword }}}
-      <!-- end new password field -->
-      <!-- submit field -->
-        {{{ submitField }}}
-      <!-- end submit field -->
+      
+      {{{ oldPassword }}}
+    
+      {{{ newPassword }}}
+    
+      {{{ repeatPassword }}}
+    
+      {{{ submitField }}}
+     
     </fieldset>
   </form>
 `; 
