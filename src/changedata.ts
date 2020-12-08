@@ -1,5 +1,6 @@
 import { attachCollector } from './formDataCollector.js';
 import { makeTextField } from './components/textField.js';
+import { makeSubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -15,7 +16,7 @@ const loginField = makeTextField('text', 'login', 'Логин');
 const emailField = makeTextField('email', 'email', 'Почта', true);
 const phoneField = makeTextField('tel', 'phone', 'Телефон');
 
-const submitField = `<input type="submit" value="Сохранить">`;
+const submitField = makeSubmitBtn('Сохранить');
 
 const pageContent = `
   <form class="form" action="#">
@@ -48,7 +49,7 @@ const changedataPage = template(
     avatar,  
     nameField,
     lastNameField,
-    displayNameField,
+    loginField,
     emailField,
     phoneField,
     submitField

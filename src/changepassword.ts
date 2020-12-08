@@ -1,5 +1,6 @@
 import { attachCollector } from './formDataCollector.js';
 import { makeTextField } from './components/textField.js';
+import { makeSubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -13,7 +14,7 @@ const oldPassword = makeTextField('text', 'password', 'Старый пароль
 const newPassword = makeTextField('text', 'password', 'Новый пароль');
 const repeatPassword = makeTextField('text', 'password', 'Повторите пароль');
 
-const submitField = `<input type="submit" value="Сохранить">`;
+const submitField = makeSubmitBtn('Сохранить');
 
 const pageContent = `
   <form class="form" action="">
