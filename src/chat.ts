@@ -15,30 +15,6 @@ const search = `
   </div>
 `;
 
-const chatPreview = `
-  <li class="contacts__item">
-    <div class="wrap">
-      <img src="http://placekitten.com/50/50" alt="">
-      <div class="meta">
-        <p class="name">Lincoln Williamson</p>
-        <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
-      </div>
-    </div>
-  </li>
-`;
-
-const chatPreviewActive = `
-  <li class="contacts__item active">
-    <div class="wrap">
-      <img src="http://placekitten.com/50/50" alt="">
-      <div class="meta">
-        <p class="name">Lincoln Williamson</p>
-        <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
-      </div>
-    </div>
-  </li>
-`;
-
 const bottombar = `
   <div class="bottombar">
     <button class="bottombar__btn">➕ <span>Add contact</span></button>
@@ -52,35 +28,6 @@ const chatProfile = `
   </div>
 `;
 
-function makeMessage(sent: boolean): string {
-  let messageType;
-  let text;
-
-  if (sent) {
-    messageType = 'sent';
-    text = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
-  } else {
-    messageType = 'replies';
-    text = 'Et harum quidem rerum facilis est et expedita distinctio.';
-  }
-
-  const messageContent = `
-    <li class="messages__item {{ messageType }}">
-      <img class="messages__img" src="http://placekitten.com/50/50" alt="">
-      <p class="messages__text">{{ text }}</p>
-    </li>
-  `;
-
-  const messageTemplate = Handlebars.compile(messageContent);
-
-  const message = messageTemplate({
-    messageType,
-    text
-  });
-
-  return message;
-}
-
 const messageArea = `
   <div class="message-area">
     <div class="message-area__wrap">
@@ -91,7 +38,78 @@ const messageArea = `
   </div>
 `;
 
-const chatPreviews = [chatPreview, chatPreview, chatPreview, chatPreview, chatPreview, chatPreview];
+function makeChatPreview(active: boolean): string {
+  let chatPreviewType;
+
+  const chatPreviewContent = `
+  <li class="contacts__item {{ chatPreviewType }}">
+    <div class="wrap">
+      <img src="http://placekitten.com/50/50" alt="">
+      <div class="meta">
+        <p class="name">Lincoln Williamson</p>
+        <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
+      </div>
+    </div>
+  </li>`;
+
+  if (active) {
+    chatPreviewType = 'active';
+  } else {
+    chatPreviewType = '';
+  } 
+
+  const chatPreviewTemplate = Handlebars.compile(chatPreviewContent);
+  
+  const chatPreview = chatPreviewTemplate({
+    chatPreviewType,
+  });
+
+  return chatPreview;
+}
+
+function generateChatPreviews() {
+  const arr = [];
+  const activeIndex = Math.floor(Math.random()*10);
+  for (let i = 0; i < 10; i++) {
+    if (i === activeIndex) {
+      arr.push(makeChatPreview(true));
+    } else {
+      arr.push(makeChatPreview(false));
+    } 
+  }
+  return arr;
+}
+
+const chatPreviews = generateChatPreviews();
+
+function makeMessage(sent: boolean): string {
+  let messageType;
+  let text;
+
+  const messageContent = `
+    <li class="messages__item {{ messageType }}">
+      <img class="messages__img" src="http://placekitten.com/50/50" alt="">
+      <p class="messages__text">{{ text }}</p>
+    </li>
+  `;
+
+  if (sent) {
+    messageType = 'sent';
+    text = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
+  } else {
+    messageType = 'replies';
+    text = 'Et harum quidem rerum facilis est et expedita distinctio.';
+  }
+
+  const messageTemplate = Handlebars.compile(messageContent);
+
+  const message = messageTemplate({
+    messageType,
+    text
+  });
+
+  return message;
+}
 
 function generateMessages() {
   const arr = [];
@@ -117,8 +135,6 @@ const pageContent = `
       {{{ search }}}
     <!-- end search -->
     <ul class="contacts">
-
-      {{{ chatPreviewActive }}}
 
       {{#each chatPreviews}}
         {{{ this }}}
@@ -153,7 +169,6 @@ const chatPage = template({
   profileBtn,
   search, 
   chatPreviews,
-  chatPreviewActive,
   bottombar,
   chatProfile,
   messages,
