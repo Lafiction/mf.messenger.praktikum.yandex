@@ -1,18 +1,16 @@
 import { attachCollector } from './formDataCollector.js';
 
+import { makeTextField } from './components/textField.js';
+
 const Handlebars = (window as any)['Handlebars'];
 
-const nameField = `<input type="text" name="first_name" placeholder="Имя">`;
-
-const lastNameField = `<input type="text" name="second_name" placeholder="Фамилия">`;
-
-const loginField = `<input type="text" name="display_name" placeholder="Логин">`;
-
-const emailField = `<input type="email" name="email" placeholder="Почта" required`;
-
-const phoneField = `<input type="tel" name="phone" placeholder="Телефон">`;
-
-const passwordField = `<input type="text" name="password" placeholder="Пароль">`;
+const nameField = makeTextField('text', 'first_name', 'Имя');
+const lastNameField = makeTextField('text', 'last_name', 'Фамилия');
+const loginField = makeTextField('text', 'login', 'Логин');
+const emailField = makeTextField('email', 'email', 'Почта', true);
+const phoneField = makeTextField('tel', 'phone', 'Телефон');
+const passwordField = makeTextField('text', 'password', 'Пароль');
+const repeatPasswordField = makeTextField('text', 'password', 'Повторите пароль');
 
 const submitField = `<input type="submit" value="Зарегистрироваться">`;
 
@@ -20,33 +18,25 @@ const pageContent = `
   <form class="form" action="#">
     <legend>Регистрация</legend>  
     <fieldset>
-      <!-- name field -->
-        {{{ nameField }}}
-      <!-- end name field -->
-      <!-- last name field -->
-        {{{ lastNameField }}}
-      <!-- end last name field -->
-      <!-- display name field -->
-        {{{ loginField }}}
-      <!-- end display name field -->
-      <!-- email field -->
-        {{{ emailField }}}
-      <!-- end email field -->
-      <!-- phone field -->
-        {{{ phoneField }}}
-      <!-- end phone field -->
-      <!-- password field -->
-        {{{ passwordField }}}
-      <!-- end password field -->
-      <!-- password field -->
-        {{{ passwordField }}}
-      <!-- end password field -->
-      <!-- submit field -->
-        {{{ submitField }}}
-      <!-- end submit field -->
-      <!-- registration -->
+      
+      {{{ nameField }}}
+    
+      {{{ lastNameField }}}
+    
+      {{{ loginField }}}
+    
+      {{{ emailField }}}
+    
+      {{{ phoneField }}}
+    
+      {{{ passwordField }}}
+    
+      {{{ repeatPasswordField }}}
+    
+      {{{ submitField }}}
+    
       <a href="index.html" class="registration">Войти</a>
-      <!-- end registration -->
+      
     </fieldset>
   </form>
 `; 
@@ -61,6 +51,7 @@ const registrationPage = template(
     emailField,
     phoneField,
     passwordField,
+    repeatPasswordField,
     submitField
   }
 );
