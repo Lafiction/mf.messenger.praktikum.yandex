@@ -1,6 +1,5 @@
 import { attachCollector } from './formDataCollector.js';
-import { makeTextField } from './components/textField.js';
-
+import { TextField } from './components/textField.js';
 import { SubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
@@ -11,11 +10,41 @@ const avatar = `
   </div>
 `;
 
-const nameField = makeTextField('text', 'first_name', 'Имя');
-const lastNameField = makeTextField('text', 'last_name', 'Фамилия');
-const loginField = makeTextField('text', 'login', 'Логин');
-const emailField = makeTextField('email', 'email', 'Почта', true);
-const phoneField = makeTextField('tel', 'phone', 'Телефон');
+const nameFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'first_name',
+  placeholder: 'Имя'
+});
+const nameField = nameFieldComponent.getContent().outerHTML;
+
+const lastNameFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'last_name',
+  placeholder: 'Фамилия'
+});
+const lastNameField = lastNameFieldComponent.getContent().outerHTML;
+
+const loginFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'login',
+  placeholder: 'Логин'
+});
+const loginField = loginFieldComponent.getContent().outerHTML;
+
+const emailFieldComponent = new TextField({ 
+  fieldType: 'email',
+  fieldName: 'email',
+  placeholder: 'Почта',
+  required: true
+});
+const emailField = emailFieldComponent.getContent().outerHTML;
+
+const phoneFieldComponent = new TextField({ 
+  fieldType: 'tel',
+  fieldName: 'phone',
+  placeholder: 'Телефон'
+});
+const phoneField = phoneFieldComponent.getContent().outerHTML;
 
 const submitFieldComponent = new SubmitBtn({ value: 'Сохранить' });
 const submitField = submitFieldComponent.getContent().outerHTML;
@@ -32,9 +61,9 @@ const pageContent = `
     
       {{{ lastNameField }}}
     
-      {{{ displayNameField }}}
+      {{{ loginField }}}
     
-      {{{ emailNameField }}}
+      {{{ emailField }}}
     
       {{{ phoneField }}}
     

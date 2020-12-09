@@ -1,17 +1,61 @@
 import { attachCollector } from './formDataCollector.js';
-import { makeTextField } from './components/textField.js';
-
+import { TextField } from './components/textField.js';
 import { SubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-const nameField = makeTextField('text', 'first_name', 'Имя');
-const lastNameField = makeTextField('text', 'last_name', 'Фамилия');
-const loginField = makeTextField('text', 'login', 'Логин');
-const emailField = makeTextField('email', 'email', 'Почта', true);
-const phoneField = makeTextField('tel', 'phone', 'Телефон');
-const passwordField = makeTextField('text', 'password', 'Пароль');
-const repeatPasswordField = makeTextField('text', 'password', 'Повторите пароль');
+const nameFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'first_name',
+  placeholder: 'Имя'
+});
+const nameField = nameFieldComponent.getContent().outerHTML;
+
+const lastNameFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'last_name',
+  placeholder: 'Фамилия'
+});
+const lastNameField = lastNameFieldComponent.getContent().outerHTML;
+
+const loginFieldComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'login',
+  placeholder: 'Логин',
+  required: true
+});
+const loginField = loginFieldComponent.getContent().outerHTML;
+
+const emailFieldComponent = new TextField({ 
+  fieldType: 'email',
+  fieldName: 'email',
+  placeholder: 'Почта',
+  required: true
+});
+const emailField = emailFieldComponent.getContent().outerHTML;
+
+const phoneFieldComponent = new TextField({ 
+  fieldType: 'tel',
+  fieldName: 'phone',
+  placeholder: 'Телефон'
+});
+const phoneField = phoneFieldComponent.getContent().outerHTML;
+
+const passwordComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'password',
+  placeholder: 'Пароль',
+  required: true
+});
+const passwordField = passwordComponent.getContent().outerHTML;
+
+const repeatPasswordComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'repeat_password',
+  placeholder: 'Повторите пароль',
+  required: true
+});
+const repeatPasswordField = repeatPasswordComponent.getContent().outerHTML;
 
 const submitFieldComponent = new SubmitBtn({ value: 'Зарегистрироваться' });
 const submitField = submitFieldComponent.getContent().outerHTML;

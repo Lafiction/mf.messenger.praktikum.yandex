@@ -1,6 +1,5 @@
 import { attachCollector } from './formDataCollector.js';
-import { makeTextField } from './components/textField.js';
-
+import { TextField } from './components/textField.js';
 import { SubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
@@ -11,9 +10,26 @@ const avatar = `
   </div>
 `;
 
-const oldPassword = makeTextField('text', 'password', 'Старый пароль');
-const newPassword = makeTextField('text', 'password', 'Новый пароль');
-const repeatPassword = makeTextField('text', 'password', 'Повторите пароль');
+const oldPasswordComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'old_password',
+  placeholder: 'Старый пароль'
+});
+const oldPassword = oldPasswordComponent.getContent().outerHTML;
+
+const newPasswordComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'new_password',
+  placeholder: 'Новый пароль'
+});
+const newPassword = newPasswordComponent.getContent().outerHTML;
+
+const repeatPasswordComponent = new TextField({ 
+  fieldType: 'text',
+  fieldName: 'repeat_password',
+  placeholder: 'Повторите пароль'
+});
+const repeatPassword = repeatPasswordComponent.getContent().outerHTML;
 
 const submitFieldComponent = new SubmitBtn({ value: 'Сохранить' });
 const submitField = submitFieldComponent.getContent().outerHTML;
