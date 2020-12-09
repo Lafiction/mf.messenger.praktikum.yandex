@@ -20,8 +20,8 @@ const loginFieldComponent = new TextField({
 });
 const loginField = loginFieldComponent.getContent().outerHTML;
 
-const submitFieldComponent = new SubmitBtn({ value: 'Авторизоваться' });
-const submitField = submitFieldComponent.getContent().outerHTML;
+const submitBtnComponent = new SubmitBtn({ value: 'Авторизоваться' });
+const submitBtn = submitBtnComponent.getContent().outerHTML;
 
 const pageContent = `
   <form class="form" action="#">
@@ -45,7 +45,7 @@ const indexPage = template(
   { 
     loginField,  
     passwordField,
-    submitField
+    submitBtn
   }
 );
 

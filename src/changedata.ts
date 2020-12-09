@@ -46,8 +46,8 @@ const phoneFieldComponent = new TextField({
 });
 const phoneField = phoneFieldComponent.getContent().outerHTML;
 
-const submitFieldComponent = new SubmitBtn({ value: 'Сохранить' });
-const submitField = submitFieldComponent.getContent().outerHTML;
+const submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
+const submitBtn = submitBtnComponent.getContent().outerHTML;
 
 const pageContent = `
   <form class="form" action="#">
@@ -83,7 +83,7 @@ const changedataPage = template(
     loginField,
     emailField,
     phoneField,
-    submitField
+    submitBtn
   }
 );
 

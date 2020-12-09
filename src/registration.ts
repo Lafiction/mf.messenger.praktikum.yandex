@@ -57,8 +57,8 @@ const repeatPasswordComponent = new TextField({
 });
 const repeatPasswordField = repeatPasswordComponent.getContent().outerHTML;
 
-const submitFieldComponent = new SubmitBtn({ value: 'Зарегистрироваться' });
-const submitField = submitFieldComponent.getContent().outerHTML;
+const submitBtnComponent = new SubmitBtn({ value: 'Зарегистрироваться' });
+const submitBtn = submitBtnComponent.getContent().outerHTML;
 
 const pageContent = `
   <form class="form" action="#">
@@ -98,7 +98,7 @@ const registrationPage = template(
     phoneField,
     passwordField,
     repeatPasswordField,
-    submitField
+    submitBtn
   }
 );
 
