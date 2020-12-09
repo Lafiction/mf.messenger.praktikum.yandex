@@ -1,23 +1,37 @@
-import { makeAvatar } from './components/avatar.js';
-import { makeProfileBtn } from './components/profileBtn.js';
-import { makeSearch } from './components/search.js';
 import { makeChatPreview } from './components/chatPreviews.js';
-import { makeBottomBar } from './components/bottomBar.js';
-import { makeChatProfile } from './components/chatProfile.js';
 import { makeMessage } from './components/messages.js';
-import { makeMessageArea } from './components/messageArea.js';
+
+import { Search } from './components/search.js';
+import { ProfileBtn } from './components/profileBtn.js';
+import { MessageArea } from './components/messageArea.js';
+import { ChatProfile } from './components/chatProfile.js';
+import { Avatar } from './components/avatar.js';
+import { BottomBar } from './components/bottomBar.js';
 
 
 // говорим компилятору, что handlebars у нас есть
 // handlebars подключен в html странице
 const Handlebars = (window as any)['Handlebars'];
 
-const avatar = makeAvatar();
-const profileBtn = makeProfileBtn();
-const search = makeSearch();
-const bottomBar = makeBottomBar();
-const chatProfile = makeChatProfile();
-const messageArea = makeMessageArea();
+
+
+const searchComponent = new Search();
+const search = searchComponent.getContent().outerHTML;
+
+const profileBtnComponent = new ProfileBtn();
+const profileBtn = profileBtnComponent.getContent().outerHTML;
+
+const messageAreaComponent = new MessageArea();
+const messageArea = messageAreaComponent.getContent().outerHTML;
+
+const chatProfileComponent = new ChatProfile();
+const chatProfile = chatProfileComponent.getContent().outerHTML;
+
+const avatarComponent = new Avatar();
+const avatar = avatarComponent.getContent().outerHTML;
+
+const bottomBarComponent = new BottomBar();
+const bottomBar = bottomBarComponent.getContent().outerHTML;
 
 function generateChatPreviews() {
   const arr = [];

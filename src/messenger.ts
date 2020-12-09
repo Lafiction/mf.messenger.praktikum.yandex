@@ -1,15 +1,24 @@
-import { makeAvatar } from './components/avatar.js';
-import { makeProfileBtn } from './components/profileBtn.js';
-import { makeSearch } from './components/search.js';
 import { makeChatPreview } from './components/chatPreviews.js';
-import { makeBottomBar } from './components/bottomBar.js';
+
+import { Search } from './components/search.js';
+import { ProfileBtn } from './components/profileBtn.js';
+import { Avatar } from './components/avatar.js';
+import { BottomBar } from './components/bottomBar.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-const avatar = makeAvatar();
-const profileBtn = makeProfileBtn();
-const search = makeSearch();
-const bottomBar = makeBottomBar();
+
+const searchComponent = new Search();
+const search = searchComponent.getContent().outerHTML;
+
+const profileBtnComponent = new ProfileBtn();
+const profileBtn = profileBtnComponent.getContent().outerHTML;
+
+const avatarComponent = new Avatar();
+const avatar = avatarComponent.getContent().outerHTML;
+
+const bottomBarComponent = new BottomBar();
+const bottomBar = bottomBarComponent.getContent().outerHTML;
 
 function generateChatPreviews() {
   const arr = [];
