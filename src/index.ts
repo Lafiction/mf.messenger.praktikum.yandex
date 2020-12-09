@@ -1,14 +1,15 @@
 import { attachCollector } from './formDataCollector.js';
 import { makeTextField } from './components/textField.js';
-import { makeSubmitBtn } from './components/submitBtn.js';
 
+import { SubmitBtn } from './components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
 const loginField = makeTextField('text', 'login', 'Логин');
 const passwordField = makeTextField('text', 'password', 'Пароль');
 
-const submitField = makeSubmitBtn('Авторизоваться');
+const submitFieldComponent = new SubmitBtn({ value: 'Авторизоваться' });
+const submitField = submitFieldComponent.getContent().outerHTML;
 
 const pageContent = `
   <form class="form" action="#">
