@@ -1,5 +1,4 @@
-import { makeMessage } from './components/messages.js';
-
+import { Message } from './components/messages.js';
 import { ChatPreview } from './components/chatPreviews.js';
 import { Search } from './components/search.js';
 import { ProfileBtn } from './components/profileBtn.js';
@@ -53,8 +52,26 @@ const chatPreviews = generateChatPreviews();
 
 function generateMessages() {
   const arr = [];
+  
   for (let i = 0; i < 10; i++) {
-    arr.push(makeMessage(Math.random() < 0.5));
+    let messageType;
+    let messageText;
+    const sent = Math.random() < 0.5;
+    if (sent) {
+      messageType = 'sent';
+      messageText = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
+    } else {
+      messageType = 'replies';
+      messageText = 'Et harum quidem rerum facilis est et expedita distinctio.';
+    }
+
+    const messageComponent = new Message({
+      messageType: messageType,
+      messageText: messageText
+    });
+    const message = messageComponent.getContent().outerHTML;
+    arr.push(message);
+
   }
   return arr;
 }

@@ -1,30 +1,33 @@
+import { Block } from '../block.js';
+
 const Handlebars = (window as any)['Handlebars']; 
 
-export function makeMessage(sent: boolean): string {
-  let messageType;
-  let text;
+interface MessageProps {
+  messageType: string;
+  messageText: string;
+}
 
-  const messageContent = `
-    <li class="messages__item {{ messageType }}">
-      <img class="messages__img" src="http://placekitten.com/50/50" alt="">
-      <p class="messages__text">{{ text }}</p>
-    </li>
-  `;
-
-  if (sent) {
-    messageType = 'sent';
-    text = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
-  } else {
-    messageType = 'replies';
-    text = 'Et harum quidem rerum facilis est et expedita distinctio.';
+export class Message extends Block {
+  constructor(props: MessageProps) {
+    super("li", props);
   }
 
-  const messageTemplate = Handlebars.compile(messageContent);
+  render() {
+    this.element.classList.add("messages__item");
+    if (this.props.messageType.length > 0) {
+      this.element.classList.add(this.props.messageType);
+    }
 
-  const message = messageTemplate({
-    messageType,
-    text
-  });
+    const content = `
+      <img class="messages__img" src="http://placekitten.com/50/50" alt="">
+      <p class="messages__text">{{ text }}</p>`;
 
-  return message;
+    const template = Handlebars.compile(content);
+
+    const htmlContent = template({
+      text: this.props.messageText
+    });
+
+    return htmlContent;
+  }
 }
