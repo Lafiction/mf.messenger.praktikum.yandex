@@ -1,7 +1,7 @@
-import { attachCollector } from './formDataCollector.js';
-import { Block } from './block.js';
-import { TextField } from './components/textField.js';
-import { SubmitBtn } from './components/submitBtn.js';
+import { attachCollector } from '../common/formDataCollector.js';
+import { Block } from '../common/block.js';
+import { TextField } from '../components/textField.js';
+import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 

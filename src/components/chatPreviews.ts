@@ -1,4 +1,4 @@
-import { Block } from '../block.js';
+import { Block } from '../common/block.js';
 
 const Handlebars = (window as any)['Handlebars'];
 

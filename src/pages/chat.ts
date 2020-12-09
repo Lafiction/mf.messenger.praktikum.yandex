@@ -1,12 +1,12 @@
-import { Block } from './block.js';
-import { Message } from './components/messages.js';
-import { ChatPreview } from './components/chatPreviews.js';
-import { Search } from './components/search.js';
-import { ProfileBtn } from './components/profileBtn.js';
-import { MessageArea } from './components/messageArea.js';
-import { ChatProfile } from './components/chatProfile.js';
-import { Avatar } from './components/avatar.js';
-import { BottomBar } from './components/bottomBar.js';
+import { Block } from '../common/block.js';
+import { Message } from '../components/messages.js';
+import { ChatPreview } from '../components/chatPreviews.js';
+import { Search } from '../components/search.js';
+import { ProfileBtn } from '../components/profileBtn.js';
+import { MessageArea } from '../components/messageArea.js';
+import { ChatProfile } from '../components/chatProfile.js';
+import { Avatar } from '../components/avatar.js';
+import { BottomBar } from '../components/bottomBar.js';
 
 // говорим компилятору, что handlebars у нас есть
 // handlebars подключен в html странице

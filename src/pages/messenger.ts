@@ -1,9 +1,9 @@
-import { Block } from './block.js';
-import { ChatPreview } from './components/chatPreviews.js';
-import { Search } from './components/search.js';
-import { ProfileBtn } from './components/profileBtn.js';
-import { Avatar } from './components/avatar.js';
-import { BottomBar } from './components/bottomBar.js';
+import { Block } from '../common/block.js';
+import { ChatPreview } from '../components/chatPreviews.js';
+import { Search } from '../components/search.js';
+import { ProfileBtn } from '../components/profileBtn.js';
+import { Avatar } from '../components/avatar.js';
+import { BottomBar } from '../components/bottomBar.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
