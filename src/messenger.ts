@@ -1,5 +1,4 @@
-import { makeChatPreview } from './components/chatPreviews.js';
-
+import { ChatPreview } from './components/chatPreviews.js';
 import { Search } from './components/search.js';
 import { ProfileBtn } from './components/profileBtn.js';
 import { Avatar } from './components/avatar.js';
@@ -24,11 +23,15 @@ function generateChatPreviews() {
   const arr = [];
   const activeIndex = Math.floor(Math.random()*10);
   for (let i = 0; i < 10; i++) {
+    let active = '';
     if (i === activeIndex) {
-      arr.push(makeChatPreview(true));
-    } else {
-      arr.push(makeChatPreview(false));
+      active = 'active';
     } 
+    const chatPreviewComponent = new ChatPreview({
+      chatPreviewType: active
+    });
+    const chatPreview = chatPreviewComponent.getContent().outerHTML;
+    arr.push(chatPreview);
   }
   return arr;
 }

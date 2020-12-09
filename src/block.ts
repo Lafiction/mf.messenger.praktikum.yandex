@@ -13,7 +13,7 @@ export class Block {
     tagName: string;
     props: object;
   };
-  private props: typeof Proxy;
+  protected props: any;
   public eventBus: () => EventBus;
 
   /** JSDoc
@@ -22,7 +22,7 @@ export class Block {
    *
    * @returns {void}
    */
-  constructor(tagName: string = "div", props: object = {}) {
+  constructor(tagName: string = "div", props: any = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
