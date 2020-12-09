@@ -79,7 +79,7 @@ const pageContent = `
     
       {{{ repeatPasswordField }}}
     
-      {{{ submitField }}}
+      {{{ submitBtn }}}
     
       <a href="index.html" class="registration">Войти</a>
       

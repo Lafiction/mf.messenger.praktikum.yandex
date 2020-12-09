@@ -67,7 +67,7 @@ const pageContent = `
     
       {{{ phoneField }}}
     
-      {{{ submitField }}}
+      {{{ submitBtn }}}
       
     </fieldset>
   </form>

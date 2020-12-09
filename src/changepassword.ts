@@ -48,7 +48,7 @@ const pageContent = `
     
       {{{ repeatPassword }}}
     
-      {{{ submitField }}}
+      {{{ submitBtn }}}
      
     </fieldset>
   </form>

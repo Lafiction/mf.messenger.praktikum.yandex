@@ -32,7 +32,7 @@ const pageContent = `
     
     {{{ passwordField }}}
     
-    {{{ submitField }}}
+    {{{ submitBtn }}}
     
     <a href="registration.html" class="registration">Нет аккаунта</a>
   </fieldset>

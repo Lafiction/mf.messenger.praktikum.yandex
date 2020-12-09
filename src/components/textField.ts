@@ -1,7 +1,5 @@
 import { Block } from '../block.js';
 
-const Handlebars = (window as any)['Handlebars']; 
-
 interface TextFieldProps {
   fieldType: string;
   fieldName: string;
@@ -23,28 +21,4 @@ export class TextField extends Block {
     }
     return '';
   }
-}
-
-export function makeTextField(fieldType: string, fieldName: string, placeholder: string, required: boolean = false): string {
-
-  let requiredField;
-
-  if (required) {
-    requiredField = 'required';
-  } else {
-    requiredField = '';
-  }
-  
-  const textFieldContent = `<input type="{{ fieldType }}" name="{{ fieldName }}" placeholder="{{ placeholder }}" {{ requiredField }}>`;
-  
-  const textFieldTemplate = Handlebars.compile(textFieldContent);
-  
-  const textField = textFieldTemplate({
-    fieldType,
-    fieldName,
-    placeholder,
-    requiredField
-  });
-
-  return textField;
 }
