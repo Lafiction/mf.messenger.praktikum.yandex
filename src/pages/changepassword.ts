@@ -1,4 +1,5 @@
 import { attachCollector } from '../common/formDataCollector.js';
+import { validateFormInput } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -6,47 +7,75 @@ import { SubmitBtn } from '../components/submitBtn.js';
 const Handlebars = (window as any)['Handlebars'];
 
 class ChangePasswordPage extends Block {
+  private oldPasswordComponent: TextField;
+  private repeatPasswordComponent: TextField;
+  private newPasswordComponent: TextField;
+  private submitBtnComponent: SubmitBtn;
+
   constructor() {
     super('form');
   }
 
   componentDidMount() {
+    this.oldPasswordComponent = new TextField({ 
+      fieldType: 'password',
+      fieldName: 'old_password',
+      placeholder: 'Старый пароль'
+    });
+   
+    this.newPasswordComponent = new TextField({ 
+      fieldType: 'password',
+      fieldName: 'new_password',
+      placeholder: 'Новый пароль'
+    });
+
+    this.repeatPasswordComponent = new TextField({ 
+      fieldType: 'password',
+      fieldName: 'repeat_password',
+      placeholder: 'Повторите пароль'
+    });
+
+    this.submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
+
+    this.oldPasswordComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.repeatPasswordComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.newPasswordComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.submitBtnComponent.eventBus().on(SubmitBtn.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
+    });
+
     attachCollector(this.element as HTMLFormElement);
+
+    if (this.element) {
+      validateFormInput(this.element as HTMLFormElement, 'old_password', /^.{8,}$/i);
+      validateFormInput(this.element as HTMLFormElement, 'new_password', /^.{8,}$/i);
+      validateFormInput(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
+    }
   }
   
   render() {
     this.element.classList.add('form');
     this.element.setAttribute('action', '#');
-    
+
+    const oldPassword = this.oldPasswordComponent.getContent().outerHTML;
+    const newPassword = this.newPasswordComponent.getContent().outerHTML;
+    const repeatPassword = this.repeatPasswordComponent.getContent().outerHTML;
+    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
+
     const avatar = `
       <div class="avatar">
         <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
       </div>
     `;
-
-    const oldPasswordComponent = new TextField({ 
-      fieldType: 'password',
-      fieldName: 'old_password',
-      placeholder: 'Старый пароль'
-    });
-    const oldPassword = oldPasswordComponent.getContent().outerHTML;
-
-    const newPasswordComponent = new TextField({ 
-      fieldType: 'password',
-      fieldName: 'new_password',
-      placeholder: 'Новый пароль'
-    });
-    const newPassword = newPasswordComponent.getContent().outerHTML;
-
-    const repeatPasswordComponent = new TextField({ 
-      fieldType: 'password',
-      fieldName: 'repeat_password',
-      placeholder: 'Повторите пароль'
-    });
-    const repeatPassword = repeatPasswordComponent.getContent().outerHTML;
-
-    const submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
-    const submitBtn = submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
       {{{ avatar }}}
@@ -55,10 +84,22 @@ class ChangePasswordPage extends Block {
       <fieldset>
         
         {{{ oldPassword }}}
+
+        <div class='input-requirements old_password-validation-msg'>
+          Длина пароля должна быть не меньше 8 символов.
+        </div>
       
         {{{ newPassword }}}
+
+        <div class='input-requirements new_password-validation-msg'>
+          Длина пароля должна быть не меньше 8 символов.
+        </div>
       
         {{{ repeatPassword }}}
+
+        <div class='input-requirements repeat_password-validation-msg'>
+          Длина пароля должна быть не меньше 8 символов.
+        </div>
       
         {{{ submitBtn }}}
       
