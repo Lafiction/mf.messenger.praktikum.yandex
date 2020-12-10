@@ -51,7 +51,22 @@ input {
   outline: none;
 }
 .input__invalid {
-  border-bottom: 2px solid var(--red);
+  border-bottom: none;
+  outline: 2px solid var(--red);
+  padding: 10px;
+}
+.input-requirements {
+  background: pink;
+  padding: 10px;
+  margin: -15px 0 15px;
+  transition: all 200ms ease;
+  border-top: none;
+  font-size: 14px;
+  color: var(--dark);
+  display: none;
+}
+.input-requirements__visible {
+  display: block;
 }
 input[type=submit] {
   background-color: var(--blue);

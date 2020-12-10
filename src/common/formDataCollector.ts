@@ -1,4 +1,4 @@
-function formData(form: HTMLFormElement) {
+export function getFormData(form: HTMLFormElement) {
   let elements = form.elements;
   let obj: any = {};
   for (let i = 0; i < elements.length; i++) {
@@ -7,12 +7,12 @@ function formData(form: HTMLFormElement) {
       obj[item['name']] = item['value'];
     }
   }
-  console.log(obj);
+  return obj;
 }
 
 export function attachCollector(form: HTMLFormElement) {
-  form.addEventListener("submit", function(event) {
+  form.addEventListener('submit', function(event) {
     event.preventDefault();
-    formData(form);
+    console.log(getFormData(form));
   });
 };

@@ -1,4 +1,5 @@
 import { attachCollector } from '../common/formDataCollector.js';
+import { validateFormInput } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -11,19 +12,18 @@ class IndexPage extends Block {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super("form");
+    super('form');
   }
 
   componentDidMount() {
-    console.log('IndexPage.componentDidMount');
-    this.loginFieldComponent = new TextField({ 
+    this.loginFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'login',
       placeholder: 'Логин',
       required: true
     });
 
-    this.passwordFieldComponent = new TextField({ 
+    this.passwordFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'password',
       placeholder: 'Пароль',
@@ -33,30 +33,30 @@ class IndexPage extends Block {
     this.submitBtnComponent = new SubmitBtn({ value: 'Авторизоваться' });
 
     this.loginFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
-      console.log('on loginFieldComponent.render');
       this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
     });
-        
+
     this.passwordFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
-      console.log('on passwordFieldComponent.render');
       this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
     });
 
     this.submitBtnComponent.eventBus().on(SubmitBtn.EVENTS.FLOW_RENDER, () => {
-      console.log('on submitBtnComponent.render');
       this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
     });
 
     attachCollector(this.element as HTMLFormElement);
+
+    if (this.element) {
+      validateFormInput(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+    }
   }
 
   render() {
-    console.log('IndexPage.render');
     this.element.classList.add('form');
     this.element.setAttribute('action', '#');
-    
+
     const loginField = this.loginFieldComponent.getContent().outerHTML;
-    const passwordField = this.passwordFieldComponent.getContent().outerHTML;    
+    const passwordField = this.passwordFieldComponent.getContent().outerHTML;
     const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
@@ -64,24 +64,29 @@ class IndexPage extends Block {
         <legend>Вход</legend>
         
         {{{ loginField }}}
-        
+
+        <div class='input-requirements login-validation-msg'>
+          Логин должен состоять только из букв, цифр и знаков '_'.
+        </div>
+
         {{{ passwordField }}}
         
         {{{ submitBtn }}}
         
-        <a href="registration.html" class="registration">Нет аккаунта</a>
-      </fieldset>`; 
+        <a href='registration.html' class='registration'>Нет аккаунта</a>
+      </fieldset>`;
+
 
     const template = Handlebars.compile(pageContent);
 
     const indexPage = template(
-      { 
-        loginField,  
+      {
+        loginField,
         passwordField,
         submitBtn
       }
     );
-    
+
     return indexPage;
   }
 }
@@ -93,7 +98,5 @@ const main = document.querySelector('.indexPage');
 if (main) {
   main.appendChild(indexPageComponent.getContent());
 }
-
-
 
 export default {};
