@@ -63,27 +63,24 @@ class ChangeDataPage extends Block {
     const submitBtn = submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
-      <form class="form" action="#">
+      {{{ avatar }}}
+      
+      <legend>Иван</legend>
+      <fieldset>
         
-        {{{ avatar }}}
+        {{{ nameField }}}
+      
+        {{{ lastNameField }}}
+      
+        {{{ loginField }}}
+      
+        {{{ emailField }}}
+      
+        {{{ phoneField }}}
+      
+        {{{ submitBtn }}}
         
-        <legend>Иван</legend>
-        <fieldset>
-          
-          {{{ nameField }}}
-        
-          {{{ lastNameField }}}
-        
-          {{{ loginField }}}
-        
-          {{{ emailField }}}
-        
-          {{{ phoneField }}}
-        
-          {{{ submitBtn }}}
-          
-        </fieldset>
-      </form>`;
+      </fieldset>`;
 
     const template = Handlebars.compile(pageContent);
 

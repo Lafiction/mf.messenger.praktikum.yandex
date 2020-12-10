@@ -49,24 +49,20 @@ class ChangePasswordPage extends Block {
     const submitBtn = submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
-      <form class="form" action="">
+      {{{ avatar }}}
+    
+      <legend>Иван</legend>
+      <fieldset>
         
-          {{{ avatar }}}
+        {{{ oldPassword }}}
       
-        <legend>Иван</legend>
-        <fieldset>
-          
-          {{{ oldPassword }}}
-        
-          {{{ newPassword }}}
-        
-          {{{ repeatPassword }}}
-        
-          {{{ submitBtn }}}
-        
-        </fieldset>
-      </form>
-    `; 
+        {{{ newPassword }}}
+      
+        {{{ repeatPassword }}}
+      
+        {{{ submitBtn }}}
+      
+      </fieldset>`; 
 
     const template = Handlebars.compile(pageContent);
 
