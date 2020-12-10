@@ -9,6 +9,10 @@ class ChangePasswordPage extends Block {
   constructor() {
     super("form");
   }
+
+  componentDidMount() {
+    attachCollector(this.element as HTMLFormElement);
+  }
   
   render() {
     this.element.classList.add('form');
@@ -87,7 +91,5 @@ const main = document.querySelector('.changePasswordPage');
 if (main) {
   main.appendChild(changePasswordPageComponent.getContent());
 }
-
-attachCollector();
 
 export default {};

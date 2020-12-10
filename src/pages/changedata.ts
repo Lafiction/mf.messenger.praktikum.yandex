@@ -10,6 +10,10 @@ class ChangeDataPage extends Block {
     super("form");
   }
 
+  componentDidMount() {
+    attachCollector(this.element as HTMLFormElement);
+  }
+
   render() {
     this.element.classList.add('form');
     this.element.setAttribute('action', '#');
@@ -106,7 +110,5 @@ const main = document.querySelector('.changeDataPage');
 if (main) {
   main.appendChild(changeDataPageComponent.getContent());
 }
-
-attachCollector();
 
 export default {};

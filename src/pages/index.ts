@@ -46,6 +46,8 @@ class IndexPage extends Block {
       console.log('on submitBtnComponent.render');
       this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
     });
+
+    attachCollector(this.element as HTMLFormElement);
   }
 
   render() {
@@ -92,6 +94,6 @@ if (main) {
   main.appendChild(indexPageComponent.getContent());
 }
 
-attachCollector();
+
 
 export default {};

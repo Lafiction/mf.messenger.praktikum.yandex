@@ -10,6 +10,10 @@ class RegistrationPage extends Block {
     super("form");
   }
 
+  componentDidMount() {
+    attachCollector(this.element as HTMLFormElement);
+  }
+
   render() {
     this.element.classList.add('form');
     this.element.setAttribute('action', '#');
@@ -122,7 +126,5 @@ const main = document.querySelector('.registrationPage');
 if (main) {
   main.appendChild(registrationPageComponent.getContent());
 }
-
-attachCollector();
 
 export default {};
