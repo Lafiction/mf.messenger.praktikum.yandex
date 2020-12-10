@@ -25,21 +25,21 @@ class ChangePasswordPage extends Block {
     `;
 
     const oldPasswordComponent = new TextField({ 
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'old_password',
       placeholder: 'Старый пароль'
     });
     const oldPassword = oldPasswordComponent.getContent().outerHTML;
 
     const newPasswordComponent = new TextField({ 
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'new_password',
       placeholder: 'Новый пароль'
     });
     const newPassword = newPasswordComponent.getContent().outerHTML;
 
     const repeatPasswordComponent = new TextField({ 
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'repeat_password',
       placeholder: 'Повторите пароль'
     });

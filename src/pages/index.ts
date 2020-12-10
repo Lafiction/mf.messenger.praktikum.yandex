@@ -24,7 +24,7 @@ class IndexPage extends Block {
     });
 
     this.passwordFieldComponent = new TextField({
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'password',
       placeholder: 'Пароль',
       required: true

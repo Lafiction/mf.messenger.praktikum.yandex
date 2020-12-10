@@ -56,7 +56,7 @@ class RegistrationPage extends Block {
     const phoneField = phoneFieldComponent.getContent().outerHTML;
 
     const passwordComponent = new TextField({
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'password',
       placeholder: 'Пароль',
       required: true
@@ -64,7 +64,7 @@ class RegistrationPage extends Block {
     const passwordField = passwordComponent.getContent().outerHTML;
 
     const repeatPasswordComponent = new TextField({
-      fieldType: 'text',
+      fieldType: 'password',
       fieldName: 'repeat_password',
       placeholder: 'Повторите пароль',
       required: true
