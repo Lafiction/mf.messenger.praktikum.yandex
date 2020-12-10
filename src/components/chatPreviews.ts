@@ -8,11 +8,11 @@ interface ChatPreviewProps {
 
 export class ChatPreview extends Block {
   constructor(props: ChatPreviewProps) {
-    super("li", props);
+    super('li', props);
   }
 
   render() {
-    this.element.classList.add("contacts__item"); 
+    this.element.classList.add('contacts__item'); 
     if (this.props.chatPreviewType.length > 0) {
       this.element.classList.add(this.props.chatPreviewType);
     }

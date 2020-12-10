@@ -14,7 +14,7 @@ const Handlebars = (window as any)['Handlebars'];
 
 class ChatPage extends Block {
   constructor() {
-    super("div");
+    super('div');
   }
   
   render() {

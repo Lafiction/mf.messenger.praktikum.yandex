@@ -10,7 +10,7 @@ interface TextFieldProps {
 
 export class TextField extends Block {
   constructor(props: TextFieldProps) {
-    super("input", props);
+    super('input', props);
   }
 
   render() {

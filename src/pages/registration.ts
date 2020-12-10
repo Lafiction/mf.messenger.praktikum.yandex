@@ -7,7 +7,7 @@ const Handlebars = (window as any)['Handlebars'];
 
 class RegistrationPage extends Block {
   constructor() {
-    super("form");
+    super('form');
   }
 
   componentDidMount() {

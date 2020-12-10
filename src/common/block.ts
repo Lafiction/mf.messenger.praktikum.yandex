@@ -2,10 +2,10 @@ import { EventBus } from './event-bus.js';
 
 export class Block {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render'
   };
 
   private _element: HTMLElement;
@@ -22,7 +22,7 @@ export class Block {
    *
    * @returns {void}
    */
-  constructor(tagName: string = "div", props: any = {}) {
+  constructor(tagName: string = 'div', props: any = {}) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -130,7 +130,7 @@ export class Block {
         return item[property];
       },
       deleteProperty: function() { 
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
     
@@ -143,10 +143,10 @@ export class Block {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide() {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }

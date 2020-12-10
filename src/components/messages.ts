@@ -9,11 +9,11 @@ interface MessageProps {
 
 export class Message extends Block {
   constructor(props: MessageProps) {
-    super("li", props);
+    super('li', props);
   }
 
   render() {
-    this.element.classList.add("messages__item");
+    this.element.classList.add('messages__item');
     if (this.props.messageType.length > 0) {
       this.element.classList.add(this.props.messageType);
     }

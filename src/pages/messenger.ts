@@ -9,7 +9,7 @@ const Handlebars = (window as any)['Handlebars'];
 
 class MessengerPage extends Block {
   constructor() {
-    super("div");
+    super('div');
   }
   
   render() {
@@ -47,8 +47,8 @@ class MessengerPage extends Block {
     const chatPreviews = generateChatPreviews();
 
     const pageContent = `
-      <aside class="sidebar">
-        <div class="profile">
+      <aside class='sidebar'>
+        <div class='profile'>
 
           {{{ avatar }}}
 
@@ -58,7 +58,7 @@ class MessengerPage extends Block {
 
         {{{ search }}}
 
-        <ul class="contacts">
+        <ul class='contacts'>
         
           {{{ chatPreviewActive }}}
 
@@ -71,7 +71,7 @@ class MessengerPage extends Block {
         {{{ bottomBar }}}
         
       </aside>
-      <div class="change-chat">
+      <div class='change-chat'>
         <span>Выберите чат, чтобы отправить сообщение</span>
       </div>
     `; 

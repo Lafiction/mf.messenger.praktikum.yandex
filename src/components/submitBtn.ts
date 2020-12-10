@@ -6,7 +6,7 @@ interface SubmitBtnProps {
 
 export class SubmitBtn extends Block {
   constructor(props: SubmitBtnProps) {
-    super("input", props);
+    super('input', props);
   }
 
   render() {
