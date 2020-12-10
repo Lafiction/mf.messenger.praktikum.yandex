@@ -48,6 +48,7 @@ class IndexPage extends Block {
 
     if (this.element) {
       validateFormInput(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+      validateFormInput(this.element as HTMLFormElement, 'password', /^.{8,}$/i);
     }
   }
 
@@ -70,6 +71,10 @@ class IndexPage extends Block {
         </div>
 
         {{{ passwordField }}}
+
+        <div class='input-requirements password-validation-msg'>
+          Длина пароля должна быть не меньше 8 символов. 
+        </div>
         
         {{{ submitBtn }}}
         
