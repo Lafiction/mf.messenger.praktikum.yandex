@@ -81,12 +81,11 @@ class ChangePasswordPage extends Block {
 }
 
 const changePasswordPageComponent = new ChangePasswordPage();
-const changePasswordPage = changePasswordPageComponent.getContent().outerHTML;
 
 const main = document.querySelector('.changePasswordPage');
 
 if (main) {
-  main.innerHTML = changePasswordPage;
+  main.appendChild(changePasswordPageComponent.getContent());
 }
 
 attachCollector();

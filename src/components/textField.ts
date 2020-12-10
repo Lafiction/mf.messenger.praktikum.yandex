@@ -5,6 +5,7 @@ interface TextFieldProps {
   fieldName: string;
   placeholder: string;
   required?: boolean;
+  invalid?: boolean;
 }
 
 export class TextField extends Block {
@@ -13,6 +14,11 @@ export class TextField extends Block {
   }
 
   render() {
+    if (this.props.invalid) {
+      this.element.classList.add('input__invalid');
+    } else {
+      this.element.classList.remove('input__invalid');
+    }
     this.element.setAttribute('type', this.props.fieldType);
     this.element.setAttribute('name', this.props.fieldName);
     this.element.setAttribute('placeholder', this.props.placeholder);

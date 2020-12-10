@@ -6,32 +6,56 @@ import { SubmitBtn } from '../components/submitBtn.js';
 const Handlebars = (window as any)['Handlebars'];
 
 class IndexPage extends Block {
+  private loginFieldComponent: TextField;
+  private passwordFieldComponent: TextField;
+  private submitBtnComponent: SubmitBtn;
+
   constructor() {
     super("form");
   }
 
-  render() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
-    
-    const loginFieldComponent = new TextField({ 
+  componentDidMount() {
+    console.log('IndexPage.componentDidMount');
+    this.loginFieldComponent = new TextField({ 
       fieldType: 'text',
       fieldName: 'login',
       placeholder: 'Логин',
       required: true
     });
-    const loginField = loginFieldComponent.getContent().outerHTML;
-    
-    const passwordFieldComponent = new TextField({ 
+
+    this.passwordFieldComponent = new TextField({ 
       fieldType: 'text',
       fieldName: 'password',
       placeholder: 'Пароль',
       required: true
     });
-    const passwordField = passwordFieldComponent.getContent().outerHTML;
+
+    this.submitBtnComponent = new SubmitBtn({ value: 'Авторизоваться' });
+
+    this.loginFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      console.log('on loginFieldComponent.render');
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+        
+    this.passwordFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      console.log('on passwordFieldComponent.render');
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.submitBtnComponent.eventBus().on(SubmitBtn.EVENTS.FLOW_RENDER, () => {
+      console.log('on submitBtnComponent.render');
+      this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
+    });
+  }
+
+  render() {
+    console.log('IndexPage.render');
+    this.element.classList.add('form');
+    this.element.setAttribute('action', '#');
     
-    const submitBtnComponent = new SubmitBtn({ value: 'Авторизоваться' });
-    const submitBtn = submitBtnComponent.getContent().outerHTML;
+    const loginField = this.loginFieldComponent.getContent().outerHTML;
+    const passwordField = this.passwordFieldComponent.getContent().outerHTML;    
+    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
       <fieldset>
@@ -61,12 +85,11 @@ class IndexPage extends Block {
 }
 
 const indexPageComponent = new IndexPage();
-const indexPage = indexPageComponent.getContent().outerHTML;
 
 const main = document.querySelector('.indexPage');
 
 if (main) {
-  main.innerHTML = indexPage;
+  main.appendChild(indexPageComponent.getContent());
 }
 
 attachCollector();

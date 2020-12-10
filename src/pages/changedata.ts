@@ -61,7 +61,7 @@ class ChangeDataPage extends Block {
     const pageContent = `
       <form class="form" action="#">
         
-          {{{ avatar }}}
+        {{{ avatar }}}
         
         <legend>Иван</legend>
         <fieldset>
@@ -83,7 +83,7 @@ class ChangeDataPage extends Block {
 
     const template = Handlebars.compile(pageContent);
 
-    const changedataPage = template(
+    const changeDataPage = template(
       { 
         avatar,  
         nameField,
@@ -95,17 +95,16 @@ class ChangeDataPage extends Block {
       }
     );
 
-    return changedataPage;
+    return changeDataPage;
   }
 }
 
-const changedataPageComponent = new ChangeDataPage();
-const changedataPage = changedataPageComponent.getContent().outerHTML;
+const changeDataPageComponent = new ChangeDataPage();
 
 const main = document.querySelector('.changeDataPage');
 
 if (main) {
-  main.innerHTML = changedataPage;
+  main.appendChild(changeDataPageComponent.getContent());
 }
 
 attachCollector();

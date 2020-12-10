@@ -116,13 +116,11 @@ class RegistrationPage extends Block {
 }
 
 const registrationPageComponent = new RegistrationPage();
-const registrationPage = registrationPageComponent.getContent().outerHTML;
-
 
 const main = document.querySelector('.registrationPage');
 
 if (main) {
-  main.innerHTML = registrationPage;
+  main.appendChild(registrationPageComponent.getContent());
 }
 
 attachCollector();
