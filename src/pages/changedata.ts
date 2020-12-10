@@ -1,4 +1,5 @@
 import { attachCollector } from '../common/formDataCollector.js';
+import { validateFormInput } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -6,12 +7,81 @@ import { SubmitBtn } from '../components/submitBtn.js';
 const Handlebars = (window as any)['Handlebars'];
 
 class ChangeDataPage extends Block {
+  private nameFieldComponent: TextField;
+  private lastNameFieldComponent: TextField;
+  private loginFieldComponent: TextField;
+  private emailFieldComponent: TextField;
+  private phoneFieldComponent: TextField;
+  private submitBtnComponent: SubmitBtn;
+
   constructor() {
     super('form');
   }
 
   componentDidMount() {
+    this.nameFieldComponent = new TextField({ 
+      fieldType: 'text',
+      fieldName: 'first_name',
+      placeholder: 'Имя'
+    });
+
+    this.lastNameFieldComponent = new TextField({ 
+      fieldType: 'text',
+      fieldName: 'last_name',
+      placeholder: 'Фамилия'
+    });
+
+    this.loginFieldComponent = new TextField({ 
+      fieldType: 'text',
+      fieldName: 'login',
+      placeholder: 'Логин'
+    });
+
+    this.emailFieldComponent = new TextField({ 
+      fieldType: 'email',
+      fieldName: 'email',
+      placeholder: 'Почта',
+      required: true
+    });
+
+    this.phoneFieldComponent = new TextField({ 
+      fieldType: 'tel',
+      fieldName: 'phone',
+      placeholder: 'Телефон'
+    });
+
+    this.submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
+
+    this.nameFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.lastNameFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.loginFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.emailFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.phoneFieldComponent.eventBus().on(TextField.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(TextField.EVENTS.FLOW_RENDER);
+    });
+
+    this.submitBtnComponent.eventBus().on(SubmitBtn.EVENTS.FLOW_RENDER, () => {
+      this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
+    });
+
     attachCollector(this.element as HTMLFormElement);
+
+
+    if (this.element) {
+      validateFormInput(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+    }
   }
 
   render() {
@@ -23,44 +93,12 @@ class ChangeDataPage extends Block {
       </div>
     `;
 
-    const nameFieldComponent = new TextField({ 
-      fieldType: 'text',
-      fieldName: 'first_name',
-      placeholder: 'Имя'
-    });
-    const nameField = nameFieldComponent.getContent().outerHTML;
-
-    const lastNameFieldComponent = new TextField({ 
-      fieldType: 'text',
-      fieldName: 'last_name',
-      placeholder: 'Фамилия'
-    });
-    const lastNameField = lastNameFieldComponent.getContent().outerHTML;
-
-    const loginFieldComponent = new TextField({ 
-      fieldType: 'text',
-      fieldName: 'login',
-      placeholder: 'Логин'
-    });
-    const loginField = loginFieldComponent.getContent().outerHTML;
-
-    const emailFieldComponent = new TextField({ 
-      fieldType: 'email',
-      fieldName: 'email',
-      placeholder: 'Почта',
-      required: true
-    });
-    const emailField = emailFieldComponent.getContent().outerHTML;
-
-    const phoneFieldComponent = new TextField({ 
-      fieldType: 'tel',
-      fieldName: 'phone',
-      placeholder: 'Телефон'
-    });
-    const phoneField = phoneFieldComponent.getContent().outerHTML;
-
-    const submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
-    const submitBtn = submitBtnComponent.getContent().outerHTML;
+    const nameField = this.nameFieldComponent.getContent().outerHTML;
+    const lastNameField = this.lastNameFieldComponent.getContent().outerHTML;
+    const loginField = this.loginFieldComponent.getContent().outerHTML;
+    const emailField = this.emailFieldComponent.getContent().outerHTML;
+    const phoneField = this.phoneFieldComponent.getContent().outerHTML;
+    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
       {{{ avatar }}}
@@ -73,6 +111,10 @@ class ChangeDataPage extends Block {
         {{{ lastNameField }}}
       
         {{{ loginField }}}
+
+        <div class='input-requirements login-validation-msg'>
+          Логин должен состоять только из букв, цифр и знаков '_'.
+        </div>
       
         {{{ emailField }}}
       
