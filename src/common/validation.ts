@@ -1,6 +1,7 @@
 import { getFormData } from '../common/formDataCollector.js';
 
 export function validateFormInput(form: HTMLFormElement, inputName: string, regex: RegExp) {
+  const visibleInput = 'input-requirements__visible';
   form.addEventListener('blur', () => {
     const obj = getFormData(form);
 
@@ -8,9 +9,9 @@ export function validateFormInput(form: HTMLFormElement, inputName: string, rege
     const isCorrect = regex.test(obj[inputName]);
     if (validationMsg) {
       if (isCorrect) {
-        validationMsg.classList.remove('input-requirements__visible');
+        validationMsg.classList.remove(visibleInput);
       } else {
-        validationMsg.classList.add('input-requirements__visible');
+        validationMsg.classList.add(visibleInput);
       }
     }  
   }, true);
@@ -22,7 +23,7 @@ export function validateFormInput(form: HTMLFormElement, inputName: string, rege
       if (currentInputName === inputName) {
         const validationMsg = form.querySelector(`.${inputName}-validation-msg`);
         if (validationMsg) {
-          validationMsg.classList.remove('input-requirements__visible');
+          validationMsg.classList.remove(visibleInput);
         }
       }
     }
@@ -35,9 +36,9 @@ export function validateFormInput(form: HTMLFormElement, inputName: string, rege
     const isCorrect = regex.test(obj[inputName]);
     if (validationMsg) {
       if (isCorrect) {
-        validationMsg.classList.remove('input-requirements__visible');
+        validationMsg.classList.remove(visibleInput);
       } else {
-        validationMsg.classList.add('input-requirements__visible');
+        validationMsg.classList.add(visibleInput);
       }
     }
     return false;
