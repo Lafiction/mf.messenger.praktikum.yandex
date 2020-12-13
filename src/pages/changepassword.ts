@@ -1,4 +1,4 @@
-import { attachCollector } from '../common/formDataCollector.js';
+import { handleOnSubmitForm } from '../common/formDataCollector.js';
 import { validateFormInput } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
@@ -53,7 +53,7 @@ class ChangePasswordPage extends Block {
       this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
     });
 
-    attachCollector(this.element as HTMLFormElement);
+    handleOnSubmitForm(this.element as HTMLFormElement);
 
     if (this.element) {
       validateFormInput(this.element as HTMLFormElement, 'old_password', /^.{8,}$/i);
