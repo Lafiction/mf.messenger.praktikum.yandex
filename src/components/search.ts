@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class Search extends Block {
+export class Search extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   render() {

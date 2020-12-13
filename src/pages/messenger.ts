@@ -7,9 +7,9 @@ import { BottomBar } from '../components/bottomBar.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class MessengerPage extends Block {
+class MessengerPage extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   componentDidMount() {

@@ -6,14 +6,14 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class ChangePasswordPage extends Block {
+class ChangePasswordPage extends Block<{}> {
   private oldPasswordComponent: TextField;
   private repeatPasswordComponent: TextField;
   private newPasswordComponent: TextField;
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form');
+    super('form', {});
   }
 
   componentDidMount() {

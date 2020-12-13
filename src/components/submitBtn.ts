@@ -4,7 +4,7 @@ interface SubmitBtnProps {
   value: string;
 }
 
-export class SubmitBtn extends Block {
+export class SubmitBtn extends Block<SubmitBtnProps> {
   constructor(props: SubmitBtnProps) {
     super('input', props);
   }

@@ -6,7 +6,7 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class RegistrationPage extends Block {
+class RegistrationPage extends Block<{}> {
   private nameFieldComponent: TextField;
   private lastNameFieldComponent: TextField;
   private loginFieldComponent: TextField;
@@ -17,7 +17,7 @@ class RegistrationPage extends Block {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form');
+    super('form', {});
   }
 
   componentDidMount() {

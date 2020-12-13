@@ -1,6 +1,6 @@
 import { EventBus } from './event-bus.js';
 
-export class Block {
+export class Block<Props> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -11,9 +11,9 @@ export class Block {
   private _element: HTMLElement;
   private _meta: {
     tagName: string;
-    props: object;
+    props: Props;
   };
-  protected props: any;
+  protected props: Props;
   public eventBus: () => EventBus;
 
   /** JSDoc
@@ -22,7 +22,7 @@ export class Block {
    *
    * @returns {void}
    */
-  constructor(tagName: string = 'div', props: any = {}) {
+  constructor(tagName: string = 'div', props: Props) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -120,13 +120,13 @@ export class Block {
     return this.element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: Props) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
     // const self = this;
     
-    const proxy = new Proxy(props, {
-      get: function(item, property){
+    const proxy = new Proxy(props as Object, {
+      get: function(item: any, property){
         return item[property];
       },
       deleteProperty: function() { 

@@ -6,13 +6,13 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class IndexPage extends Block {
+class IndexPage extends Block<{}> {
   private loginFieldComponent: TextField;
   private passwordFieldComponent: TextField;
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form');
+    super('form', {});
   }
 
   componentDidMount() {

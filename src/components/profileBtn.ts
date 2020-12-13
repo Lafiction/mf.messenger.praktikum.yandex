@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class ProfileBtn extends Block {
+export class ProfileBtn extends Block<{}> {
   constructor() {
-    super('button');
+    super('button', {});
   }
 
   render() {

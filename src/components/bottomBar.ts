@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class BottomBar extends Block {
+export class BottomBar extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   render() {

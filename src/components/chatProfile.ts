@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class ChatProfile extends Block {
+export class ChatProfile extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   render() {

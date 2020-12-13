@@ -6,7 +6,7 @@ interface ChatPreviewProps {
   chatPreviewType: string;
 }
 
-export class ChatPreview extends Block {
+export class ChatPreview extends Block<ChatPreviewProps> {
   constructor(props: ChatPreviewProps) {
     super('li', props);
   }

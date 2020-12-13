@@ -12,9 +12,9 @@ import { BottomBar } from '../components/bottomBar.js';
 // handlebars подключен в html странице
 const Handlebars = (window as any)['Handlebars'];
 
-class ChatPage extends Block {
+class ChatPage extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   componentDidMount() {

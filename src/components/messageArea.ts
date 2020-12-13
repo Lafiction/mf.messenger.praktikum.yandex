@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class MessageArea extends Block {
+export class MessageArea extends Block<{}> {
   constructor() {
-    super('div');
+    super('div', {});
   }
 
   render() {

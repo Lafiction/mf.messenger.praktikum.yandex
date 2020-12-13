@@ -8,7 +8,7 @@ interface TextFieldProps {
   invalid?: boolean;
 }
 
-export class TextField extends Block {
+export class TextField extends Block<TextFieldProps> {
   constructor(props: TextFieldProps) {
     super('input', props);
   }

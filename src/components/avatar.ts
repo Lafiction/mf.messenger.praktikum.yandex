@@ -1,8 +1,8 @@
 import { Block } from '../common/block.js';
 
-export class Avatar extends Block {
+export class Avatar extends Block<{}> {
   constructor() {
-    super('img');
+    super('img', {});
   }
 
   render() {
