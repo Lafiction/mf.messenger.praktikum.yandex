@@ -16,12 +16,6 @@ export class Block<Props> {
   protected props: Props;
   public eventBus: () => EventBus;
 
-  /** JSDoc
-   * @param {string} tagName
-   * @param {Object} props
-   *
-   * @returns {void}
-   */
   constructor(tagName: string = 'div', props: Props) {
     const eventBus = new EventBus();
     this._meta = {
