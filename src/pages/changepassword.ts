@@ -1,5 +1,5 @@
 import { handleOnSubmitForm } from '../common/formDataCollector.js';
-import { validateFormInput } from '../common/validation.js';
+import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -17,6 +17,9 @@ class ChangePasswordPage extends Block {
   }
 
   componentDidMount() {
+    this.element.classList.add('form');
+    this.element.setAttribute('action', '#');
+    
     this.oldPasswordComponent = new TextField({ 
       fieldType: 'password',
       fieldName: 'old_password',
@@ -56,16 +59,13 @@ class ChangePasswordPage extends Block {
     handleOnSubmitForm(this.element as HTMLFormElement);
 
     if (this.element) {
-      validateFormInput(this.element as HTMLFormElement, 'old_password', /^.{8,}$/i);
-      validateFormInput(this.element as HTMLFormElement, 'new_password', /^.{8,}$/i);
-      validateFormInput(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'old_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'new_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
     }
   }
   
   render() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
-
     const oldPassword = this.oldPasswordComponent.getContent().outerHTML;
     const newPassword = this.newPasswordComponent.getContent().outerHTML;
     const repeatPassword = this.repeatPasswordComponent.getContent().outerHTML;

@@ -1,5 +1,5 @@
 import { handleOnSubmitForm } from '../common/formDataCollector.js';
-import { validateFormInput } from '../common/validation.js';
+import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -21,6 +21,9 @@ class RegistrationPage extends Block {
   }
 
   componentDidMount() {
+    this.element.classList.add('form');
+    this.element.setAttribute('action', '#');
+    
     this.nameFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'first_name',
@@ -104,16 +107,13 @@ class RegistrationPage extends Block {
     handleOnSubmitForm(this.element as HTMLFormElement);
     
     if (this.element) {
-      validateFormInput(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
-      validateFormInput(this.element as HTMLFormElement, 'password', /^.{8,}$/i);
-      validateFormInput(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'password', /^.{8,}$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
     }
   }
 
   render() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
-
     const nameField = this.nameFieldComponent.getContent().outerHTML;
     const lastNameField = this.lastNameFieldComponent.getContent().outerHTML;
     const loginField = this.loginFieldComponent.getContent().outerHTML;

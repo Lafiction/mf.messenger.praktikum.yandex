@@ -1,6 +1,6 @@
 import { getFormData } from '../common/formDataCollector.js';
 
-export function validateFormInput(form: HTMLFormElement, inputName: string, regex: RegExp) {
+export function addValidationEventListeners(form: HTMLFormElement, inputName: string, regex: RegExp) {
   const visibleInput = 'input-requirements__visible';
   form.addEventListener('blur', () => {
     const obj = getFormData(form);

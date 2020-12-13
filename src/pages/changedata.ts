@@ -1,5 +1,5 @@
 import { handleOnSubmitForm } from '../common/formDataCollector.js';
-import { validateFormInput } from '../common/validation.js';
+import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
@@ -19,6 +19,9 @@ class ChangeDataPage extends Block {
   }
 
   componentDidMount() {
+    this.element.classList.add('form');
+    this.element.setAttribute('action', '#');
+    
     this.nameFieldComponent = new TextField({ 
       fieldType: 'text',
       fieldName: 'first_name',
@@ -80,13 +83,11 @@ class ChangeDataPage extends Block {
 
 
     if (this.element) {
-      validateFormInput(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+      addValidationEventListeners(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
     }
   }
 
   render() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
     const avatar = `
       <div class="avatar">
         <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">

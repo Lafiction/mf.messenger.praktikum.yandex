@@ -16,11 +16,13 @@ class ChatPage extends Block {
   constructor() {
     super('div');
   }
-  
-  render() {
+
+  componentDidMount() {
     this.element.classList.add('frame');
     this.element.classList.add('chatPage');
-    
+  }
+  
+  render() {
     const searchComponent = new Search();
     const search = searchComponent.getContent().outerHTML;
 

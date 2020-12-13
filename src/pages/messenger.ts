@@ -11,11 +11,13 @@ class MessengerPage extends Block {
   constructor() {
     super('div');
   }
-  
-  render() {
+
+  componentDidMount() {
     this.element.classList.add('frame');
     this.element.classList.add('messengerPage');
-    
+  }
+
+  render() {
     const searchComponent = new Search();
     const search = searchComponent.getContent().outerHTML;
 
