@@ -87,6 +87,7 @@ class ChatPage extends Block<{}> {
     const messages = generateMessages();
 
     const pageContent = `
+      
       <aside class="sidebar">
         <div class="profile">
 
@@ -123,34 +124,31 @@ class ChatPage extends Block<{}> {
 
         {{{ messageArea }}}
 
-      </div>
-    `; 
+      </div>`; 
 
     const template = Handlebars.compile(pageContent);
 
     const chatPage = template({ 
-  avatar,  
-  profileBtn,
-  search, 
-  chatPreviews,
-  bottomBar,
-  chatProfile,
-  messages,
-  messageArea
-});
+      avatar,  
+      profileBtn,
+      search, 
+      chatPreviews,
+      bottomBar,
+      chatProfile,
+      messages,
+      messageArea
+    });
 
     return chatPage;
   }
 }
 
 const chatPageComponent = new ChatPage();
-const chatPage = chatPageComponent.getContent();
 
-const mainDiv = document.querySelector('.chatPage');
+const mainDiv = document.querySelector('.app');
 
-if (mainDiv && mainDiv.parentNode) {
-  const body = mainDiv.parentNode;
-  body.replaceChild(chatPage, mainDiv);
+if (mainDiv) {
+  mainDiv.appendChild(chatPageComponent.getContent());
 }
 
 export default {};

@@ -95,13 +95,11 @@ class MessengerPage extends Block<{}> {
 }
 
 const messengerPageComponent = new MessengerPage();
-const messengerPage = messengerPageComponent.getContent();
 
-const mainDiv = document.querySelector('.messengerPage');
+const mainDiv = document.querySelector('.app');
 
-if (mainDiv && mainDiv.parentNode) {
-  const body = mainDiv.parentNode;
-  body.replaceChild(messengerPage, mainDiv);
+if (mainDiv) {
+   mainDiv.appendChild(messengerPageComponent.getContent());
 }
 
 export default {};

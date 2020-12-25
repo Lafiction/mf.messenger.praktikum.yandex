@@ -43,49 +43,50 @@ const phoneField = `
 `;
 
 const pageContent = `
-  <!-- profile description -->
-    {{{ avatar }}}
-  <legend>Иван</legend>
-  <!-- end profile description -->
-  <ul class="profile-fields">
-    <!-- email profile field -->
-      {{{ emailField }}}
-    <!-- end email profile field -->
-    <hr>
-    <!-- login profile field -->
-      {{{ loginField }}}
-    <!-- end login profile field -->
-    <hr>
-    <!-- profile field -->
-      {{{ nameField }}}
-    <!-- end profile field -->
-    <hr>
-    <!-- profile field -->
-      {{{ lastNameField }}}
-    <!-- end profile field -->
-    <hr>
-    <!-- profile field -->
-      {{{ phoneField }}}
-    <!-- end profile field -->
-    <!-- profile field -->
-    <li class="profile-fields__item">
-      <a href="changedata.html">Изменить данные</a>
-    </li>
-    <!-- end profile field -->
-    <hr>
-    <!-- profile field -->
-    <li class="profile-fields__item">
-      <a href="changepassword.html">Изменить пароль</a>
-    </li>
-    <!-- end profile field -->
-    <hr>
-    <!-- profile field -->
-    <li class="profile-fields__item">
-      <span class="profile-fields__exit">Выйти</span>
-    </li>
-    <!-- end profile field -->
-  </ul>
-`; 
+  <main class="profilePage">
+    <!-- profile description -->
+      {{{ avatar }}}
+    <legend>Иван</legend>
+    <!-- end profile description -->
+    <ul class="profile-fields">
+      <!-- email profile field -->
+        {{{ emailField }}}
+      <!-- end email profile field -->
+      <hr>
+      <!-- login profile field -->
+        {{{ loginField }}}
+      <!-- end login profile field -->
+      <hr>
+      <!-- profile field -->
+        {{{ nameField }}}
+      <!-- end profile field -->
+      <hr>
+      <!-- profile field -->
+        {{{ lastNameField }}}
+      <!-- end profile field -->
+      <hr>
+      <!-- profile field -->
+        {{{ phoneField }}}
+      <!-- end profile field -->
+      <!-- profile field -->
+      <li class="profile-fields__item">
+        <a href="changedata.html">Изменить данные</a>
+      </li>
+      <!-- end profile field -->
+      <hr>
+      <!-- profile field -->
+      <li class="profile-fields__item">
+        <a href="changepassword.html">Изменить пароль</a>
+      </li>
+      <!-- end profile field -->
+      <hr>
+      <!-- profile field -->
+      <li class="profile-fields__item">
+        <span class="profile-fields__exit">Выйти</span>
+      </li>
+      <!-- end profile field -->
+    </ul>
+  </main>`;
 
 const template = Handlebars.compile(pageContent);
 
@@ -100,7 +101,7 @@ const profilePage = template(
   }
 );
 
-const main = document.querySelector('.profilePage');
+const main = document.querySelector('.app');
 
 if (main) {
   main.innerHTML = profilePage;

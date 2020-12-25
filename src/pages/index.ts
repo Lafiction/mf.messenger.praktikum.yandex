@@ -12,12 +12,11 @@ class IndexPage extends Block<{}> {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form', {});
+    super('main', {});
   }
 
   componentDidMount() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
+    this.element.classList.add('indexPage');
 
     this.loginFieldComponent = new TextField({
       fieldType: 'text',
@@ -61,26 +60,30 @@ class IndexPage extends Block<{}> {
     const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
-      <fieldset>
-        <legend>Вход</legend>
-        
-        {{{ loginField }}}
+     
+        <form class="form" action="#">
 
-        <div class='input-requirements login-validation-msg'>
-          Логин должен состоять только из букв, цифр и знаков '_'.
-        </div>
+          <fieldset>
+            <legend>Вход</legend>
+            
+            {{{ loginField }}}
 
-        {{{ passwordField }}}
+            <div class='input-requirements login-validation-msg'>
+              Логин должен состоять только из букв, цифр и знаков '_'.
+            </div>
 
-        <div class='input-requirements password-validation-msg'>
-          Длина пароля должна быть не меньше 8 символов. 
-        </div>
-        
-        {{{ submitBtn }}}
-        
-        <a href='registration.html' class='registration'>Нет аккаунта</a>
-      </fieldset>`;
+            {{{ passwordField }}}
 
+            <div class='input-requirements password-validation-msg'>
+              Длина пароля должна быть не меньше 8 символов. 
+            </div>
+            
+            {{{ submitBtn }}}
+            
+            <a href='registration.html' class='registration'>Нет аккаунта</a>
+          </fieldset>
+          
+        </form>`;
 
     const template = Handlebars.compile(pageContent);
 
@@ -98,10 +101,10 @@ class IndexPage extends Block<{}> {
 
 const indexPageComponent = new IndexPage();
 
-const main = document.querySelector('.indexPage');
+const mainDiv = document.querySelector('.app');
 
-if (main) {
-  main.appendChild(indexPageComponent.getContent());
+if (mainDiv) {
+  mainDiv.appendChild(indexPageComponent.getContent());
 }
 
 export default {};

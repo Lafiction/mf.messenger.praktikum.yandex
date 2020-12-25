@@ -15,12 +15,11 @@ class ChangeDataPage extends Block<{}> {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form', {});
-  }
+    super('main', {});
+  }  
 
   componentDidMount() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
+    this.element.classList.add('changeDataPage');
     
     this.nameFieldComponent = new TextField({ 
       fieldType: 'text',
@@ -102,28 +101,30 @@ class ChangeDataPage extends Block<{}> {
     const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
-      {{{ avatar }}}
-      
-      <legend>Иван</legend>
-      <fieldset>
+      <form class="form" action="#">  
+        {{{ avatar }}}
         
-        {{{ nameField }}}
-      
-        {{{ lastNameField }}}
-      
-        {{{ loginField }}}
+        <legend>Иван</legend>
+        <fieldset>
+          
+          {{{ nameField }}}
+        
+          {{{ lastNameField }}}
+        
+          {{{ loginField }}}
 
-        <div class='input-requirements login-validation-msg'>
-          Логин должен состоять только из букв, цифр и знаков '_'.
-        </div>
-      
-        {{{ emailField }}}
-      
-        {{{ phoneField }}}
-      
-        {{{ submitBtn }}}
+          <div class='input-requirements login-validation-msg'>
+            Логин должен состоять только из букв, цифр и знаков '_'.
+          </div>
         
-      </fieldset>`;
+          {{{ emailField }}}
+        
+          {{{ phoneField }}}
+        
+          {{{ submitBtn }}}
+          
+        </fieldset>
+       </form>`;
 
     const template = Handlebars.compile(pageContent);
 
@@ -145,7 +146,7 @@ class ChangeDataPage extends Block<{}> {
 
 const changeDataPageComponent = new ChangeDataPage();
 
-const main = document.querySelector('.changeDataPage');
+const main = document.querySelector('.app');
 
 if (main) {
   main.appendChild(changeDataPageComponent.getContent());

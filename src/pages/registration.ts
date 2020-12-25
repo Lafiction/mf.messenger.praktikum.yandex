@@ -17,12 +17,11 @@ class RegistrationPage extends Block<{}> {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form', {});
+    super('main', {});
   }
 
   componentDidMount() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
+    this.element.classList.add('registrationPage');
     
     this.nameFieldComponent = new TextField({
       fieldType: 'text',
@@ -182,7 +181,7 @@ class RegistrationPage extends Block<{}> {
 
 const registrationPageComponent = new RegistrationPage();
 
-const main = document.querySelector('.registrationPage');
+const main = document.querySelector('.app');
 
 if (main) {
   main.appendChild(registrationPageComponent.getContent());

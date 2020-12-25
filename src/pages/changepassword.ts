@@ -13,12 +13,11 @@ class ChangePasswordPage extends Block<{}> {
   private submitBtnComponent: SubmitBtn;
 
   constructor() {
-    super('form', {});
+    super('main', {});
   }
-
+  
   componentDidMount() {
-    this.element.classList.add('form');
-    this.element.setAttribute('action', '#');
+    this.element.classList.add('changePasswordPage');
     
     this.oldPasswordComponent = new TextField({ 
       fieldType: 'password',
@@ -78,32 +77,34 @@ class ChangePasswordPage extends Block<{}> {
     `;
 
     const pageContent = `
-      {{{ avatar }}}
-    
-      <legend>Иван</legend>
-      <fieldset>
+      <form class="form" action="#"> 
+        {{{ avatar }}}
+      
+        <legend>Иван</legend>
+        <fieldset>
+          
+          {{{ oldPassword }}}
+
+          <div class='input-requirements old_password-validation-msg'>
+            Длина пароля должна быть не меньше 8 символов.
+          </div>
         
-        {{{ oldPassword }}}
+          {{{ newPassword }}}
 
-        <div class='input-requirements old_password-validation-msg'>
-          Длина пароля должна быть не меньше 8 символов.
-        </div>
-      
-        {{{ newPassword }}}
+          <div class='input-requirements new_password-validation-msg'>
+            Длина пароля должна быть не меньше 8 символов.
+          </div>
+        
+          {{{ repeatPassword }}}
 
-        <div class='input-requirements new_password-validation-msg'>
-          Длина пароля должна быть не меньше 8 символов.
-        </div>
-      
-        {{{ repeatPassword }}}
-
-        <div class='input-requirements repeat_password-validation-msg'>
-          Длина пароля должна быть не меньше 8 символов.
-        </div>
-      
-        {{{ submitBtn }}}
-      
-      </fieldset>`; 
+          <div class='input-requirements repeat_password-validation-msg'>
+            Длина пароля должна быть не меньше 8 символов.
+          </div>
+        
+          {{{ submitBtn }}}
+        
+        </fieldset>
+      </form>`; 
 
     const template = Handlebars.compile(pageContent);
 
@@ -123,7 +124,7 @@ class ChangePasswordPage extends Block<{}> {
 
 const changePasswordPageComponent = new ChangePasswordPage();
 
-const main = document.querySelector('.changePasswordPage');
+const main = document.querySelector('.app');
 
 if (main) {
   main.appendChild(changePasswordPageComponent.getContent());
