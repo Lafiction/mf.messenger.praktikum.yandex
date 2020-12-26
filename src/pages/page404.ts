@@ -1,20 +1,39 @@
+import { Block } from '../common/block.js';
+
 const Handlebars = (window as any)['Handlebars'];
 
-const pageContent = `
-  <main class="mistake-page page404">
-    <p class="mistake-page__header">404</p>
-    <p>Такой страницы не существует</p> 
-    <p class="registration">Назад к чатам</p>
-  </main>`; 
+class Page404 extends Block<{}> {
 
-const template = Handlebars.compile(pageContent);
+  constructor() {
+    super('main', {});
+  }
 
-const page404 = template({});
+  componentDidMount() {
+    this.element.classList.add('mistake-page');
+    this.element.classList.add('page404');
+  }
 
-const main = document.querySelector('.app');
+  render() {
 
-if (main) {
-  main.innerHTML = page404;
+    const pageContent = `
+      <p class="mistake-page__header">404</p>
+      <p>Такой страницы не существует</p> 
+      <a href="messenger.html" class="registration">Назад к чатам</a>`; 
+
+    const template = Handlebars.compile(pageContent);
+
+    const page404 = template({});
+
+    return page404;
+  }
+}
+
+const page404Component = new Page404();
+
+const mainDiv = document.querySelector('.app');
+
+if (mainDiv) {
+  mainDiv.appendChild(page404Component.getContent());
 }
 
 export default {};

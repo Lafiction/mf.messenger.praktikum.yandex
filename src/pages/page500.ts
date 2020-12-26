@@ -1,20 +1,39 @@
+import { Block } from '../common/block.js';
+
 const Handlebars = (window as any)['Handlebars'];
 
-const pageContent = `
-  <main class="mistake-page page500">
-    <p class="mistake-page__header">500</p>
-    <p>Мы уже фиксим</p> 
-    <p class="registration">Назад к чатам</p>
-  </main>`; 
+class Page500 extends Block<{}> {
 
-const template = Handlebars.compile(pageContent);
+  constructor() {
+    super('main', {});
+  }
 
-const page500 = template({});
+  componentDidMount() {
+    this.element.classList.add('mistake-page');
+    this.element.classList.add('page500');
+  }
 
-const main = document.querySelector('.app');
+  render() {
 
-if (main) {
-  main.innerHTML = page500;
+    const pageContent = `
+      <p class="mistake-page__header">500</p>
+      <p>Мы уже фиксим</p> 
+      <a href="messenger.html" class="registration">Назад к чатам</a>`; 
+
+    const template = Handlebars.compile(pageContent);
+
+    const page500 = template({});
+
+    return page500;
+  }
+}
+
+const page500Component = new Page500();
+
+const mainDiv = document.querySelector('.app');
+
+if (mainDiv) {
+  mainDiv.appendChild(page500Component.getContent());
 }
 
 export default {};
