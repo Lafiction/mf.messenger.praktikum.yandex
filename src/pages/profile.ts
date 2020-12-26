@@ -2,7 +2,7 @@ import { Block } from '../common/block.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class ProfilePage extends Block<{}> {
+export class ProfilePage extends Block<{}> {
 
   constructor() {
     super('main', {});
@@ -78,13 +78,13 @@ class ProfilePage extends Block<{}> {
         <!-- end profile field -->
         <!-- profile field -->
         <li class="profile-fields__item">
-          <a href="changedata.html">Изменить данные</a>
+          <a href="changedata">Изменить данные</a>
         </li>
         <!-- end profile field -->
         <hr>
         <!-- profile field -->
         <li class="profile-fields__item">
-          <a href="changepassword.html">Изменить пароль</a>
+          <a href="changepassword">Изменить пароль</a>
         </li>
         <!-- end profile field -->
         <hr>
@@ -111,13 +111,3 @@ class ProfilePage extends Block<{}> {
     return profilePage;
   }
 }
-
-const profilePageComponent = new ProfilePage();
-
-const mainDiv = document.querySelector('.app');
-
-if (mainDiv) {
-  mainDiv.appendChild(profilePageComponent.getContent());
-}
-
-export default {};

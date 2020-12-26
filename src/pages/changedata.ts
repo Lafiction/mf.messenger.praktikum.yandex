@@ -6,7 +6,7 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class ChangeDataPage extends Block<{}> {
+export class ChangeDataPage extends Block<{}> {
   private nameFieldComponent: TextField;
   private lastNameFieldComponent: TextField;
   private loginFieldComponent: TextField;
@@ -143,13 +143,3 @@ class ChangeDataPage extends Block<{}> {
     return changeDataPage;
   }
 }
-
-const changeDataPageComponent = new ChangeDataPage();
-
-const main = document.querySelector('.app');
-
-if (main) {
-  main.appendChild(changeDataPageComponent.getContent());
-}
-
-export default {};

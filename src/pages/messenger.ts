@@ -7,7 +7,7 @@ import { BottomBar } from '../components/bottomBar.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class MessengerPage extends Block<{}> {
+export class MessengerPage extends Block<{}> {
   constructor() {
     super('div', {});
   }
@@ -93,13 +93,3 @@ class MessengerPage extends Block<{}> {
     return messengerPage;
   }
 }
-
-const messengerPageComponent = new MessengerPage();
-
-const mainDiv = document.querySelector('.app');
-
-if (mainDiv) {
-   mainDiv.appendChild(messengerPageComponent.getContent());
-}
-
-export default {};

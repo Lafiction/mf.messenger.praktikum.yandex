@@ -1,7 +1,7 @@
 import { Block } from './block.js';
 import { Route } from './route.js';
 
-class Router {
+export class Router {
   private static __instance: Router;
 
   private routes: Route[];

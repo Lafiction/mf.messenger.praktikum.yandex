@@ -2,7 +2,7 @@ import { Block } from '../common/block.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class Page500 extends Block<{}> {
+export class Page500 extends Block<{}> {
 
   constructor() {
     super('main', {});
@@ -18,7 +18,7 @@ class Page500 extends Block<{}> {
     const pageContent = `
       <p class="mistake-page__header">500</p>
       <p>Мы уже фиксим</p> 
-      <a href="messenger.html" class="registration">Назад к чатам</a>`; 
+      <a href="messenger" class="registration">Назад к чатам</a>`; 
 
     const template = Handlebars.compile(pageContent);
 
@@ -27,13 +27,3 @@ class Page500 extends Block<{}> {
     return page500;
   }
 }
-
-const page500Component = new Page500();
-
-const mainDiv = document.querySelector('.app');
-
-if (mainDiv) {
-  mainDiv.appendChild(page500Component.getContent());
-}
-
-export default {};

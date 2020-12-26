@@ -2,7 +2,7 @@ import { Block } from '../common/block.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class Page404 extends Block<{}> {
+export class Page404 extends Block<{}> {
 
   constructor() {
     super('main', {});
@@ -18,7 +18,7 @@ class Page404 extends Block<{}> {
     const pageContent = `
       <p class="mistake-page__header">404</p>
       <p>Такой страницы не существует</p> 
-      <a href="messenger.html" class="registration">Назад к чатам</a>`; 
+      <a href="messenger" class="registration">Назад к чатам</a>`; 
 
     const template = Handlebars.compile(pageContent);
 
@@ -28,12 +28,3 @@ class Page404 extends Block<{}> {
   }
 }
 
-const page404Component = new Page404();
-
-const mainDiv = document.querySelector('.app');
-
-if (mainDiv) {
-  mainDiv.appendChild(page404Component.getContent());
-}
-
-export default {};

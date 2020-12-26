@@ -6,7 +6,7 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class ChangePasswordPage extends Block<{}> {
+export class ChangePasswordPage extends Block<{}> {
   private oldPasswordComponent: TextField;
   private repeatPasswordComponent: TextField;
   private newPasswordComponent: TextField;
@@ -122,12 +122,3 @@ class ChangePasswordPage extends Block<{}> {
   }
 }
 
-const changePasswordPageComponent = new ChangePasswordPage();
-
-const main = document.querySelector('.app');
-
-if (main) {
-  main.appendChild(changePasswordPageComponent.getContent());
-}
-
-export default {};

@@ -6,7 +6,7 @@ import { SubmitBtn } from '../components/submitBtn.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-class RegistrationPage extends Block<{}> {
+export class RegistrationPage extends Block<{}> {
   private nameFieldComponent: TextField;
   private lastNameFieldComponent: TextField;
   private loginFieldComponent: TextField;
@@ -155,7 +155,7 @@ class RegistrationPage extends Block<{}> {
         
           {{{ submitBtn }}}
         
-          <a href="index.html" class="registration">Войти</a>
+          <a href="/" class="registration">Войти</a>
           
         </fieldset>
       </form>`;
@@ -178,13 +178,3 @@ class RegistrationPage extends Block<{}> {
     return registrationPage;
   }
 }
-
-const registrationPageComponent = new RegistrationPage();
-
-const main = document.querySelector('.app');
-
-if (main) {
-  main.appendChild(registrationPageComponent.getContent());
-}
-
-export default {};
