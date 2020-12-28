@@ -15,7 +15,14 @@ export class MessengerPage extends Block<{}> {
   componentDidMount() {
     this.element.classList.add('frame');
     this.element.classList.add('messengerPage');
-  }
+    this.element.addEventListener('click', function(event: any) {      
+      if (event.target) {
+        if (event.target.classList.contains('profile__btn')) {
+          document.location.href = 'profile';
+        };
+      };
+    });
+  } 
 
   render() {
     const searchComponent = new Search();

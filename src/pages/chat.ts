@@ -20,8 +20,15 @@ export class ChatPage extends Block<{}> {
   componentDidMount() {
     this.element.classList.add('frame');
     this.element.classList.add('chatPage');
-  }
-  
+    this.element.addEventListener('click', function(event: any) {      
+      if (event.target) {
+        if (event.target.classList.contains('profile__btn')) {
+          document.location.href = 'profile';
+        };
+      };
+    });
+  };
+
   render() {
     const searchComponent = new Search();
     const search = searchComponent.getContent().outerHTML;
