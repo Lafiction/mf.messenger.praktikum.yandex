@@ -1,8 +1,9 @@
 import { getFormData } from '../common/formDataCollector.js';
 
-export function addValidationEventListeners(form: HTMLFormElement, inputName: string, regex: RegExp) {
+export function addValidationEventListeners(page: HTMLElement, inputName: string, regex: RegExp) {
   const visibleInput = 'input-requirements__visible';
-  form.addEventListener('blur', () => {
+  page.addEventListener('blur', () => {
+    const form: any = page.querySelector('form');
     const obj = getFormData(form);
 
     const validationMsg = form.querySelector(`.${inputName}-validation-msg`);
@@ -16,12 +17,12 @@ export function addValidationEventListeners(form: HTMLFormElement, inputName: st
     }  
   }, true);
 
-  form.addEventListener('focus', (event) => {
+  page.addEventListener('focus', (event) => {
     const focusedEl = event.target as HTMLElement;
     if (focusedEl.tagName.toLowerCase() === 'input') {
       const currentInputName = focusedEl.getAttribute('name');
       if (currentInputName === inputName) {
-        const validationMsg = form.querySelector(`.${inputName}-validation-msg`);
+        const validationMsg = page.querySelector(`.${inputName}-validation-msg`);
         if (validationMsg) {
           validationMsg.classList.remove(visibleInput);
         }
@@ -29,8 +30,9 @@ export function addValidationEventListeners(form: HTMLFormElement, inputName: st
     }
   }, true);
 
-  form.addEventListener('submit', (event) => {
+  page.addEventListener('submit', (event) => {
     event.preventDefault();
+    const form: any = page.querySelector('form');
     const obj = getFormData(form);
     const validationMsg = form.querySelector(`.${inputName}-validation-msg`);
     const isCorrect = regex.test(obj[inputName]);

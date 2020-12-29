@@ -78,11 +78,11 @@ export class ChangeDataPage extends Block<{}> {
       this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
     });
 
-    handleOnSubmitForm(this.element as HTMLFormElement);
+    handleOnSubmitForm(this.element);
 
 
     if (this.element) {
-      addValidationEventListeners(this.element as HTMLFormElement, 'login', /^[a-zа-я0-9_]+$/i);
+      addValidationEventListeners(this.element, 'login', /^[a-zа-я0-9_]+$/i);
     }
   }
 

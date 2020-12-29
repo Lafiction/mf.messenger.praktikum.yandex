@@ -55,12 +55,12 @@ export class ChangePasswordPage extends Block<{}> {
       this.eventBus().emit(SubmitBtn.EVENTS.FLOW_RENDER);
     });
 
-    handleOnSubmitForm(this.element as HTMLFormElement);
+    handleOnSubmitForm(this.element);
 
     if (this.element) {
-      addValidationEventListeners(this.element as HTMLFormElement, 'old_password', /^.{8,}$/i);
-      addValidationEventListeners(this.element as HTMLFormElement, 'new_password', /^.{8,}$/i);
-      addValidationEventListeners(this.element as HTMLFormElement, 'repeat_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'old_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'new_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'repeat_password', /^.{8,}$/i);
     }
   }
   

@@ -15,7 +15,7 @@ function queryStringify(data: Record<string, any>) {
   }, '?');
 }
 
-class HTTPTransport {
+export class HTTPTransport {
   get(url: any, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   };
@@ -32,7 +32,7 @@ class HTTPTransport {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   };
 
-  request(url: any, options: Record<string, any>, timeout = 5000) {
+  request(url: any, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
     const { method, data = {}, headers } = options;
 
     return new Promise((resolve, reject) => {

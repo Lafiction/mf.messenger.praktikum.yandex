@@ -10,9 +10,10 @@ export function getFormData(form: HTMLFormElement) {
   return obj;
 }
 
-export function handleOnSubmitForm(form: HTMLFormElement) {
-  form.addEventListener('submit', function(event) {
+export function handleOnSubmitForm(page: HTMLElement) {
+  page.addEventListener('submit', function(event: any) {
     event.preventDefault();
+    const form: any = page.querySelector('form');
     console.log(getFormData(form));
   });
 };
