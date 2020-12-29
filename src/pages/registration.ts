@@ -1,8 +1,10 @@
-import { handleOnSubmitForm } from '../common/formDataCollector.js';
+import { handleOnSubmitForm, getFormData } from '../common/formDataCollector.js';
 import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
+import { MessengerAPI } from '../common/messengerAPI.js';
+import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -15,9 +17,29 @@ export class RegistrationPage extends Block<{}> {
   private passwordComponent: TextField;
   private repeatPasswordComponent: TextField;
   private submitBtnComponent: SubmitBtn;
+  private api: MessengerAPI;
+  
 
   constructor() {
     super('main', {});
+    this.api = new MessengerAPI();
+  }
+
+  private onSubmit() {
+    const form: any = this.element.querySelector('form');
+    const data = getFormData(form);
+    this.api.registration(data.first_name, data.second_name, data.login, data.email, data.password, data.phone).then((response: any) => {
+      if (response.status < 400) {
+        const router = new Router('router is already created in app.ts');
+        alert('Вы зарегистрированы');
+        router.go('/chat');
+      } else {
+        alert('Ошибка' + response.responseText);
+        this.api.signOut();
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
   }
 
   componentDidMount() {
@@ -31,7 +53,7 @@ export class RegistrationPage extends Block<{}> {
     
     this.lastNameFieldComponent = new TextField({
       fieldType: 'text',
-      fieldName: 'last_name',
+      fieldName: 'second_name',
       placeholder: 'Фамилия'
     });
 
@@ -110,6 +132,11 @@ export class RegistrationPage extends Block<{}> {
       addValidationEventListeners(this.element, 'password', /^.{8,}$/i);
       addValidationEventListeners(this.element, 'repeat_password', /^.{8,}$/i);
     }
+
+    this.element.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onSubmit();
+    }); 
   }
 
   render() {

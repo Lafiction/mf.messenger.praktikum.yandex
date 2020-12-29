@@ -22,7 +22,6 @@ export interface User {
   phone: string
 }
 
-
 export class MessengerAPI {
   private fetch: HTTPTransport;
 
@@ -51,17 +50,46 @@ export class MessengerAPI {
     return this.fetch.post('https://ya-praktikum.tech/api/v2/auth/logout', {});
   }
 
-  /* registration(first_name: string, second_name: string, login: string, email: string, password: string, phone: string): Promise {
-  } */
+  registration(first_name: string, second_name: string, login: string, email: string, password: string, phone: string): Promise<XMLHttpRequest> {
+    const requestBody = { 
+      first_name,
+      second_name,
+      login,
+      email,
+      password,
+      phone
+    };
+    const promise = this.fetch.post('https://ya-praktikum.tech/api/v2/auth/signup', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  } 
 
+  changeUserProfile(first_name: string, second_name: string, display_name: string, login: string, email: string, phone: string): Promise<XMLHttpRequest> {
+    const requestBody = { 
+      first_name,
+      second_name,
+      display_name,
+      login,
+      email,
+      phone
+    };
+    const promise = this.fetch.put('https://ya-praktikum.tech/api/v2/user/profile', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  }
+
+
+
+  /*
   getCurrentUserInfo(): Promise<XMLHttpRequest> {
     return this.fetch.get('https://ya-praktikum.tech/api/v2/auth/user', {});
   }
 
-  /*
-  changeUserProfile(): Promise {
-  }
-
+  
   changeUserAvatar(): Promise { 
   }
 
