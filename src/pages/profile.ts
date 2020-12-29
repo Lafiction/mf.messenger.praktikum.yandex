@@ -1,15 +1,39 @@
 import { Block } from '../common/block.js';
+import { MessengerAPI } from '../common/messengerAPI.js';
+import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
 export class ProfilePage extends Block<{}> {
+  private api: MessengerAPI;
 
   constructor() {
     super('main', {});
+    this.api = new MessengerAPI();
+  }
+
+  private onExitBtnClick() {
+    this.api.signOut().then((response: any) => {
+      if (response.status < 400) {
+        const router = new Router('router is already created in app.ts');
+        router.go('/');
+      } else {
+        alert('Ошибка' + response.responseText);
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
   }
 
   componentDidMount() {
     this.element.classList.add('profilePage');
+    this.element.addEventListener('click', (event: any) => {
+      if (event.target) {
+        if (event.target.classList.contains('profile-fields__exit')) {
+          this.onExitBtnClick();
+        };
+      };
+    }); 
   }
 
   render() {

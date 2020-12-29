@@ -38,6 +38,7 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.timeout = timeout;
+      xhr.withCredentials = true;
 
       let fullUrl = url;
       if (method === METHODS.GET && Object.keys(data).length !== 0) {

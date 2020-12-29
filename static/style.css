@@ -538,6 +538,7 @@ input[type=submit] {
 }
 .profile-fields__exit {
   color: var(--red);
+  cursor: pointer;
 }
 .change-chat {
   text-align: center;

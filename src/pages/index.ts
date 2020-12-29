@@ -1,8 +1,11 @@
-import { handleOnSubmitForm } from '../common/formDataCollector.js';
+import { handleOnSubmitForm, getFormData } from '../common/formDataCollector.js';
 import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
+import { MessengerAPI } from '../common/messengerAPI.js';
+import { Router } from '../common/router.js';
+
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -10,9 +13,27 @@ export class IndexPage extends Block<{}> {
   private loginFieldComponent: TextField;
   private passwordFieldComponent: TextField;
   private submitBtnComponent: SubmitBtn;
+  private api: MessengerAPI;
 
   constructor() {
     super('main', {});
+    this.api = new MessengerAPI();
+  }
+
+  private onSubmit() {
+    const form: any = this.element.querySelector('form');
+    const data = getFormData(form);
+    this.api.signIn(data.login, data.password).then((response: any) => {
+      if (response.status < 400) {
+        const router = new Router('router is already created in app.ts');
+        router.go('/chat');
+      } else {
+        alert('Ошибка' + response.responseText);
+        this.api.signOut();
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
   }
 
   componentDidMount() {
@@ -50,8 +71,13 @@ export class IndexPage extends Block<{}> {
 
     if (this.element) {
       addValidationEventListeners(this.element, 'login', /^[a-zа-я0-9_]+$/i);
-      addValidationEventListeners(this.element, 'password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'password', /^.{4,}$/i);
     }
+
+    this.element.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onSubmit();
+    }); 
   }
 
   render() {
