@@ -82,7 +82,17 @@ export class MessengerAPI {
     return promise;
   }
 
-
+  changePassword(oldPassword: string, newPassword: string): Promise<XMLHttpRequest> {  
+    const requestBody = { 
+      oldPassword,
+      newPassword
+    };
+    const promise = this.fetch.put('https://ya-praktikum.tech/api/v2/user/password', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  }
 
   /*
   getCurrentUserInfo(): Promise<XMLHttpRequest> {
@@ -93,8 +103,7 @@ export class MessengerAPI {
   changeUserAvatar(): Promise { 
   }
 
-  changeUserPassword(): Promise {  
-  }
+  
 
   getChatsList(): Promise<Chat[]>  {
   }

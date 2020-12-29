@@ -1,8 +1,10 @@
-import { handleOnSubmitForm } from '../common/formDataCollector.js';
+import { handleOnSubmitForm, getFormData} from '../common/formDataCollector.js';
 import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
+import { MessengerAPI } from '../common/messengerAPI.js';
+import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -11,9 +13,33 @@ export class ChangePasswordPage extends Block<{}> {
   private repeatPasswordComponent: TextField;
   private newPasswordComponent: TextField;
   private submitBtnComponent: SubmitBtn;
+  private api: MessengerAPI;
 
   constructor() {
     super('main', {});
+    this.api = new MessengerAPI();
+  }
+
+  private onSubmit() {
+    const form: any = this.element.querySelector('form');
+    const data = getFormData(form);
+    this.api.changePassword(data.oldPassword, data.newPassword).then((response: any) => {
+      if (response.status < 400) {
+        const router = new Router('router is already created in app.ts');
+        if (data.newPassword !== data.repeatPassword) {
+          alert('Старый и новый пароли не совпадают');
+        } else {
+          alert('Пароль изменен');
+          this.api.signOut();
+          router.go('/');
+        }
+      } else {
+        alert('Ошибка' + response.responseText);
+        this.api.signOut();
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
   }
   
   componentDidMount() {
@@ -21,19 +47,19 @@ export class ChangePasswordPage extends Block<{}> {
     
     this.oldPasswordComponent = new TextField({ 
       fieldType: 'password',
-      fieldName: 'old_password',
+      fieldName: 'oldPassword',
       placeholder: 'Старый пароль'
     });
    
     this.newPasswordComponent = new TextField({ 
       fieldType: 'password',
-      fieldName: 'new_password',
+      fieldName: 'newPassword',
       placeholder: 'Новый пароль'
     });
 
     this.repeatPasswordComponent = new TextField({ 
       fieldType: 'password',
-      fieldName: 'repeat_password',
+      fieldName: 'repeatPassword',
       placeholder: 'Повторите пароль'
     });
 
@@ -58,10 +84,15 @@ export class ChangePasswordPage extends Block<{}> {
     handleOnSubmitForm(this.element);
 
     if (this.element) {
-      addValidationEventListeners(this.element, 'old_password', /^.{8,}$/i);
-      addValidationEventListeners(this.element, 'new_password', /^.{8,}$/i);
-      addValidationEventListeners(this.element, 'repeat_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'oldPassword', /^.{4,}$/i);
+      addValidationEventListeners(this.element, 'newPassword', /^.{4,}$/i);
+      addValidationEventListeners(this.element, 'repeatPassword', /^.{4,}$/i);
     }
+
+    this.element.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.onSubmit();
+    }); 
   }
   
   render() {
@@ -116,7 +147,6 @@ export class ChangePasswordPage extends Block<{}> {
         repeatPassword,
         submitBtn
       });
-
 
     return changePasswordPage;
   }
