@@ -19,10 +19,13 @@ export class RegistrationPage extends Block<{}> {
   private submitBtnComponent: SubmitBtn;
   private api: MessengerAPI;
   
-
   constructor() {
     super('main', {});
+  }
+
+  init() {
     this.api = new MessengerAPI();
+    super.init();
   }
 
   private onSubmit() {

@@ -20,7 +20,11 @@ export class ChangeDataPage extends Block<{}> {
 
   constructor() {
     super('main', {});
+  }
+
+  init() {
     this.api = new MessengerAPI();
+    super.init();
   }
 
   private onSubmit() {

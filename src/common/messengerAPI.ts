@@ -19,7 +19,7 @@ export interface User {
   login: string;
   avatar?: string;
   email: string;
-  phone: string
+  phone: string;
 }
 
 export class MessengerAPI {
@@ -94,16 +94,15 @@ export class MessengerAPI {
     return promise;
   }
 
-  /*
   getCurrentUserInfo(): Promise<XMLHttpRequest> {
     return this.fetch.get('https://ya-praktikum.tech/api/v2/auth/user', {});
   }
 
-  
+}
+
+  /*
   changeUserAvatar(): Promise { 
   }
-
-  
 
   getChatsList(): Promise<Chat[]>  {
   }
@@ -125,5 +124,3 @@ export class MessengerAPI {
 
   deleteUsersFromChat(chatId: string, users: Users[]): Promise {  
   }*/
-}
-
