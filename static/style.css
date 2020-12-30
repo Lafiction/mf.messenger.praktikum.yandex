@@ -520,15 +520,11 @@ input[type=submit] {
   cursor: pointer;
   opacity: 0;
 }
-.profile-fields hr {
-  border-bottom: 0;
-  border-top: 1px solid #ddd;
-  margin: 0;
-}
 .profile-fields__item {
   margin: 0;
   padding: 14px 6px;
   border-left: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
 }
 .profile-fields__content {
   float: right;

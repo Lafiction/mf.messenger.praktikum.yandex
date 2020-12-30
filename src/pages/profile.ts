@@ -1,15 +1,29 @@
 import { Block } from '../common/block.js';
-import { MessengerAPI } from '../common/messengerAPI.js';
+import { MessengerAPI, User } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class ProfilePage extends Block<{}> {
+export class ProfilePage extends Block<User> {
   private api: MessengerAPI;
 
   constructor() {
-    super('main', {});
+    const initialUserData: User = {
+      id: 0,
+      first_name: '',
+      second_name: '',
+      display_name: '',
+      login: '',
+      avatar: '',
+      email: '',
+      phone: ''
+    };
+    super('main', initialUserData);
+  }
+
+  init() {
     this.api = new MessengerAPI();
+    super.init();
   }
 
   private onExitBtnClick() {
@@ -33,101 +47,163 @@ export class ProfilePage extends Block<{}> {
           this.onExitBtnClick();
         };
       };
-    }); 
+    });
+
+    this.api.getCurrentUserInfo().then((response: any) => {
+      if (response.status < 400) {
+        const userData = JSON.parse(response.responseText);
+        console.log(userData.avatar);
+        this.setProps(userData);
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
+  }
+
+  private getAvatar(userData: User) {
+    const avatarTemplate = `
+      <div class="avatar">
+        <img class="avatar__img" src="https://ya-praktikum.tech/{{ avatar }}">
+        <input class="avatar__attach" type="file" name="avatar">
+      </div>`;
+    const template = Handlebars.compile(avatarTemplate);
+    const avatar = template({ avatar: userData.avatar });
+
+    return avatar;
+  }
+
+  private getNameField(userData: User) {
+    const nameFieldTemplate = `
+      <legend>{{ name }} {{ secondName }}</legend>`;
+    const template = Handlebars.compile(nameFieldTemplate);
+    const nameField = template({ name: userData.first_name, secondName: userData.second_name });
+
+    return nameField;
+  }
+
+  private getEmailField(userData: User) {
+    const emailFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Почта</span>
+        <span class="profile-fields__content">{{ email }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(emailFieldTemplate);
+    const emailField = template({ email: userData.email });
+
+    return emailField;
+  }
+
+  private getLoginField(userData: User) {
+    const loginFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Логин</span>
+        <span class="profile-fields__content">{{ login }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(loginFieldTemplate);
+    const loginField = template({ login: userData.login });
+
+    return loginField;
+  }
+
+  private getFirstNameField(userData: User) {
+    const firstNameFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Имя</span>
+        <span class="profile-fields__content">{{ firstName }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(firstNameFieldTemplate);
+    const firstNameField = template({ firstName: userData.first_name });
+
+    return firstNameField;
+  }
+
+  private getSecondNameField(userData: User) {
+    const secondNameFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Фамилия</span>
+        <span class="profile-fields__content">{{ secondName }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(secondNameFieldTemplate);
+    const secondNameField = template({ secondName: userData.second_name });
+
+    return secondNameField;
+  }
+
+  private getPhoneField(userData: User) {
+    const phoneFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Телефон</span>
+        <span class="profile-fields__content">{{ phone }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(phoneFieldTemplate);
+    const phoneField = template({ phone: userData.phone });
+
+    return phoneField;
   }
 
   render() {
 
-    const avatar = `
-      <div class="avatar">
-        <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
-        <input class="avatar__attach" type="file" name="avatar">
-      </div>`;
+    const avatar = this.getAvatar(this.props);
 
-    const emailField = `
-      <li class="profile-fields__item">
-        <span>Почта</span>
-        <span class="profile-fields__content">pochta@yandex.ru</span>
-      </li>`;
+    const nameField = this.getNameField(this.props);
 
-    const loginField = `
-      <li class="profile-fields__item">
-        <span>Логин</span>
-        <span class="profile-fields__content">ivanivanov</span>
-      </li>`;
+    const emailField = this.getEmailField(this.props);
 
-    const nameField = `
-      <li class="profile-fields__item">
-        <span>Имя</span>
-        <span class="profile-fields__content">Иван</span>
-      </li>`;
+    const loginField = this.getLoginField(this.props);
 
-    const lastNameField = `
-      <li class="profile-fields__item">
-        <span>Фамилия</span>
-        <span class="profile-fields__content">Иванов</span>
-      </li>`;
+    const firstNameField = this.getFirstNameField(this.props);
 
-    const phoneField = `
-      <li class="profile-fields__item">
-        <span>Телефон</span>
-        <span class="profile-fields__content">+7 (909) 999 00 00</span>
-      </li>`;
+    const secondNameField = this.getSecondNameField(this.props);    
+
+    const phoneField = this.getPhoneField(this.props);
 
     const pageContent = `
 
-      <!-- profile description -->
-        {{{ avatar }}}
-      <legend>Иван</legend>
-      <!-- end profile description -->
+      {{{ avatar }}}
+      
+      {{{ nameField }}}
+      
       <ul class="profile-fields">
-        <!-- email profile field -->
-          {{{ emailField }}}
-        <!-- end email profile field -->
-        <hr>
-        <!-- login profile field -->
-          {{{ loginField }}}
-        <!-- end login profile field -->
-        <hr>
-        <!-- profile field -->
-          {{{ nameField }}}
-        <!-- end profile field -->
-        <hr>
-        <!-- profile field -->
-          {{{ lastNameField }}}
-        <!-- end profile field -->
-        <hr>
-        <!-- profile field -->
-          {{{ phoneField }}}
-        <!-- end profile field -->
-        <!-- profile field -->
+       
+        {{{ emailField }}}
+       
+        {{{ loginField }}}
+                
+        {{{ firstNameField }}}
+        
+        {{{ secondNameField }}}
+       
+        {{{ phoneField }}}
+       
         <li class="profile-fields__item">
           <a href="changedata">Изменить данные</a>
         </li>
-        <!-- end profile field -->
-        <hr>
-        <!-- profile field -->
+        
         <li class="profile-fields__item">
           <a href="changepassword">Изменить пароль</a>
         </li>
-        <!-- end profile field -->
-        <hr>
-        <!-- profile field -->
+        
         <li class="profile-fields__item">
           <span class="profile-fields__exit">Выйти</span>
         </li>
-        <!-- end profile field -->
+
       </ul>`;
 
     const template = Handlebars.compile(pageContent);
 
     const profilePage = template(
       { 
-        avatar,  
+        avatar,
+        nameField,
         emailField,
         loginField,
-        nameField,
-        lastNameField,
+        firstNameField,
+        secondNameField,
         phoneField
       }
     );
