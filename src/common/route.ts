@@ -22,7 +22,14 @@ export class Route {
 
   leave() {
     if (this._page) {
-      this._page.hide();
+      const root = document.querySelector(this._props.rootQuery);
+
+      if (root) {
+        while (root.firstChild) {
+          root.firstChild.remove()
+        }
+        this._page = null;
+      }
     }
   }
 
@@ -42,7 +49,5 @@ export class Route {
             
       return;
     }
-
-    this._page.show();
   }
 } 
