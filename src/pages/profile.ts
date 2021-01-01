@@ -88,13 +88,17 @@ export class ProfilePage extends Block<User> {
   }
 
   private getAvatar(userData: User) {
+    let avatarUrl = 'https://randomuser.me/api/portraits/med/women/21.jpg';
+    if (userData.avatar) {
+      avatarUrl = 'https://ya-praktikum.tech/' + userData.avatar;
+    }
     const avatarTemplate = `
       <div class="avatar">
-        <img class="avatar__img" src="https://ya-praktikum.tech/{{ avatar }}">
+        <img class="avatar__img" src="{{ avatarUrl }}">
         <input class="avatar__attach" type="file" name="avatar">
       </div>`;
     const template = Handlebars.compile(avatarTemplate);
-    const avatar = template({ avatar: userData.avatar });
+    const avatar = template({ avatarUrl });
 
     return avatar;
   }
