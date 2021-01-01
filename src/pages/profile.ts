@@ -39,14 +39,42 @@ export class ProfilePage extends Block<User> {
     });
   }
 
+  private onAvatarClick() {
+    const newAvatarInput = document.createElement('input');
+    newAvatarInput.type = 'file';
+
+    newAvatarInput.onchange = (event: any) => {
+      const image = event.target.files[0];
+      const formData = new FormData();
+      formData.append("avatar", image, "image.jpeg");
+
+      this.api.uploadUserAvatar(formData).then((response: any) => {
+        if (response.status < 400) {
+          alert('Аватар изменен');
+          const router = new Router('router is already created in app.ts');
+          router.go('/profile');
+        } else {
+          alert('Ошибка' + response.responseText);
+        }
+      }).catch((error: any) => {
+        console.log('Неизвестная ошибка', error);
+      });
+    }
+
+    newAvatarInput.click();
+  }
+
   componentDidMount() {
     this.element.classList.add('profilePage');
     this.element.addEventListener('click', (event: any) => {
-      if (event.target) {
-        if (event.target.classList.contains('profile-fields__exit')) {
-          this.onExitBtnClick();
-        };
+      if (event.target && event.target.classList.contains('profile-fields__exit')) {
+        this.onExitBtnClick();
       };
+
+      if (event.target && event.target.classList.contains('avatar__attach')) {
+        event.preventDefault();
+        this.onAvatarClick();
+      }
     });
 
     this.api.getCurrentUserInfo().then((response: any) => {

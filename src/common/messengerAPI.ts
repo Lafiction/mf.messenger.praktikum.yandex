@@ -85,6 +85,13 @@ export class MessengerAPI {
     return promise;
   }
 
+  uploadUserAvatar(formData: FormData): Promise<XMLHttpRequest> { 
+    const promise = this.fetch.put('https://ya-praktikum.tech/api/v2/user/profile/avatar', {
+      data: formData,
+    });
+    return promise;
+  }
+
   getCurrentUserInfo(): Promise<XMLHttpRequest> {
     return this.fetch.get('https://ya-praktikum.tech/api/v2/auth/user', {});
   }
@@ -123,14 +130,6 @@ export class MessengerAPI {
 }
 
   /*
-
-  changeUserAvatar(avatar: string): Promise<XMLHttpRequest> { 
-    return 
-  }
-
-  +getChatsList(): Promise?????<Chat[]>?????  {
-  }
-
   uploadChatAvatar(chatId: string, avatar): Promise {  
   }
 
