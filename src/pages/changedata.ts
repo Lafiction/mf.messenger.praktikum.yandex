@@ -8,7 +8,7 @@ import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class ChangeDataPage extends Block<{}> {
+export class ChangeDataPage extends Block<{ avatar: string }> {
   private nameFieldComponent: TextField;
   private lastNameFieldComponent: TextField;
   private displayNameFieldComponent: TextField;
@@ -19,7 +19,7 @@ export class ChangeDataPage extends Block<{}> {
   private api: MessengerAPI;
 
   constructor() {
-    super('main', {});
+    super('main', { avatar: '' });
   }
 
   init() {
@@ -46,6 +46,21 @@ export class ChangeDataPage extends Block<{}> {
 
   componentDidMount() {
     this.element.classList.add('changeDataPage');
+
+    this.api.getCurrentUserInfo().then((response: any) => {
+      if (response.status < 400) {
+        const userData = JSON.parse(response.responseText);
+        this.nameFieldComponent.setProps({ value: userData.first_name });
+        this.lastNameFieldComponent.setProps({ value: userData.second_name });
+        this.displayNameFieldComponent.setProps({ value: userData.display_name });
+        this.loginFieldComponent.setProps({ value: userData.login });
+        this.emailFieldComponent.setProps({ value: userData.email });
+        this.phoneFieldComponent.setProps({ value: userData.phone });
+        this.setProps({ avatar: userData.avatar });
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
     
     this.nameFieldComponent = new TextField({ 
       fieldType: 'text',
@@ -127,11 +142,10 @@ export class ChangeDataPage extends Block<{}> {
   }
 
   render() {
-    const avatar = `
-      <div class="avatar">
-        <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
-      </div>
-    `;
+    let avatarUrl = 'https://randomuser.me/api/portraits/med/women/21.jpg';
+    if (this.props.avatar) {
+      avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
+    }
 
     const nameField = this.nameFieldComponent.getContent().outerHTML;
     const lastNameField = this.lastNameFieldComponent.getContent().outerHTML;
@@ -143,7 +157,9 @@ export class ChangeDataPage extends Block<{}> {
 
     const pageContent = `
       <form class="form" action="#">  
-        {{{ avatar }}}
+        <div class="avatar">
+          <img class="avatar__img" src="{{ avatarUrl }}">
+        </div>
         
         <legend>Иван</legend>
         <fieldset>
@@ -173,7 +189,7 @@ export class ChangeDataPage extends Block<{}> {
 
     const changeDataPage = template(
       { 
-        avatar,  
+        avatarUrl,  
         nameField,
         lastNameField,
         displayNameField,
