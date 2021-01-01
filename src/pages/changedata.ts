@@ -8,7 +8,7 @@ import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class ChangeDataPage extends Block<{ avatar: string }> {
+export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> {
   private nameFieldComponent: TextField;
   private lastNameFieldComponent: TextField;
   private displayNameFieldComponent: TextField;
@@ -19,7 +19,7 @@ export class ChangeDataPage extends Block<{ avatar: string }> {
   private api: MessengerAPI;
 
   constructor() {
-    super('main', { avatar: '' });
+    super('main', { avatar: '', fullName: '' });
   }
 
   init() {
@@ -56,7 +56,10 @@ export class ChangeDataPage extends Block<{ avatar: string }> {
         this.loginFieldComponent.setProps({ value: userData.login });
         this.emailFieldComponent.setProps({ value: userData.email });
         this.phoneFieldComponent.setProps({ value: userData.phone });
-        this.setProps({ avatar: userData.avatar });
+        this.setProps({
+          avatar: userData.avatar,
+          fullName: userData.first_name + ' ' + userData.second_name
+        });
       }
     }).catch((error: any) => {
       console.log('Неизвестная ошибка', error);
@@ -161,7 +164,7 @@ export class ChangeDataPage extends Block<{ avatar: string }> {
           <img class="avatar__img" src="{{ avatarUrl }}">
         </div>
         
-        <legend>Иван</legend>
+        <legend>{{ fullName }}</legend>
         <fieldset>
           
           {{{ nameField }}}
@@ -189,7 +192,8 @@ export class ChangeDataPage extends Block<{ avatar: string }> {
 
     const changeDataPage = template(
       { 
-        avatarUrl,  
+        avatarUrl,
+        fullName: this.props.fullName,
         nameField,
         lastNameField,
         displayNameField,
