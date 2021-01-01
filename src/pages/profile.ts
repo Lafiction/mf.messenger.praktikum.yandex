@@ -10,11 +10,11 @@ export class ProfilePage extends Block<User> {
   constructor() {
     const initialUserData: User = {
       id: 0,
+      avatar: '',
       first_name: '',
       second_name: '',
       display_name: '',
       login: '',
-      avatar: '',
       email: '',
       phone: ''
     };
@@ -52,7 +52,6 @@ export class ProfilePage extends Block<User> {
     this.api.getCurrentUserInfo().then((response: any) => {
       if (response.status < 400) {
         const userData = JSON.parse(response.responseText);
-        console.log(userData.avatar);
         this.setProps(userData);
       }
     }).catch((error: any) => {
@@ -81,32 +80,6 @@ export class ProfilePage extends Block<User> {
     return nameField;
   }
 
-  private getEmailField(userData: User) {
-    const emailFieldTemplate = `
-      <li class="profile-fields__item">
-        <span>Почта</span>
-        <span class="profile-fields__content">{{ email }}</span>
-      </li>`;
-
-    const template = Handlebars.compile(emailFieldTemplate);
-    const emailField = template({ email: userData.email });
-
-    return emailField;
-  }
-
-  private getLoginField(userData: User) {
-    const loginFieldTemplate = `
-      <li class="profile-fields__item">
-        <span>Логин</span>
-        <span class="profile-fields__content">{{ login }}</span>
-      </li>`;
-
-    const template = Handlebars.compile(loginFieldTemplate);
-    const loginField = template({ login: userData.login });
-
-    return loginField;
-  }
-
   private getFirstNameField(userData: User) {
     const firstNameFieldTemplate = `
       <li class="profile-fields__item">
@@ -133,6 +106,32 @@ export class ProfilePage extends Block<User> {
     return secondNameField;
   }
 
+  private getLoginField(userData: User) {
+    const loginFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Логин</span>
+        <span class="profile-fields__content">{{ login }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(loginFieldTemplate);
+    const loginField = template({ login: userData.login });
+
+    return loginField;
+  }
+
+  private getEmailField(userData: User) {
+    const emailFieldTemplate = `
+      <li class="profile-fields__item">
+        <span>Почта</span>
+        <span class="profile-fields__content">{{ email }}</span>
+      </li>`;
+
+    const template = Handlebars.compile(emailFieldTemplate);
+    const emailField = template({ email: userData.email });
+
+    return emailField;
+  }
+
   private getPhoneField(userData: User) {
     const phoneFieldTemplate = `
       <li class="profile-fields__item">
@@ -149,34 +148,27 @@ export class ProfilePage extends Block<User> {
   render() {
 
     const avatar = this.getAvatar(this.props);
-
     const nameField = this.getNameField(this.props);
-
-    const emailField = this.getEmailField(this.props);
-
-    const loginField = this.getLoginField(this.props);
-
     const firstNameField = this.getFirstNameField(this.props);
-
     const secondNameField = this.getSecondNameField(this.props);    
-
+    const loginField = this.getLoginField(this.props);
+    const emailField = this.getEmailField(this.props);
     const phoneField = this.getPhoneField(this.props);
-
     const pageContent = `
 
       {{{ avatar }}}
-      
+
       {{{ nameField }}}
       
       <ul class="profile-fields">
-       
-        {{{ emailField }}}
-       
-        {{{ loginField }}}
-                
+  
         {{{ firstNameField }}}
         
         {{{ secondNameField }}}
+
+        {{{ loginField }}}
+
+        {{{ emailField }}}
        
         {{{ phoneField }}}
        
@@ -200,10 +192,10 @@ export class ProfilePage extends Block<User> {
       { 
         avatar,
         nameField,
-        emailField,
-        loginField,
         firstNameField,
         secondNameField,
+        loginField,
+        emailField,
         phoneField
       }
     );
