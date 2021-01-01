@@ -30,7 +30,7 @@ export class IndexPage extends Block<{}> {
     this.api.signIn(data.login, data.password).then((response: any) => {
       if (response.status < 400) {
         const router = new Router('router is already created in app.ts');
-        router.go('/chat');
+        router.go('/messenger');
       } else {
         alert('Ошибка' + response.responseText);
         this.api.signOut();
