@@ -3,6 +3,9 @@ import { Block } from '../common/block.js';
 const Handlebars = (window as any)['Handlebars'];
 
 interface ChatPreviewProps {
+  id?: number;
+  title?: string;
+  avatar?: string;
   chatPreviewType: string;
 }
 
@@ -16,18 +19,28 @@ export class ChatPreview extends Block<ChatPreviewProps> {
     if (this.props.chatPreviewType.length > 0) {
       this.element.classList.add(this.props.chatPreviewType);
     }
+
+    let avatar = 'https://placekitten.com/50/50';
+    if (this.props.avatar) {
+      avatar = 'https://ya-praktikum.tech/' + this.props.avatar;
+    }
+
     const content = `
-      <div class="wrap">
-        <img src="http://placekitten.com/50/50" alt="">
+      <div id="{{ id }}" class="wrap">
+        <img src="{{ avatar }}" alt="">
         <div class="meta">
-          <p class="name">Lincoln Williamson</p>
-          <p class="preview">Sed ut perspiciatis unde omnis riam.</p>
+          <p class="name">{{ title }}</p>
+          <p class="preview">Текст сообщения...</p>
         </div>
       </div>`;
 
     const template = Handlebars.compile(content);
 
-    const htmlContent = template({});
+    const htmlContent = template({
+      id: this.props.id,
+      title: this.props.title, 
+      avatar: avatar
+    });
 
     return htmlContent;
   }

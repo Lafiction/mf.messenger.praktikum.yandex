@@ -1,16 +1,5 @@
 import { HTTPTransport } from './HTTPTransport.js';
 
-/* {
-  "id": 469,
-  "first_name": "string",
-  "second_name": "string",
-  "display_name": null,
-  "login": "string",
-  "avatar": null,
-  "email": "asd@asd.sd",
-  "phone": "+79676245766"
-} */
-
 export interface User {
   id: number;
   first_name: string;
@@ -20,6 +9,13 @@ export interface User {
   avatar?: string;
   email: string;
   phone: string;
+}
+
+export interface Chat {
+  id: number;
+  title: string;
+  avatar?: string;
+  created_by: number;
 }
 
 export class MessengerAPI {
@@ -38,11 +34,6 @@ export class MessengerAPI {
       data: JSON.stringify(requestBody),
       headers: { 'Content-Type': 'application/json' }
     });
-    /* promise.then((response: any) => {
-      console.log(response.responseText);
-    }).catch((error: any) => {
-      console.log('Ошибка', error);
-    }); */
     return promise;
   }
 
@@ -98,29 +89,75 @@ export class MessengerAPI {
     return this.fetch.get('https://ya-praktikum.tech/api/v2/auth/user', {});
   }
 
+  getChatsList(): Promise<XMLHttpRequest>  {
+    return this.fetch.get('https://ya-praktikum.tech/api/v2/chats', {});
+  }
+  
+  createChat(title: string): Promise<XMLHttpRequest> {  
+    const requestBody = { 
+      title
+    };
+    const promise = this.fetch.post('https://ya-praktikum.tech/api/v2/chats', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  }
+
+  deleteChat(chatId: string): Promise<XMLHttpRequest> {  
+    const requestBody = { 
+      chatId
+    };
+    const promise = this.fetch.delete('https://ya-praktikum.tech/api/v2/chats', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  }
+
+  getChatUsers(chatId: string): Promise<XMLHttpRequest> {  
+    const url = 'https://ya-praktikum.tech/api/v2/chats/' + chatId + '/users'
+    return this.fetch.get(url, {});
+  }
+
 }
 
   /*
-  changeUserAvatar(): Promise { 
+
+  changeUserAvatar(avatar: string): Promise<XMLHttpRequest> { 
+    return 
   }
 
-  getChatsList(): Promise<Chat[]>  {
-  }
-
-  createChat(title: string): Promise {  
-  }
-
-  deleteChatByID(chatId: string): Promise {  
-  }
-
-  getUsersByChatID(): Promise {  
+  +getChatsList(): Promise?????<Chat[]>?????  {
   }
 
   uploadChatAvatar(chatId: string, avatar): Promise {  
   }
 
-  addUsersToChat(chatId: string, users: Users[]): Promise {
+
+
+  addUsersToChat(users: Users[], chatId: string,): Promise<XMLHttpRequest> {
+    const requestBody = {
+      users: [],
+      chatId
+    };
+    const promise = this.fetch.put('https://ya-praktikum.tech/api/v2/chats/users', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
+  }
+  
+  deleteUsersFromChat(users: Users[], chatId: string): Promise<XMLHttpRequest> { 
+    const requestBody = {
+      users: [],
+      chatId
+    };
+    const promise = this.fetch.delete('https://ya-praktikum.tech/api/v2/chats/users', {
+      data: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return promise;
   }
 
-  deleteUsersFromChat(chatId: string, users: Users[]): Promise {  
-  }*/
+  */

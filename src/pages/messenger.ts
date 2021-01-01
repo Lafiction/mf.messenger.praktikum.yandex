@@ -4,12 +4,20 @@ import { Search } from '../components/search.js';
 import { ProfileBtn } from '../components/profileBtn.js';
 import { Avatar } from '../components/avatar.js';
 import { BottomBar } from '../components/bottomBar.js';
+import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class MessengerPage extends Block<{}> {
+export class MessengerPage extends Block<Chat[]> {
+  private api: MessengerAPI;
+
   constructor() {
-    super('div', {});
+    super('div', []);
+  }
+
+  init() {
+    this.api = new MessengerAPI();
+    super.init();
   }
 
   componentDidMount() {
@@ -21,6 +29,15 @@ export class MessengerPage extends Block<{}> {
           document.location.href = 'profile';
         };
       };
+    });
+
+    this.api.getChatsList().then((response: any) => {
+      if (response.status < 400) {
+        const chatData = JSON.parse(response.responseText);
+        this.setProps(chatData);
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
     });
   } 
 
@@ -37,23 +54,21 @@ export class MessengerPage extends Block<{}> {
     const bottomBarComponent = new BottomBar();
     const bottomBar = bottomBarComponent.getContent().outerHTML;
 
-    function generateChatPreviews() {
+    function generateChatPreviews(chats: Chat[]) {
       const arr = [];
-      const activeIndex = Math.floor(Math.random()*10);
-      for (let i = 0; i < 10; i++) {
-        let active = '';
-        if (i === activeIndex) {
-          active = 'active';
-        } 
+      for (let i = 0; i < chats.length; i++) {        
         const chatPreviewComponent = new ChatPreview({
-          chatPreviewType: active
+          id: chats[i].id,
+          title: chats[i].title, 
+          avatar: chats[i].avatar,
+          chatPreviewType: ''
         });
         const chatPreview = chatPreviewComponent.getContent().outerHTML;
         arr.push(chatPreview);
       }
       return arr;
     }
-    const chatPreviews = generateChatPreviews();
+    const chatPreviews = generateChatPreviews(this.props);
 
     const pageContent = `
       <aside class='sidebar'>
