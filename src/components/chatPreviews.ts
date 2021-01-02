@@ -26,7 +26,7 @@ export class ChatPreview extends Block<ChatPreviewProps> {
     }
 
     const content = `
-      <div id="{{ id }}" class="wrap">
+      <div id="{{ id }}" class="wrap chat_preview_item">
         <img src="{{ avatar }}" alt="">
         <div class="meta">
           <p class="name">{{ title }}</p>

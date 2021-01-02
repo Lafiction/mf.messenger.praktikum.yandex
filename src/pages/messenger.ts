@@ -9,11 +9,20 @@ import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class MessengerPage extends Block<Chat[]> {
+interface MessengerPageProps {
+  chats: Chat[];
+  selectedChatId: number | undefined;
+}
+
+export class MessengerPage extends Block<MessengerPageProps> {
   private api: MessengerAPI;
 
   constructor() {
-    super('div', []);
+    const initialProps = {
+      chats: [],
+      selectedChatId: undefined,
+    };
+    super('div', initialProps);
   }
 
   init() {
@@ -52,12 +61,17 @@ export class MessengerPage extends Block<Chat[]> {
       if (event.target && event.target.classList.contains('bottombar__btn')) {
         this.onNewChatClick();
       };
+
+      if (event.target && event.target.closest('.chat_preview_item')) {
+        const chatItem = event.target.closest('.chat_preview_item');
+        this.setProps({ selectedChatId: parseInt(chatItem.id, 10) });
+      }
     });
 
     this.api.getChatsList().then((response: any) => {
       if (response.status < 400) {
-        const chatData = JSON.parse(response.responseText);
-        this.setProps(chatData);
+        const chatsData = JSON.parse(response.responseText);
+        this.setProps({ chats: chatsData });
       }
     }).catch((error: any) => {
       console.log('Неизвестная ошибка', error);
@@ -77,21 +91,26 @@ export class MessengerPage extends Block<Chat[]> {
     const bottomBarComponent = new BottomBar();
     const bottomBar = bottomBarComponent.getContent().outerHTML;
 
-    function generateChatPreviews(chats: Chat[]) {
+    function generateChatPreviews(chats: Chat[], selectedChatId: number | undefined) {
       const arr = [];
-      for (let i = 0; i < chats.length; i++) {        
+      for (let i = 0; i < chats.length; i++) {
+        let chatPreviewType = '';
+        if (chats[i].id === selectedChatId) {
+          chatPreviewType = 'active';
+        }
         const chatPreviewComponent = new ChatPreview({
           id: chats[i].id,
           title: chats[i].title, 
           avatar: chats[i].avatar,
-          chatPreviewType: ''
+          chatPreviewType
         });
         const chatPreview = chatPreviewComponent.getContent().outerHTML;
         arr.push(chatPreview);
       }
       return arr;
     }
-    const chatPreviews = generateChatPreviews(this.props);
+
+    const chatPreviews = generateChatPreviews(this.props.chats, this.props.selectedChatId);
 
     const pageContent = `
       <aside class='sidebar'>
@@ -107,8 +126,6 @@ export class MessengerPage extends Block<Chat[]> {
 
         <ul class='contacts'>
         
-          {{{ chatPreviewActive }}}
-
           {{#each chatPreviews}}
             {{{ this }}}
           {{/each}}
