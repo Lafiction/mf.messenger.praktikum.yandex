@@ -127,17 +127,9 @@ export class MessengerAPI {
     return this.fetch.get(url, {});
   }
 
-}
-
-  /*
-  uploadChatAvatar(chatId: string, avatar): Promise {  
-  }
-
-
-
-  addUsersToChat(users: Users[], chatId: string,): Promise<XMLHttpRequest> {
+  addUsersToChat(usersIds: number[], chatId: number): Promise<XMLHttpRequest> {
     const requestBody = {
-      users: [],
+      users: usersIds,
       chatId
     };
     const promise = this.fetch.put('https://ya-praktikum.tech/api/v2/chats/users', {
@@ -146,10 +138,10 @@ export class MessengerAPI {
     });
     return promise;
   }
-  
-  deleteUsersFromChat(users: Users[], chatId: string): Promise<XMLHttpRequest> { 
+
+  deleteUsersFromChat(usersIds: number[], chatId: number): Promise<XMLHttpRequest> { 
     const requestBody = {
-      users: [],
+      users: usersIds,
       chatId
     };
     const promise = this.fetch.delete('https://ya-praktikum.tech/api/v2/chats/users', {
@@ -158,5 +150,4 @@ export class MessengerAPI {
     });
     return promise;
   }
-
-  */
+}
