@@ -105,7 +105,7 @@ export class IndexPage extends Block<{}> {
             {{{ passwordField }}}
 
             <div class='input-requirements password-validation-msg'>
-              Длина пароля должна быть не меньше 8 символов. 
+              Длина пароля должна быть не меньше 4 символов. 
             </div>
             
             {{{ submitBtn }}}

@@ -35,7 +35,7 @@ export class RegistrationPage extends Block<{}> {
       if (response.status < 400) {
         const router = new Router('router is already created in app.ts');
         alert('Вы зарегистрированы');
-        router.go('/chat');
+        router.go('/messenger');
       } else {
         alert('Ошибка' + response.responseText);
         this.api.signOut();
@@ -132,8 +132,8 @@ export class RegistrationPage extends Block<{}> {
     
     if (this.element) {
       addValidationEventListeners(this.element, 'login', /^[a-zа-я0-9_]+$/i);
-      addValidationEventListeners(this.element, 'password', /^.{8,}$/i);
-      addValidationEventListeners(this.element, 'repeat_password', /^.{8,}$/i);
+      addValidationEventListeners(this.element, 'password', /^.{4,}$/i);
+      addValidationEventListeners(this.element, 'repeat_password', /^.{4,}$/i);
     }
 
     this.element.addEventListener('submit', (event) => {
@@ -174,13 +174,13 @@ export class RegistrationPage extends Block<{}> {
           {{{ passwordField }}}
 
           <div class='input-requirements password-validation-msg'>
-            Длина пароля должна быть не меньше 8 символов.
+            Длина пароля должна быть не меньше 4 символов.
           </div>
         
           {{{ repeatPasswordField }}}
 
           <div class='input-requirements repeat_password-validation-msg'>
-            Длина пароля должна быть не меньше 8 символов.
+            Длина пароля должна быть не меньше 4 символов.
           </div>
         
           {{{ submitBtn }}}

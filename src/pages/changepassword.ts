@@ -134,19 +134,19 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
           {{{ oldPassword }}}
 
           <div class='input-requirements old_password-validation-msg'>
-            Длина пароля должна быть не меньше 8 символов.
+            Длина пароля должна быть не меньше 4 символов.
           </div>
         
           {{{ newPassword }}}
 
           <div class='input-requirements new_password-validation-msg'>
-            Длина пароля должна быть не меньше 8 символов.
+            Длина пароля должна быть не меньше 4 символов.
           </div>
         
           {{{ repeatPassword }}}
 
           <div class='input-requirements repeat_password-validation-msg'>
-            Длина пароля должна быть не меньше 8 символов.
+            Длина пароля должна быть не меньше 4 символов.
           </div>
         
           {{{ submitBtn }}}
