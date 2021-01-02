@@ -367,6 +367,12 @@ input[type=submit] {
 .chat__name {
   float: left;
 }
+.chat_user_controls {
+  float: right;
+  margin-top: 15px;
+  margin-right: 15px;
+  cursor: pointer;
+}
 .messages {
   height: auto;
   min-height: calc(100% - 93px);
