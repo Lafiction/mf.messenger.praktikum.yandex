@@ -88,9 +88,9 @@ export class ProfilePage extends Block<User> {
   }
 
   private getAvatar(userData: User) {
-    let avatarUrl = 'https://randomuser.me/api/portraits/med/women/21.jpg';
+    let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
     if (userData.avatar) {
-      avatarUrl = 'https://ya-praktikum.tech/' + userData.avatar;
+      avatarUrl = 'https://ya-praktikum.tech/' + userData.avatar + '?rand=' + Math.round(Math.random() * 100500);
     }
     const avatarTemplate = `
       <div class="avatar">
