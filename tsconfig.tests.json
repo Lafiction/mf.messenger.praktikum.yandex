@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "outDir": "out",
+    "target": "es2016",
+    "declaration": false,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "types": ["handlebars", "mocha", "chai"],
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*.spec.ts"
+  ]
+}

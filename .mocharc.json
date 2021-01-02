@@ -1,0 +1,5 @@
+{
+  "extension": ["js"],
+  "spec": "out/**/*.spec.js",
+  "require": ["global-jsdom/register"]
+}
