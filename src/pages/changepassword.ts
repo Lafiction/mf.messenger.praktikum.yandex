@@ -8,7 +8,7 @@ import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
-export class ChangePasswordPage extends Block<{}> {
+export class ChangePasswordPage extends Block<{ avatar: string, fullName: string }> {
   private oldPasswordComponent: TextField;
   private repeatPasswordComponent: TextField;
   private newPasswordComponent: TextField;
@@ -16,7 +16,7 @@ export class ChangePasswordPage extends Block<{}> {
   private api: MessengerAPI;
 
   constructor() {
-    super('main', {});
+    super('main', { avatar: '', fullName: '' });
   }
 
   init() {
@@ -48,6 +48,18 @@ export class ChangePasswordPage extends Block<{}> {
   
   componentDidMount() {
     this.element.classList.add('changePasswordPage');
+
+    this.api.getCurrentUserInfo().then((response: any) => {
+      if (response.status < 400) {
+        const userData = JSON.parse(response.responseText);
+        this.setProps({
+          avatar: userData.avatar,
+          fullName: userData.first_name + ' ' + userData.second_name
+        });
+      }
+    }).catch((error: any) => {
+      console.log('Неизвестная ошибка', error);
+    });
     
     this.oldPasswordComponent = new TextField({ 
       fieldType: 'password',
@@ -100,22 +112,23 @@ export class ChangePasswordPage extends Block<{}> {
   }
   
   render() {
+    let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
+    if (this.props.avatar) {
+      avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
+    }
+
     const oldPassword = this.oldPasswordComponent.getContent().outerHTML;
     const newPassword = this.newPasswordComponent.getContent().outerHTML;
     const repeatPassword = this.repeatPasswordComponent.getContent().outerHTML;
     const submitBtn = this.submitBtnComponent.getContent().outerHTML;
 
-    const avatar = `
-      <div class="avatar">
-        <img class="avatar__img" src="https://randomuser.me/api/portraits/med/women/21.jpg">
-      </div>
-    `;
-
     const pageContent = `
       <form class="form" action="#"> 
-        {{{ avatar }}}
+        <div class="avatar">
+          <img class="avatar__img" src="{{ avatarUrl }}">
+        </div>
       
-        <legend>Иван</legend>
+        <legend>{{ fullName }}</legend>
         <fieldset>
           
           {{{ oldPassword }}}
@@ -145,7 +158,8 @@ export class ChangePasswordPage extends Block<{}> {
 
     const changePasswordPage = template(
       { 
-        avatar,  
+        avatarUrl, 
+        fullName: this.props.fullName, 
         oldPassword,
         newPassword,
         repeatPassword,

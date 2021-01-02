@@ -145,7 +145,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
   }
 
   render() {
-    let avatarUrl = 'https://randomuser.me/api/portraits/med/women/21.jpg';
+    let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
     if (this.props.avatar) {
       avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
     }
