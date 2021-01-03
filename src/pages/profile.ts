@@ -31,7 +31,7 @@ export class ProfilePage extends Block<User> {
       const router = new Router('router is already created in app.ts');
       router.go('/');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      console.log('Ошибка', error);
     });
   }
 
@@ -72,7 +72,7 @@ export class ProfilePage extends Block<User> {
     this.api.getCurrentUserInfo().then((userData: User) => {
       this.setProps(userData);
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      console.log('Ошибка', error);
     });
   }
 

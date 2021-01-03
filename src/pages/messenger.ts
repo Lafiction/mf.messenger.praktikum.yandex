@@ -64,9 +64,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
 
-    this.api.addUsersToChat([ userId ], this.props.selectedChatId).then(() => {
-      console.log('Юзер добавлен');
-    }).catch((error: any) => {
+    this.api.addUsersToChat([ userId ], this.props.selectedChatId).catch((error: any) => {
       alert('Ошибка' + error);
     });
   }
@@ -87,9 +85,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
 
-    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).then(() => {
-      console.log('Юзер удален');
-    }).catch((error: any) => {
+    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).catch((error: any) => {
       alert('Ошибка' + error);
     });
   }

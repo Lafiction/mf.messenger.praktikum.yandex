@@ -52,7 +52,7 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
         fullName: userData.first_name + ' ' + userData.second_name
       });
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      console.log('Ошибка', error);
     });
     
     this.oldPasswordComponent = new TextField({ 
