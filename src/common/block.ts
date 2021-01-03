@@ -8,7 +8,7 @@ export class Block<Props> {
     FLOW_RENDER: 'flow:render'
   };
 
-  private _element: HTMLElement;
+  private _element!: HTMLElement;
   private _meta: {
     tagName: string;
     props: Props;

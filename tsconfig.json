@@ -12,6 +12,7 @@
     "alwaysStrict": true,
     "strictNullChecks": true,
     "sourceMap": true,
+    "strict": true
   },
   "include": [
     "src/**/*"

@@ -10,10 +10,10 @@ import { Router } from '../common/router.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class IndexPage extends Block<{}> {
-  private loginFieldComponent: TextField;
-  private passwordFieldComponent: TextField;
-  private submitBtnComponent: SubmitBtn;
-  private api: MessengerAPI;
+  private loginFieldComponent!: TextField;
+  private passwordFieldComponent!: TextField;
+  private submitBtnComponent!: SubmitBtn;
+  private api!: MessengerAPI;
 
   constructor() {
     super('main', {});
