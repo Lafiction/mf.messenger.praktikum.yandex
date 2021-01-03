@@ -15,6 +15,8 @@ function queryStringify(data: Record<string, any>) {
   }, '?');
 }
 
+const JSON_CONTENT_TYPE_HEADER = { 'Content-Type': 'application/json' };
+
 export class HTTPTransport {
   get(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
@@ -33,7 +35,18 @@ export class HTTPTransport {
   };
 
   request(url: string, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
-    const { method, data = {}, headers } = options;
+    const { method, data = {}, contentTypeIsJson = true } = options;
+    let { headers } = options;
+
+    if (contentTypeIsJson) {
+      if (!headers) {
+        headers = {};
+      }
+      headers = {
+        ...JSON_CONTENT_TYPE_HEADER,
+        ...headers,
+      };
+    }
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();

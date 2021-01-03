@@ -36,10 +36,6 @@ export interface Chat {
   created_by: number;
 }
 
-const APPLICATION_JSON_HEADERS = {
-  headers: { 'Content-Type': 'application/json' }
-};
-
 const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
 
 export class MessengerAPI {
@@ -58,7 +54,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.post(BASE_URL + 'auth/signin', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -92,7 +87,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.post(BASE_URL + 'auth/signup', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -110,7 +104,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.put(BASE_URL + 'user/profile', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -132,7 +125,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.put(BASE_URL + 'user/password', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -149,6 +141,7 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.put(BASE_URL + 'user/profile/avatar', {
         data: formData,
+        contentTypeIsJson: false
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -202,7 +195,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.post(BASE_URL + 'chats', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -221,7 +213,6 @@ export class MessengerAPI {
     };
     const promise = this.fetch.delete(BASE_URL + 'chats', {
       data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
     });
     return promise;
   }
@@ -239,7 +230,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.put(BASE_URL + 'chats/users', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -260,7 +250,6 @@ export class MessengerAPI {
     return new Promise((resolve, reject) => {
       this.fetch.delete(BASE_URL + 'chats/users', {
         data: JSON.stringify(requestBody),
-        ...APPLICATION_JSON_HEADERS
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
