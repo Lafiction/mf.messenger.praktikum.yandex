@@ -1,6 +1,7 @@
 export function getFormData(form: HTMLFormElement) {
   let elements = form.elements;
   let obj: any = {};
+  // здесь i не может быть const, потому что i++ не сработает для константы.
   for (let i = 0; i < elements.length; i++) {
     let item = elements.item(i) as (HTMLInputElement | null);
     if (item && item.name) {
@@ -13,7 +14,9 @@ export function getFormData(form: HTMLFormElement) {
 export function handleOnSubmitForm(page: HTMLElement) {
   page.addEventListener('submit', function(event: any) {
     event.preventDefault();
-    const form: any = page.querySelector('form');
-    console.log(getFormData(form));
+    const form = page.querySelector('form');
+    if (form) {
+      console.log(getFormData(form));
+    }
   });
 };
