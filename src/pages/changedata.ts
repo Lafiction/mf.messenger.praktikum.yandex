@@ -39,20 +39,24 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     });
   }
 
+  private setUserInfo(userData: User) {
+    this.nameFieldComponent.setProps({ value: userData.first_name });
+    this.lastNameFieldComponent.setProps({ value: userData.second_name });
+    this.displayNameFieldComponent.setProps({ value: userData.display_name });
+    this.loginFieldComponent.setProps({ value: userData.login });
+    this.emailFieldComponent.setProps({ value: userData.email });
+    this.phoneFieldComponent.setProps({ value: userData.phone });
+    this.setProps({
+      avatar: userData.avatar,
+      fullName: userData.first_name + ' ' + userData.second_name
+    });
+  }
+
   componentDidMount() {
     this.element.classList.add('changeDataPage');
 
     this.api.getCurrentUserInfo().then((userData: User) => {
-      this.nameFieldComponent.setProps({ value: userData.first_name });
-      this.lastNameFieldComponent.setProps({ value: userData.second_name });
-      this.displayNameFieldComponent.setProps({ value: userData.display_name });
-      this.loginFieldComponent.setProps({ value: userData.login });
-      this.emailFieldComponent.setProps({ value: userData.email });
-      this.phoneFieldComponent.setProps({ value: userData.phone });
-      this.setProps({
-        avatar: userData.avatar,
-        fullName: userData.first_name + ' ' + userData.second_name
-      });
+      this.setUserInfo(userData);
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
