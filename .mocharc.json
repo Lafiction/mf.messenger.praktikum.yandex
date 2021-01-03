@@ -1,5 +1,5 @@
 {
   "extension": ["js"],
   "spec": "out/**/*.spec.js",
-  "require": ["global-jsdom/register"]
+  "require": ["global-jsdom/register", "./test/handlebars-stub.js"]
 }
