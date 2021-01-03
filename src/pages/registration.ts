@@ -9,15 +9,15 @@ import { Router } from '../common/router.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class RegistrationPage extends Block<{}> {
-  private nameFieldComponent: TextField;
-  private lastNameFieldComponent: TextField;
-  private loginFieldComponent: TextField;
-  private emailFieldComponent: TextField;
-  private phoneFieldComponent: TextField;
-  private passwordComponent: TextField;
-  private repeatPasswordComponent: TextField;
-  private submitBtnComponent: SubmitBtn;
-  private api: MessengerAPI;
+  private nameFieldComponent!: TextField;
+  private lastNameFieldComponent!: TextField;
+  private loginFieldComponent!: TextField;
+  private emailFieldComponent!: TextField;
+  private phoneFieldComponent!: TextField;
+  private passwordComponent!: TextField;
+  private repeatPasswordComponent!: TextField;
+  private submitBtnComponent!: SubmitBtn;
+  private api!: MessengerAPI;
   
   constructor() {
     super('main', {});
@@ -31,17 +31,13 @@ export class RegistrationPage extends Block<{}> {
   private onSubmit() {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
-    this.api.registration(data.first_name, data.second_name, data.login, data.email, data.password, data.phone).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const router = new Router('router is already created in app.ts');
-        alert('Вы зарегистрированы');
-        router.go('/messenger');
-      } else {
-        alert('Ошибка' + response.responseText);
-        this.api.signOut();
-      }
+    this.api.registration(data).then(() => {
+      const router = new Router('router is already created in app.ts');
+      alert('Вы зарегистрированы');
+      router.go('/messenger');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
+      this.api.signOut().catch(() => {});
     });
   }
 

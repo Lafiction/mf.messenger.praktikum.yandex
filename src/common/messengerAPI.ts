@@ -11,6 +11,15 @@ export interface User {
   phone: string;
 }
 
+export interface RegisterUserRequest {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+}
+
 export interface ChangeProfileRequest {
   first_name: string;
   second_name: string;
@@ -68,20 +77,22 @@ export class MessengerAPI {
     });
   }
 
-  registration(first_name: string, second_name: string, login: string, email: string, password: string, phone: string): Promise<XMLHttpRequest> {
-    const requestBody = { 
-      first_name,
-      second_name,
-      login,
-      email,
-      password,
-      phone
-    };
-    const promise = this.fetch.post(BASE_URL + 'auth/signup', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+  registration(requestBody: RegisterUserRequest): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.fetch.post(BASE_URL + 'auth/signup', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      })
+      .catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   } 
 
   changeUserProfile(requestBody: ChangeProfileRequest): Promise<void> {
