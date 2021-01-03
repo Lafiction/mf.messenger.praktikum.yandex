@@ -43,8 +43,20 @@ export class MessengerAPI {
     return promise;
   }
 
-  signOut(): Promise<XMLHttpRequest> {
-    return this.fetch.post(BASE_URL + 'auth/logout', {});
+  signOut(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.fetch.post(BASE_URL + 'auth/logout', {})
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            resolve();
+          } else {
+            reject(response.responseText);
+          }
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
   }
 
   registration(first_name: string, second_name: string, login: string, email: string, password: string, phone: string): Promise<XMLHttpRequest> {

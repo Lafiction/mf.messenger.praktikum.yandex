@@ -27,13 +27,9 @@ export class ProfilePage extends Block<User> {
   }
 
   private onExitBtnClick() {
-    this.api.signOut().then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const router = new Router('router is already created in app.ts');
-        router.go('/');
-      } else {
-        alert('Ошибка' + response.responseText);
-      }
+    this.api.signOut().then(() => {
+      const router = new Router('router is already created in app.ts');
+      router.go('/');
     }).catch((error: any) => {
       console.log('Неизвестная ошибка', error);
     });
