@@ -178,19 +178,41 @@ export class MessengerAPI {
     });
   }
 
-  getChatsList(): Promise<XMLHttpRequest>  {
-    return this.fetch.get(BASE_URL + 'chats', {});
+  getChatsList(): Promise<Chat[]>  {
+    return new Promise((resolve, reject) => {
+      this.fetch.get(BASE_URL + 'chats', {})
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            const chatsData = JSON.parse(response.responseText);
+            resolve(chatsData);
+          } else {
+            reject(response.responseText);
+          }
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
   }
   
-  createChat(title: string): Promise<XMLHttpRequest> {  
+  createChat(title: string): Promise<void> {  
     const requestBody = { 
       title
     };
-    const promise = this.fetch.post(BASE_URL + 'chats', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+    return new Promise((resolve, reject) => {
+      this.fetch.post(BASE_URL + 'chats', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 
   deleteChat(chatId: string): Promise<XMLHttpRequest> {  
@@ -209,27 +231,45 @@ export class MessengerAPI {
     return this.fetch.get(url, {});
   }
 
-  addUsersToChat(usersIds: number[], chatId: number): Promise<XMLHttpRequest> {
+  addUsersToChat(usersIds: number[], chatId: number): Promise<void> {
     const requestBody = {
       users: usersIds,
       chatId
     };
-    const promise = this.fetch.put(BASE_URL + 'chats/users', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+    return new Promise((resolve, reject) => {
+      this.fetch.put(BASE_URL + 'chats/users', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 
-  deleteUsersFromChat(usersIds: number[], chatId: number): Promise<XMLHttpRequest> { 
+  deleteUsersFromChat(usersIds: number[], chatId: number): Promise<void> { 
     const requestBody = {
       users: usersIds,
       chatId
     };
-    const promise = this.fetch.delete(BASE_URL + 'chats/users', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+    return new Promise((resolve, reject) => {
+      this.fetch.delete(BASE_URL + 'chats/users', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 }

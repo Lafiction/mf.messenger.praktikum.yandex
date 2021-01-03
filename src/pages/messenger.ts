@@ -18,7 +18,7 @@ interface MessengerPageProps {
 }
 
 export class MessengerPage extends Block<MessengerPageProps> {
-  private api: MessengerAPI;
+  private api!: MessengerAPI;
 
   constructor() {
     const initialProps = {
@@ -40,16 +40,11 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
     
-    this.api.createChat(newChatTitle).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        console.log('Чат создан', response.responseText);
-        const router = new Router('router is already created in app.ts');
-        router.go('/messenger');
-      } else {
-        alert('Ошибка' + response.responseText);
-      }
+    this.api.createChat(newChatTitle).then(() => {
+      const router = new Router('router is already created in app.ts');
+      router.go('/messenger');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
     });
   }
 
@@ -69,14 +64,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
 
-    this.api.addUsersToChat([ userId ], this.props.selectedChatId).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        console.log('Юзер добавлен', response.responseText);
-      } else {
-        alert('Ошибка' + response.responseText);
-      }
+    this.api.addUsersToChat([ userId ], this.props.selectedChatId).then(() => {
+      console.log('Юзер добавлен');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
     });
   }
 
@@ -96,14 +87,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
 
-    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        console.log('Юзер удален', response.responseText);
-      } else {
-        alert('Ошибка' + response.responseText);
-      }
+    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).then(() => {
+      console.log('Юзер удален');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
     });
   }
 
@@ -133,13 +120,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
       };
     });
 
-    this.api.getChatsList().then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const chatsData = JSON.parse(response.responseText);
-        this.setProps({ chats: chatsData });
-      }
+    this.api.getChatsList().then((chatsData: Chat[]) => {
+      this.setProps({ chats: chatsData });
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      console.log('Ошибка', error);
     });
   } 
 
