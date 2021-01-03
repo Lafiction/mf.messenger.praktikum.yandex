@@ -3,7 +3,7 @@ import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
 import { SubmitBtn } from '../components/submitBtn.js';
-import { MessengerAPI } from '../common/messengerAPI.js';
+import { MessengerAPI, User } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
 const Handlebars = (window as any)['Handlebars'];
@@ -46,14 +46,11 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
   componentDidMount() {
     this.element.classList.add('changePasswordPage');
 
-    this.api.getCurrentUserInfo().then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const userData = JSON.parse(response.responseText);
-        this.setProps({
-          avatar: userData.avatar,
-          fullName: userData.first_name + ' ' + userData.second_name
-        });
-      }
+    this.api.getCurrentUserInfo().then((userData: User) => {
+      this.setProps({
+        avatar: userData.avatar,
+        fullName: userData.first_name + ' ' + userData.second_name
+      });
     }).catch((error: any) => {
       console.log('Неизвестная ошибка', error);
     });

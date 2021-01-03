@@ -77,11 +77,8 @@ export class ProfilePage extends Block<User> {
       }
     });
 
-    this.api.getCurrentUserInfo().then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const userData = JSON.parse(response.responseText);
-        this.setProps(userData);
-      }
+    this.api.getCurrentUserInfo().then((userData: User) => {
+      this.setProps(userData);
     }).catch((error: any) => {
       console.log('Неизвестная ошибка', error);
     });

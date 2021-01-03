@@ -108,8 +108,21 @@ export class MessengerAPI {
     return promise;
   }
 
-  getCurrentUserInfo(): Promise<XMLHttpRequest> {
-    return this.fetch.get(BASE_URL + 'auth/user', {});
+  getCurrentUserInfo(): Promise<User> {
+    return new Promise((resolve, reject) => {
+      this.fetch.get(BASE_URL + 'auth/user', {})
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            const userData = JSON.parse(response.responseText);
+            resolve(userData);
+          } else {
+            reject(response.responseText);
+          }
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
   }
 
   getChatsList(): Promise<XMLHttpRequest>  {
