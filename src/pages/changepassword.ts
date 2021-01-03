@@ -111,10 +111,10 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
       avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
     }
 
-    const oldPassword = this.oldPasswordComponent.getContent().outerHTML;
-    const newPassword = this.newPasswordComponent.getContent().outerHTML;
-    const repeatPassword = this.repeatPasswordComponent.getContent().outerHTML;
-    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
+    const oldPasswordFieldHTML = this.oldPasswordComponent.getContent().outerHTML;
+    const newPasswordFieldHTML = this.newPasswordComponent.getContent().outerHTML;
+    const repeatPasswordFieldHTML = this.repeatPasswordComponent.getContent().outerHTML;
+    const submitBtnHTML = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
       <form class="form" action="#"> 
@@ -125,25 +125,25 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
         <legend>{{ fullName }}</legend>
         <fieldset>
           
-          {{{ oldPassword }}}
+          {{{ oldPasswordFieldHTML }}}
 
           <div class='input-requirements old_password-validation-msg'>
             Длина пароля должна быть не меньше 4 символов.
           </div>
         
-          {{{ newPassword }}}
+          {{{ newPasswordFieldHTML }}}
 
           <div class='input-requirements new_password-validation-msg'>
             Длина пароля должна быть не меньше 4 символов.
           </div>
         
-          {{{ repeatPassword }}}
+          {{{ repeatPasswordFieldHTML }}}
 
           <div class='input-requirements repeat_password-validation-msg'>
             Длина пароля должна быть не меньше 4 символов.
           </div>
         
-          {{{ submitBtn }}}
+          {{{ submitBtnHTML }}}
         
         </fieldset>
       </form>`; 
@@ -154,10 +154,10 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
       { 
         avatarUrl, 
         fullName: this.props.fullName, 
-        oldPassword,
-        newPassword,
-        repeatPassword,
-        submitBtn
+        oldPasswordFieldHTML,
+        newPasswordFieldHTML,
+        repeatPasswordFieldHTML,
+        submitBtnHTML
       });
 
     return changePasswordPage;

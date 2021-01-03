@@ -142,13 +142,13 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
       avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
     }
 
-    const nameField = this.nameFieldComponent.getContent().outerHTML;
-    const lastNameField = this.lastNameFieldComponent.getContent().outerHTML;
-    const displayNameField = this.displayNameFieldComponent.getContent().outerHTML;
-    const loginField = this.loginFieldComponent.getContent().outerHTML;
-    const emailField = this.emailFieldComponent.getContent().outerHTML;
-    const phoneField = this.phoneFieldComponent.getContent().outerHTML;
-    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
+    const nameFieldHTML = this.nameFieldComponent.getContent().outerHTML;
+    const lastNameFieldHTML = this.lastNameFieldComponent.getContent().outerHTML;
+    const displayNameFieldHTML = this.displayNameFieldComponent.getContent().outerHTML;
+    const loginFieldHTML = this.loginFieldComponent.getContent().outerHTML;
+    const emailFieldHTML = this.emailFieldComponent.getContent().outerHTML;
+    const phoneFieldHTML = this.phoneFieldComponent.getContent().outerHTML;
+    const submitBtnHTML = this.submitBtnComponent.getContent().outerHTML;
 
     const pageContent = `
       <form class="form" action="#">  
@@ -159,23 +159,23 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
         <legend>{{ fullName }}</legend>
         <fieldset>
           
-          {{{ nameField }}}
+          {{{ nameFieldHTML }}}
         
-          {{{ lastNameField }}}
+          {{{ lastNameFieldHTML }}}
 
-          {{{ displayNameField }}}
+          {{{ displayNameFieldHTML }}}
         
-          {{{ loginField }}}
+          {{{ loginFieldHTML }}}
 
           <div class='input-requirements login-validation-msg'>
             Логин должен состоять только из букв, цифр и знаков '_'.
           </div>
         
-          {{{ emailField }}}
+          {{{ emailFieldHTML }}}
         
-          {{{ phoneField }}}
+          {{{ phoneFieldHTML }}}
         
-          {{{ submitBtn }}}
+          {{{ submitBtnHTML }}}
           
         </fieldset>
        </form>`;
@@ -186,13 +186,13 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
       { 
         avatarUrl,
         fullName: this.props.fullName,
-        nameField,
-        lastNameField,
-        displayNameField,
-        loginField,
-        emailField,
-        phoneField,
-        submitBtn
+        nameFieldHTML,
+        lastNameFieldHTML,
+        displayNameFieldHTML,
+        loginFieldHTML,
+        emailFieldHTML,
+        phoneFieldHTML,
+        submitBtnHTML
       }
     );
 
