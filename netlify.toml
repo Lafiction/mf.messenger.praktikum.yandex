@@ -7,4 +7,4 @@
 
 [build]
   publish = "static"
-  command = "npm run build"
+  command = "npm run build && npm run compile-styles"
