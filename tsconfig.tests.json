@@ -12,6 +12,7 @@
     "alwaysStrict": true,
     "strictNullChecks": true,
     "sourceMap": true,
+    "esModuleInterop": true,
     "types": ["handlebars", "mocha", "chai"],
   },
   "include": [
