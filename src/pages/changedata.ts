@@ -9,14 +9,14 @@ import { Router } from '../common/router.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> {
-  private nameFieldComponent: TextField;
-  private lastNameFieldComponent: TextField;
-  private displayNameFieldComponent: TextField;
-  private loginFieldComponent: TextField;
-  private emailFieldComponent: TextField;
-  private phoneFieldComponent: TextField;
-  private submitBtnComponent: SubmitBtn;
-  private api: MessengerAPI;
+  private nameFieldComponent!: TextField;
+  private lastNameFieldComponent!: TextField;
+  private displayNameFieldComponent!: TextField;
+  private loginFieldComponent!: TextField;
+  private emailFieldComponent!: TextField;
+  private phoneFieldComponent!: TextField;
+  private submitBtnComponent!: SubmitBtn;
+  private api!: MessengerAPI;
 
   constructor() {
     super('main', { avatar: '', fullName: '' });
@@ -30,17 +30,12 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
   private onSubmit() {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
-    this.api.changeUserProfile(data.first_name, data. second_name, data.display_name, data.login, data.email, data.phone).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const router = new Router('router is already created in app.ts');
-        alert('Данные изменены');
-        router.go('/profile');
-      } else {
-        alert('Ошибка' + response.responseText);
-        this.api.signOut();
-      }
+    this.api.changeUserProfile(data).then(() => {
+      const router = new Router('router is already created in app.ts');
+      alert('Данные изменены');
+      router.go('/profile');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      console.log('Ошибка', error);
     });
   }
 
