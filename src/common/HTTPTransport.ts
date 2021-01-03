@@ -16,23 +16,23 @@ function queryStringify(data: Record<string, any>) {
 }
 
 export class HTTPTransport {
-  get(url: any, options: Record<string, any> = {}) {
+  get(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   };
 
-  post(url: any, options: Record<string, any> = {}) {
+  post(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   };
 
-  put(url: any, options: Record<string, any> = {}) {
+  put(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   };
 
-  delete(url: any, options: Record<string, any> = {}) {
+  delete(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   };
 
-  request(url: any, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
+  request(url: string, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
     const { method, data = {}, headers } = options;
 
     return new Promise((resolve, reject) => {
