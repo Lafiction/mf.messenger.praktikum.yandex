@@ -8,3 +8,8 @@
 [build]
   publish = "static"
   command = "npm run build && npm run compile-styles"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
