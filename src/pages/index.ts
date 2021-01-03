@@ -27,16 +27,12 @@ export class IndexPage extends Block<{}> {
   private onSubmit() {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
-    this.api.signIn(data.login, data.password).then((response: any) => {
-      if (response.status >= 200 && response.status <= 299) {
-        const router = new Router('router is already created in app.ts');
-        router.go('/messenger');
-      } else {
-        alert('Ошибка' + response.responseText);
-        this.api.signOut();
-      }
+    this.api.signIn(data.login, data.password).then(() => {
+      const router = new Router('router is already created in app.ts');
+      router.go('/messenger');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
+      this.api.signOut().catch(() => {});
     });
   }
 

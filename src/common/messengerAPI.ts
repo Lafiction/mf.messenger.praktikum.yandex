@@ -49,16 +49,27 @@ export class MessengerAPI {
     this.fetch = new HTTPTransport();
   }
 
-  signIn(login: string, password: string): Promise<XMLHttpRequest> {
+  signIn(login: string, password: string): Promise<void> {
     const requestBody = { 
       login: login,
       password: password 
     };
-    const promise = this.fetch.post(BASE_URL + 'auth/signin', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+
+    return new Promise((resolve, reject) => {
+      this.fetch.post(BASE_URL + 'auth/signin', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      })
+      .catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 
   signOut(): Promise<void> {
