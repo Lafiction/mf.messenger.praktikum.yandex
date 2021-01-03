@@ -5,7 +5,7 @@ import { Router } from '../common/router.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class ProfilePage extends Block<User> {
-  private api: MessengerAPI;
+  private api!: MessengerAPI;
 
   constructor() {
     const initialUserData: User = {
@@ -44,16 +44,12 @@ export class ProfilePage extends Block<User> {
       const formData = new FormData();
       formData.append("avatar", image, "image.jpeg");
 
-      this.api.uploadUserAvatar(formData).then((response: any) => {
-        if (response.status >= 200 && response.status <= 299) {
-          alert('Аватар изменен');
-          const router = new Router('router is already created in app.ts');
-          router.go('/profile');
-        } else {
-          alert('Ошибка' + response.responseText);
-        }
+      this.api.uploadUserAvatar(formData).then(() => {
+        alert('Аватар изменен');
+        const router = new Router('router is already created in app.ts');
+        router.go('/profile');
       }).catch((error: any) => {
-        console.log('Неизвестная ошибка', error);
+        alert('Ошибка' + error);
       });
     }
 

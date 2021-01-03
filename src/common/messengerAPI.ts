@@ -145,11 +145,20 @@ export class MessengerAPI {
     });
   }
 
-  uploadUserAvatar(formData: FormData): Promise<XMLHttpRequest> { 
-    const promise = this.fetch.put(BASE_URL + 'user/profile/avatar', {
-      data: formData,
+  uploadUserAvatar(formData: FormData): Promise<void> { 
+    return new Promise((resolve, reject) => {
+      this.fetch.put(BASE_URL + 'user/profile/avatar', {
+        data: formData,
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 
   getCurrentUserInfo(): Promise<User> {
