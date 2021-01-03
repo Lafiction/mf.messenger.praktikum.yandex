@@ -1,3 +1,7 @@
 static/js/
+static/**/*.map
+static/*.css.map
+static/*.css
+
 out/
 node_modules/
