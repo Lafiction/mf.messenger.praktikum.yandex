@@ -28,7 +28,7 @@ export class ProfilePage extends Block<User> {
 
   private onExitBtnClick() {
     this.api.signOut().then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const router = new Router('router is already created in app.ts');
         router.go('/');
       } else {
@@ -49,7 +49,7 @@ export class ProfilePage extends Block<User> {
       formData.append("avatar", image, "image.jpeg");
 
       this.api.uploadUserAvatar(formData).then((response: any) => {
-        if (response.status < 400) {
+        if (response.status >= 200 && response.status <= 299) {
           alert('Аватар изменен');
           const router = new Router('router is already created in app.ts');
           router.go('/profile');
@@ -78,7 +78,7 @@ export class ProfilePage extends Block<User> {
     });
 
     this.api.getCurrentUserInfo().then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const userData = JSON.parse(response.responseText);
         this.setProps(userData);
       }

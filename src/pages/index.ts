@@ -28,7 +28,7 @@ export class IndexPage extends Block<{}> {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
     this.api.signIn(data.login, data.password).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const router = new Router('router is already created in app.ts');
         router.go('/messenger');
       } else {

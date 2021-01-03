@@ -31,7 +31,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
     this.api.changeUserProfile(data.first_name, data. second_name, data.display_name, data.login, data.email, data.phone).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const router = new Router('router is already created in app.ts');
         alert('Данные изменены');
         router.go('/profile');
@@ -48,7 +48,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     this.element.classList.add('changeDataPage');
 
     this.api.getCurrentUserInfo().then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const userData = JSON.parse(response.responseText);
         this.nameFieldComponent.setProps({ value: userData.first_name });
         this.lastNameFieldComponent.setProps({ value: userData.second_name });

@@ -79,16 +79,26 @@ export class MessengerAPI {
     return promise;
   }
 
-  changePassword(oldPassword: string, newPassword: string): Promise<XMLHttpRequest> {  
+  changePassword(oldPassword: string, newPassword: string): Promise<void> {  
     const requestBody = { 
       oldPassword,
       newPassword
     };
-    const promise = this.fetch.put(BASE_URL + 'user/password', {
-      data: JSON.stringify(requestBody),
-      ...APPLICATION_JSON_HEADERS
+
+    return new Promise((resolve, reject) => {
+      this.fetch.put(BASE_URL + 'user/password', {
+        data: JSON.stringify(requestBody),
+        ...APPLICATION_JSON_HEADERS
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          resolve();
+        } else {
+          reject(response.responseText);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
-    return promise;
   }
 
   uploadUserAvatar(formData: FormData): Promise<XMLHttpRequest> { 

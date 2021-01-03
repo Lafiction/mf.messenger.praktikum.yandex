@@ -41,7 +41,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     }
     
     this.api.createChat(newChatTitle).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         console.log('Чат создан', response.responseText);
         const router = new Router('router is already created in app.ts');
         router.go('/messenger');
@@ -70,7 +70,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     }
 
     this.api.addUsersToChat([ userId ], this.props.selectedChatId).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         console.log('Юзер добавлен', response.responseText);
       } else {
         alert('Ошибка' + response.responseText);
@@ -97,7 +97,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     }
 
     this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         console.log('Юзер удален', response.responseText);
       } else {
         alert('Ошибка' + response.responseText);
@@ -134,7 +134,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     });
 
     this.api.getChatsList().then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const chatsData = JSON.parse(response.responseText);
         this.setProps({ chats: chatsData });
       }

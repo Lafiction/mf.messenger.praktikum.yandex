@@ -32,7 +32,7 @@ export class RegistrationPage extends Block<{}> {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
     this.api.registration(data.first_name, data.second_name, data.login, data.email, data.password, data.phone).then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const router = new Router('router is already created in app.ts');
         alert('Вы зарегистрированы');
         router.go('/messenger');

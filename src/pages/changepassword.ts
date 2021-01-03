@@ -9,11 +9,11 @@ import { Router } from '../common/router.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class ChangePasswordPage extends Block<{ avatar: string, fullName: string }> {
-  private oldPasswordComponent: TextField;
-  private repeatPasswordComponent: TextField;
-  private newPasswordComponent: TextField;
-  private submitBtnComponent: SubmitBtn;
-  private api: MessengerAPI;
+  private oldPasswordComponent!: TextField;
+  private repeatPasswordComponent!: TextField;
+  private newPasswordComponent!: TextField;
+  private submitBtnComponent!: SubmitBtn;
+  private api!: MessengerAPI;
 
   constructor() {
     super('main', { avatar: '', fullName: '' });
@@ -27,22 +27,19 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
   private onSubmit() {
     const form: any = this.element.querySelector('form');
     const data = getFormData(form);
-    this.api.changePassword(data.oldPassword, data.newPassword).then((response: any) => {
-      if (response.status < 400) {
-        const router = new Router('router is already created in app.ts');
-        if (data.newPassword !== data.repeatPassword) {
-          alert('Старый и новый пароли не совпадают');
-        } else {
-          alert('Пароль изменен');
-          this.api.signOut();
-          router.go('/');
-        }
-      } else {
-        alert('Ошибка' + response.responseText);
-        this.api.signOut();
-      }
+    if (data.newPassword !== data.repeatPassword) {
+      alert('Старый и новый пароли не совпадают');
+      return;
+    }
+
+    this.api.changePassword(data.oldPassword, data.newPassword).then(() => {
+      const router = new Router('router is already created in app.ts');
+      alert('Пароль изменен');
+      this.api.signOut();
+      router.go('/');
     }).catch((error: any) => {
-      console.log('Неизвестная ошибка', error);
+      alert('Ошибка' + error);
+      this.api.signOut();
     });
   }
   
@@ -50,7 +47,7 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
     this.element.classList.add('changePasswordPage');
 
     this.api.getCurrentUserInfo().then((response: any) => {
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status <= 299) {
         const userData = JSON.parse(response.responseText);
         this.setProps({
           avatar: userData.avatar,
