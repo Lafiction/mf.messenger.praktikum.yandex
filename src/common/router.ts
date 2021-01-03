@@ -4,10 +4,10 @@ import { Route } from './route.js';
 export class Router {
   private static __instance: Router;
 
-  private routes: Route[];
-  private history: History;
-  private _currentRoute: null | Route;
-  private _rootQuery: string;
+  private routes!: Route[];
+  private history!: History;
+  private _currentRoute: null | Route = null;
+  private _rootQuery!: string;
 
   constructor(rootQuery: string) {
     if (Router.__instance) {
@@ -36,10 +36,14 @@ export class Router {
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
 
     if (!route) {
-      return;
+      const page404 = this.getRoute('/page404');
+      if (!page404) {
+        return;
+      }
+      route = page404;
     }
 
     if (this._currentRoute) {
