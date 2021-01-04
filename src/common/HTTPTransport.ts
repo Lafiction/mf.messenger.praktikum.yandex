@@ -35,7 +35,7 @@ export class HTTPTransport {
   };
 
   request(url: string, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
-    const { method, data = {}, contentTypeIsJson = true } = options;
+    const { method, data = '', contentTypeIsJson = true } = options;
     let { headers } = options;
 
     if (contentTypeIsJson) {

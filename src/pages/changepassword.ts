@@ -35,11 +35,13 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
     this.api.changePassword(data.oldPassword, data.newPassword).then(() => {
       const router = new Router('router is already created in app.ts');
       alert('Пароль изменен');
-      this.api.signOut();
-      router.go('/');
+      this.api.signOut().then(() => {
+        router.go('/');
+      }).catch((error: any) => {
+        console.log('Ошибка', error);
+      });
     }).catch((error: any) => {
       alert('Ошибка' + error);
-      this.api.signOut();
     });
   }
   
