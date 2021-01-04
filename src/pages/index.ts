@@ -81,9 +81,9 @@ export class IndexPage extends Block<{}> {
   }
 
   render() {
-    const loginField = this.loginFieldComponent.getContent().outerHTML;
-    const passwordField = this.passwordFieldComponent.getContent().outerHTML;
-    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
+    const loginField = this.loginFieldComponent.getOuterHTML();
+    const passwordField = this.passwordFieldComponent.getOuterHTML();
+    const submitBtn = this.submitBtnComponent.getOuterHTML();
 
     const pageContent = `
      

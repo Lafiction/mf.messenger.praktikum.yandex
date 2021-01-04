@@ -139,14 +139,14 @@ export class RegistrationPage extends Block<{}> {
   }
 
   render() {
-    const nameField = this.nameFieldComponent.getContent().outerHTML;
-    const lastNameField = this.lastNameFieldComponent.getContent().outerHTML;
-    const loginField = this.loginFieldComponent.getContent().outerHTML;
-    const emailField = this.emailFieldComponent.getContent().outerHTML;
-    const phoneField = this.phoneFieldComponent.getContent().outerHTML;
-    const passwordField = this.passwordComponent.getContent().outerHTML;
-    const repeatPasswordField = this.repeatPasswordComponent.getContent().outerHTML;
-    const submitBtn = this.submitBtnComponent.getContent().outerHTML;
+    const nameField = this.nameFieldComponent.getOuterHTML();
+    const lastNameField = this.lastNameFieldComponent.getOuterHTML();
+    const loginField = this.loginFieldComponent.getOuterHTML();
+    const emailField = this.emailFieldComponent.getOuterHTML();
+    const phoneField = this.phoneFieldComponent.getOuterHTML();
+    const passwordField = this.passwordComponent.getOuterHTML();
+    const repeatPasswordField = this.repeatPasswordComponent.getOuterHTML();
+    const submitBtn = this.submitBtnComponent.getOuterHTML();
 
     const pageContent = `
       <form class="form" action="#">

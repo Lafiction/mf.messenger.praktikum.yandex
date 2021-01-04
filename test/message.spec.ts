@@ -8,7 +8,7 @@ describe('Message component', () => {
         messageType: '',
         messageText: ''
       });
-      const html = message.getContent().outerHTML;
+      const html = message.getOuterHTML();
       expect(html).to.equal(`<li class="messages__item">
       <img class="messages__img" src="http://placekitten.com/50/50" alt="">
       <p class="messages__text"></p></li>`);
@@ -21,7 +21,7 @@ describe('Message component', () => {
         messageType: 'type',
         messageText: 'text'
       });
-      const html = message.getContent().outerHTML;
+      const html = message.getOuterHTML();
       expect(html).to.equal(`<li class="messages__item type">
       <img class="messages__img" src="http://placekitten.com/50/50" alt="">
       <p class="messages__text">text</p></li>`);

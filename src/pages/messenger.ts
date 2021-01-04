@@ -125,19 +125,19 @@ export class MessengerPage extends Block<MessengerPageProps> {
 
   render() {
     const searchComponent = new Search();
-    const search = searchComponent.getContent().outerHTML;
+    const search = searchComponent.getOuterHTML();
 
     const profileBtnComponent = new ProfileBtn();
-    const profileBtn = profileBtnComponent.getContent().outerHTML;
+    const profileBtn = profileBtnComponent.getOuterHTML();
 
     const avatarComponent = new Avatar();
-    const avatar = avatarComponent.getContent().outerHTML;
+    const avatar = avatarComponent.getOuterHTML();
 
     const bottomBarComponent = new BottomBar();
-    const bottomBar = bottomBarComponent.getContent().outerHTML;
+    const bottomBar = bottomBarComponent.getOuterHTML();
 
     const messageAreaComponent = new MessageArea();
-    const messageArea = messageAreaComponent.getContent().outerHTML;
+    const messageArea = messageAreaComponent.getOuterHTML();
 
     let chatProfile;
     let messages;
@@ -150,7 +150,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
           chatAvatar: selectedChat.avatar,
           chatTitle: selectedChat.title
         });
-        chatProfile = chatProfileComponent.getContent().outerHTML;
+        chatProfile = chatProfileComponent.getOuterHTML();
       }
 
       messages = this.generateMessages();
@@ -169,7 +169,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
           avatar: chats[i].avatar,
           chatPreviewType
         });
-        const chatPreview = chatPreviewComponent.getContent().outerHTML;
+        const chatPreview = chatPreviewComponent.getOuterHTML();
         arr.push(chatPreview);
       }
       return arr;
@@ -266,7 +266,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
         messageType: messageType,
         messageText: messageText
       });
-      const message = messageComponent.getContent().outerHTML;
+      const message = messageComponent.getOuterHTML();
       arr.push(message);
 
     }

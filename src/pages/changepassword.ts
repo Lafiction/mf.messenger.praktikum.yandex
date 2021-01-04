@@ -111,10 +111,10 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
       avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
     }
 
-    const oldPasswordFieldHTML = this.oldPasswordComponent.getContent().outerHTML;
-    const newPasswordFieldHTML = this.newPasswordComponent.getContent().outerHTML;
-    const repeatPasswordFieldHTML = this.repeatPasswordComponent.getContent().outerHTML;
-    const submitBtnHTML = this.submitBtnComponent.getContent().outerHTML;
+    const oldPasswordFieldHTML = this.oldPasswordComponent.getOuterHTML();
+    const newPasswordFieldHTML = this.newPasswordComponent.getOuterHTML();
+    const repeatPasswordFieldHTML = this.repeatPasswordComponent.getOuterHTML();
+    const submitBtnHTML = this.submitBtnComponent.getOuterHTML();
 
     const pageContent = `
       <form class="form" action="#"> 

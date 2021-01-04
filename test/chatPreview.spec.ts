@@ -5,7 +5,7 @@ describe('ChatPreview component', () => {
   describe('when called without actual values', () => {
     it('should generate correct html', () => {
       const chatPreview = new ChatPreview({ chatPreviewType: '' });
-      const html = chatPreview.getContent().outerHTML;
+      const html = chatPreview.getOuterHTML();
       expect(html).to.equal(`<li class="contacts__item">
       <div id="" class="wrap chat_preview_item">
         <img src="https://placekitten.com/50/50" alt="">
@@ -20,7 +20,7 @@ describe('ChatPreview component', () => {
   describe('when called with not empty chatPreviewType', () => {
     it('should generate correct html', () => {
       const chatPreview = new ChatPreview({ chatPreviewType: 'test' });
-      const html = chatPreview.getContent().outerHTML;
+      const html = chatPreview.getOuterHTML();
       expect(html).to.equal(`<li class="contacts__item test">
       <div id="" class="wrap chat_preview_item">
         <img src="https://placekitten.com/50/50" alt="">
@@ -39,7 +39,7 @@ describe('ChatPreview component', () => {
         title: 'test',
         chatPreviewType: ''
       });
-      const html = chatPreview.getContent().outerHTML;
+      const html = chatPreview.getOuterHTML();
       expect(html).to.equal(`<li class="contacts__item">
       <div id="123" class="wrap chat_preview_item">
         <img src="https://placekitten.com/50/50" alt="">
@@ -54,7 +54,7 @@ describe('ChatPreview component', () => {
   describe('when called with not empty avatar', () => {
     it('should generate correct html', () => {
       const chatPreview = new ChatPreview({ avatar: 'test', chatPreviewType: '' });
-      const html = chatPreview.getContent().outerHTML;
+      const html = chatPreview.getOuterHTML();
       expect(html).to.equal(`<li class="contacts__item">
       <div id="" class="wrap chat_preview_item">
         <img src="https://ya-praktikum.tech/test" alt="">

@@ -143,4 +143,8 @@ export class Block<Props> {
   hide() {
     this.getContent().style.display = 'none';
   }
+
+  public getOuterHTML() {
+    return this._element.outerHTML;
+  }
 }

@@ -146,13 +146,13 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
       avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
     }
 
-    const nameFieldHTML = this.nameFieldComponent.getContent().outerHTML;
-    const lastNameFieldHTML = this.lastNameFieldComponent.getContent().outerHTML;
-    const displayNameFieldHTML = this.displayNameFieldComponent.getContent().outerHTML;
-    const loginFieldHTML = this.loginFieldComponent.getContent().outerHTML;
-    const emailFieldHTML = this.emailFieldComponent.getContent().outerHTML;
-    const phoneFieldHTML = this.phoneFieldComponent.getContent().outerHTML;
-    const submitBtnHTML = this.submitBtnComponent.getContent().outerHTML;
+    const nameFieldHTML = this.nameFieldComponent.getOuterHTML();
+    const lastNameFieldHTML = this.lastNameFieldComponent.getOuterHTML();
+    const displayNameFieldHTML = this.displayNameFieldComponent.getOuterHTML();
+    const loginFieldHTML = this.loginFieldComponent.getOuterHTML();
+    const emailFieldHTML = this.emailFieldComponent.getOuterHTML();
+    const phoneFieldHTML = this.phoneFieldComponent.getOuterHTML();
+    const submitBtnHTML = this.submitBtnComponent.getOuterHTML();
 
     const pageContent = `
       <form class="form" action="#">  
