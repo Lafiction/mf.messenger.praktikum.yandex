@@ -1,7 +1,6 @@
 export function getFormData(form: HTMLFormElement) {
-  let elements = form.elements;
-  let obj: any = {};
-  // здесь i не может быть const, потому что i++ не сработает для константы.
+  const elements = form.elements;
+  const obj: any = {};
   for (let i = 0; i < elements.length; i++) {
     let item = elements.item(i) as (HTMLInputElement | null);
     if (item && item.name) {
