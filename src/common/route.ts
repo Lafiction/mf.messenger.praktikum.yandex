@@ -33,8 +33,21 @@ export class Route {
     }
   }
 
-  match(pathname: string) {
-    return pathname === this._pathname;
+  match(inputPath: string) {
+    if (this._pathname === '') {
+      return false; 
+    }
+
+    if (inputPath === this._pathname) {
+      return true;
+    }
+
+    try {
+      const pattern = new RegExp('^' + this._pathname + '$');
+      return !!inputPath.match(pattern);
+    } catch (err) {
+      return false; 
+    }
   }
 
   render() {
