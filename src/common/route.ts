@@ -16,7 +16,7 @@ export class Route {
   navigate(pathname: string) {
     if (this.match(pathname)) {
       this._pathname = pathname;
-      this.render();
+      this.render(pathname);
     }
   }
 
@@ -50,7 +50,8 @@ export class Route {
     }
   }
 
-  render() {
+  render(inputPath: string) {
+    console.log('path: ', inputPath);
     if (!this._page) {
       this._page = new this._pageClass();
 
