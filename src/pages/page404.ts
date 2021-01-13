@@ -21,7 +21,7 @@ export class Page404 extends Block<{}> {
     const pageContent = `
       <p class="mistake-page__header">404</p>
       <p>Такой страницы не существует</p> 
-      <a href="messenger" class="registration">Назад к чатам</a>`; 
+      <a href="/messenger" class="registration">Назад к чатам</a>`; 
 
     const template = Handlebars.compile(pageContent);
 

@@ -21,7 +21,7 @@ export class Page500 extends Block<{}> {
     const pageContent = `
       <p class="mistake-page__header">500</p>
       <p>Мы уже фиксим</p> 
-      <a href="messenger" class="registration">Назад к чатам</a>`; 
+      <a href="/messenger" class="registration">Назад к чатам</a>`; 
 
     const template = Handlebars.compile(pageContent);
 
