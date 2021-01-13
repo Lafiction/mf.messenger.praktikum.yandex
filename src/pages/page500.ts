@@ -3,9 +3,12 @@ import { Block } from '../common/block.js';
 const Handlebars = (window as any)['Handlebars'];
 
 export class Page500 extends Block<{}> {
+  private path: string = '';
 
-  constructor() {
+  constructor(path: string) {
     super('main', {});
+    this.path = path;
+    console.log(this.path);
   }
 
   componentDidMount() {

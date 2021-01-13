@@ -22,7 +22,7 @@ export class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, pageClass: new () => Block<{}>) {
+  use(pathname: string, pageClass: new (path: string) => Block<{}>) {
     const route = new Route(pathname, pageClass, { rootQuery: this._rootQuery });
     this.routes.push(route);
     return this;

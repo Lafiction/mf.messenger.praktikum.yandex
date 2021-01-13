@@ -6,7 +6,6 @@ import { SubmitBtn } from '../components/submitBtn.js';
 import { MessengerAPI } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
-
 const Handlebars = (window as any)['Handlebars'];
 
 export class IndexPage extends Block<{}> {
@@ -14,9 +13,12 @@ export class IndexPage extends Block<{}> {
   private passwordFieldComponent!: TextField;
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
+  private path: string = '';
 
-  constructor() {
+  constructor(path: string) {
     super('main', {});
+    this.path = path;
+    console.log(this.path);
   }
 
   init() {

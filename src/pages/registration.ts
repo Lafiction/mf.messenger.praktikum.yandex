@@ -18,9 +18,12 @@ export class RegistrationPage extends Block<{}> {
   private repeatPasswordComponent!: TextField;
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
+  private path: string = '';
   
-  constructor() {
+  constructor(path: string) {
     super('main', {});
+    this.path = path;
+    console.log(this.path);
   }
 
   init() {

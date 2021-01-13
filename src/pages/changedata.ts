@@ -17,9 +17,12 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
   private phoneFieldComponent!: TextField;
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
+  private path: string = '';
 
-  constructor() {
+  constructor(path: string) {
     super('main', { avatar: '', fullName: '' });
+    this.path = path;
+    console.log(this.path);
   }
 
   init() {

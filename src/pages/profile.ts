@@ -6,9 +6,10 @@ const Handlebars = (window as any)['Handlebars'];
 
 export class ProfilePage extends Block<User> {
   private api!: MessengerAPI;
+  private path: string = '';
 
-  constructor() {
-    const initialUserData: User = {
+  constructor(path: string) {
+    super('main', {
       id: 0,
       avatar: '',
       first_name: '',
@@ -17,8 +18,9 @@ export class ProfilePage extends Block<User> {
       login: '',
       email: '',
       phone: ''
-    };
-    super('main', initialUserData);
+    });
+    this.path = path;
+    console.log(this.path);
   }
 
   init() {
