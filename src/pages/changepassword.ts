@@ -15,7 +15,7 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
 
-  constructor(path: string) {
+  constructor() {
     super('main', { avatar: '', fullName: '' });
   }
 

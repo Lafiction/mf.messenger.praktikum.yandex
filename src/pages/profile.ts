@@ -7,7 +7,7 @@ const Handlebars = (window as any)['Handlebars'];
 export class ProfilePage extends Block<User> {
   private api!: MessengerAPI;
 
-  constructor(path: string) {
+  constructor() {
     super('main', {
       id: 0,
       avatar: '',

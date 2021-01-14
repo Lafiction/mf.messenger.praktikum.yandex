@@ -4,7 +4,7 @@ const Handlebars = (window as any)['Handlebars'];
 
 export class Page500 extends Block<{}> {
 
-  constructor(path: string) {
+  constructor() {
     super('main', {});
   }
 

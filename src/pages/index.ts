@@ -14,7 +14,7 @@ export class IndexPage extends Block<{}> {
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
 
-  constructor(path: string) {
+  constructor() {
     super('main', {});
   }
 
