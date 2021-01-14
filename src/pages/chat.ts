@@ -15,19 +15,18 @@ const Handlebars = (window as any)['Handlebars'];
 interface ChatPageProps {
   chats: Chat[];
   selectedChatId: number | undefined;
+  currentPath: string;
 }
 
 export class ChatPage extends Block<ChatPageProps> {
   private api!: MessengerAPI;
-  private path: string = '';
 
   constructor(path: string) {
     super('div', {
       chats: [],
       selectedChatId: undefined,
+      currentPath: path,
     });
-    this.path = path;
-    console.log(this.path);
   }
 
   init() {
@@ -93,6 +92,8 @@ export class ChatPage extends Block<ChatPageProps> {
   }
 
   componentDidMount() {
+    console.log('CDM ', this.props.currentPath);
+  
     this.element.classList.add('frame');
     this.element.classList.add('messengerPage');
     this.element.addEventListener('click', (event: any) => {
