@@ -12,13 +12,13 @@ import { ProfilePage } from './pages/profile.js';
 const router = new Router(".app");
 
 router
-  .use("/", IndexPage)
-  .use("/registration", RegistrationPage)
-  .use("/changedata", ChangeDataPage)
-  .use("/changepassword", ChangePasswordPage)
-  .use("/messenger", MessengerPage)
-  .use("/chat", ChatPage)
-  .use("/page404", Page404)
-  .use("/page500", Page500)
-  .use("/profile", ProfilePage)
+  .use('/', IndexPage)
+  .use('/registration', RegistrationPage)
+  .use('/changedata', ChangeDataPage)
+  .use('/changepassword', ChangePasswordPage)
+  .use('/messenger', MessengerPage)
+  .use('\/chat\/\\d+', ChatPage)
+  .use('/page404', Page404)
+  .use('/page500', Page500)
+  .use('/profile', ProfilePage)
   .start();
