@@ -13,12 +13,9 @@ export class IndexPage extends Block<{}> {
   private passwordFieldComponent!: TextField;
   private submitBtnComponent!: SubmitBtn;
   private api!: MessengerAPI;
-  private path: string = '';
 
   constructor(path: string) {
     super('main', {});
-    this.path = path;
-    console.log(this.path);
   }
 
   init() {

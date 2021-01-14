@@ -19,15 +19,12 @@ interface MessengerPageProps {
 
 export class MessengerPage extends Block<MessengerPageProps> {
   private api!: MessengerAPI;
-  private path: string = '';
 
   constructor(path: string) {
     super('div', {
       chats: [],
       selectedChatId: undefined,
     });
-    this.path = path;
-    console.log(this.path);
   }
 
   init() {
