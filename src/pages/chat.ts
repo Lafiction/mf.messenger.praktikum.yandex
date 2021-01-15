@@ -92,8 +92,6 @@ export class ChatPage extends Block<ChatPageProps> {
   }
 
   componentDidMount() {
-    console.log('CDM ', this.props.currentPath);
-  
     this.element.classList.add('frame');
     this.element.classList.add('messengerPage');
     this.element.addEventListener('click', (event: any) => {
@@ -120,7 +118,13 @@ export class ChatPage extends Block<ChatPageProps> {
     });
 
     this.api.getChatsList().then((chatsData: Chat[]) => {
-      this.setProps({ chats: chatsData });
+
+      const currentChatId = parseInt(this.props.currentPath.slice(6), 10);
+
+      this.setProps({
+        chats: chatsData,
+        selectedChatId: currentChatId
+      });
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
