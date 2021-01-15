@@ -231,38 +231,38 @@ input[type=submit] {
   color: var(--light);
 }
 
-.sidebar .contacts {
+.sidebar .chats {
   height: calc(100% - 177px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 @media screen and (max-width: 735px) {
-  .sidebar .contacts {
+  .sidebar .chats {
     height: calc(100% - 149px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
 
-  .sidebar .contacts::-webkit-scrollbar {
+  .sidebar .chats::-webkit-scrollbar {
     display: none;
   }
 }
 
-.sidebar .contacts.expanded {
+.sidebar .chats.expanded {
   height: calc(100% - 334px);
 }
 
-.sidebar .contacts::-webkit-scrollbar {
+.sidebar .chats::-webkit-scrollbar {
   width: 8px;
   background: rgba(0, 0, 0, 0.3);
 }
 
-.sidebar .contacts::-webkit-scrollbar-thumb {
+.sidebar .chats::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.contacts__item {
+.chats__item {
   position: relative;
   padding: 10px 0 15px 0;
   font-size: 0.9em;
@@ -270,29 +270,29 @@ input[type=submit] {
 }
 
 @media screen and (max-width: 735px) {
-  .contacts__item {
+  .chats__item {
     padding: 6px 0 46px 8px;
   }
 }
 
-.contacts__item:hover,
-.contacts__item.active {
+.chats__item:hover,
+.chats__item.active {
   background: var(--light);
 }
 
-.contacts__item .wrap {
+.chats__item .wrap {
   width: 88%;
   margin: 0 auto;
   position: relative;
 }
 
 @media screen and (max-width: 735px) {
-  .contacts__item .wrap {
+  .chats__item .wrap {
     width: 100%;
   }
 }
 
-.contacts__item .wrap span {
+.chats__item .wrap span {
   position: absolute;
   left: 0;
   margin: -2px 0 0 -2px;
@@ -303,7 +303,7 @@ input[type=submit] {
   background: var(--light);
 }
 
-.contacts__item .wrap img {
+.chats__item .wrap img {
   width: 40px;
   border-radius: 50%;
   float: left;
@@ -311,22 +311,22 @@ input[type=submit] {
 }
 
 @media screen and (max-width: 735px) {
-  .contacts__item .wrap img {
+  .chats__item .wrap img {
     margin-right: 0px;
   }
 }
 
-.contacts__item .wrap .meta {
+.chats__item .wrap .meta {
   padding: 5px 0 0 0;
 }
 
 @media screen and (max-width: 735px) {
-  .contacts__item .wrap .meta {
+  .chats__item .wrap .meta {
     display: none;
   }
 }
 
-.contacts__item .wrap .meta {
+.chats__item .wrap .meta {
   .name {
     font-weight: 600;
   }
@@ -357,7 +357,7 @@ input[type=submit] {
   bottom: 0;
 }
 
-.bottombar__btn {
+.add-new-chat__btn {
   border: none;
   width: 100%;
   padding: 10px 0;
@@ -367,7 +367,7 @@ input[type=submit] {
 }
 
 @media screen and (max-width: 735px) {
-  .bottombar__btn {
+  .add-new-chat__btn {
     float: none;
     width: 100%;
     padding: 15px 0;
@@ -375,23 +375,23 @@ input[type=submit] {
   }
 }
 
-.bottombar__btn:focus {
+.add-new-chat__btn:focus {
   outline: none;
 }
 
 @media screen and (max-width: 735px) {
-  .bottombar__btn:nth-child(1) {
+  .add-new-chat__btn:nth-child(1) {
     border-right: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
 }
 
-.bottombar__btn:hover {
+.add-new-chat__btn:hover {
   background: rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 735px) {
-  .bottombar__btn span {
+  .add-new-chat__btn span {
     display: none;
   }
 }

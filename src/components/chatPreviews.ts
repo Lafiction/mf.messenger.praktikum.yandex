@@ -15,7 +15,7 @@ export class ChatPreview extends Block<ChatPreviewProps> {
   }
 
   render() {
-    this.element.classList.add('contacts__item'); 
+    this.element.classList.add('chats__item'); 
     if (this.props.chatPreviewType.length > 0) {
       this.element.classList.add(this.props.chatPreviewType);
     }

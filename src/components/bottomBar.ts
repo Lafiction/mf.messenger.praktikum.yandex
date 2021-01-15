@@ -7,6 +7,6 @@ export class BottomBar extends Block<{}> {
 
   render() {
     this.element.classList.add('bottombar');
-    return `<button class="bottombar__btn">➕ <span>Add contact</span></button>`;
+    return `<button class="add-new-chat__btn">➕ <span>Add new chat</span></button>`;
   }
 }

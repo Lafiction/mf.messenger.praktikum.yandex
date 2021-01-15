@@ -41,9 +41,9 @@ export class ChatPage extends Block<ChatPageProps> {
       return;
     }
     
-    this.api.createChat(newChatTitle).then(() => {
+    this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
-      router.go('/messenger');
+      router.go('/chat/' + chatId);
     }).catch((error: any) => {
       alert('Ошибка' + error);
     });
@@ -101,13 +101,13 @@ export class ChatPage extends Block<ChatPageProps> {
         document.location.href = 'profile';
       };
 
-      if (event.target && event.target.classList.contains('bottombar__btn')) {
+      if (event.target && event.target.classList.contains('add-new-chat__btn')) {
         this.onNewChatClick();
       };
 
       if (event.target && event.target.closest('.chat_preview_item')) {
-        const chatItem = event.target.closest('.chat_preview_item');
-        this.setProps({ selectedChatId: parseInt(chatItem.id, 10) });
+        const chatId = event.target.closest('.chat_preview_item').id;
+        document.location.href = chatId;
       }
 
       if (event.target && event.target.classList.contains('add_chat_user')) {
@@ -192,7 +192,7 @@ export class ChatPage extends Block<ChatPageProps> {
 
         {{{ search }}}
 
-        <ul class='contacts'>
+        <ul class='chats'>
         
           {{#each chatPreviews}}
             {{{ this }}}

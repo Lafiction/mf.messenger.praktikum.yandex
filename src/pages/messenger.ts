@@ -4,9 +4,6 @@ import { Search } from '../components/search.js';
 import { ProfileBtn } from '../components/profileBtn.js';
 import { Avatar } from '../components/avatar.js';
 import { BottomBar } from '../components/bottomBar.js';
-import { Message } from '../components/messages.js';
-import { MessageArea } from '../components/messageArea.js';
-import { ChatProfile } from '../components/chatProfile.js';
 import { Router } from '../common/router.js';
 import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 
@@ -14,7 +11,6 @@ const Handlebars = (window as any)['Handlebars'];
 
 interface MessengerPageProps {
   chats: Chat[];
-  selectedChatId: number | undefined;
 }
 
 export class MessengerPage extends Block<MessengerPageProps> {
@@ -23,7 +19,6 @@ export class MessengerPage extends Block<MessengerPageProps> {
   constructor() {
     super('div', {
       chats: [],
-      selectedChatId: undefined,
     });
   }
 
@@ -39,52 +34,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return;
     }
     
-    this.api.createChat(newChatTitle).then(() => {
+    this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
-      router.go('/messenger');
+      router.go('/chat/' + chatId);
     }).catch((error: any) => {
-      alert('Ошибка' + error);
-    });
-  }
-
-  private onAddUserToChat() {
-    const newUserId = prompt('Введите ID юзера, которого нужно добавить');
-
-    if (!newUserId) {
-      return;
-    }
-
-    const userId = parseInt(newUserId, 10);
-    if (isNaN(userId)) {
-      return;
-    }
-
-    if (!this.props.selectedChatId) {
-      return;
-    }
-
-    this.api.addUsersToChat([ userId ], this.props.selectedChatId).catch((error: any) => {
-      alert('Ошибка' + error);
-    });
-  }
-
-  private onDeleteUserFromChat() {
-    const userIdToDelete = prompt('Введите ID юзера, которого хотите удалить');
-
-    if (!userIdToDelete) {
-      return;
-    }
-
-    const userId = parseInt(userIdToDelete, 10);
-    if (isNaN(userId)) {
-      return;
-    }
-
-    if (!this.props.selectedChatId) {
-      return;
-    }
-
-    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).catch((error: any) => {
       alert('Ошибка' + error);
     });
   }
@@ -97,22 +50,14 @@ export class MessengerPage extends Block<MessengerPageProps> {
         document.location.href = 'profile';
       };
 
-      if (event.target && event.target.classList.contains('bottombar__btn')) {
+      if (event.target && event.target.classList.contains('add-new-chat__btn')) {
         this.onNewChatClick();
       };
 
       if (event.target && event.target.closest('.chat_preview_item')) {
-        const chatItem = event.target.closest('.chat_preview_item');
-        this.setProps({ selectedChatId: parseInt(chatItem.id, 10) });
+        const chatId = event.target.closest('.chat_preview_item').id;
+        document.location.href = 'chat/' + chatId;
       }
-
-      if (event.target && event.target.classList.contains('add_chat_user')) {
-        this.onAddUserToChat();
-      };
-
-      if (event.target && event.target.classList.contains('delete_chat_user')) {
-        this.onDeleteUserFromChat();
-      };
     });
 
     this.api.getChatsList().then((chatsData: Chat[]) => {
@@ -135,33 +80,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
     const bottomBarComponent = new BottomBar();
     const bottomBar = bottomBarComponent.getOuterHTML();
 
-    const messageAreaComponent = new MessageArea();
-    const messageArea = messageAreaComponent.getOuterHTML();
-
-    let chatProfile;
-    let messages;
-
-    if (this.props.selectedChatId) {
-      const selectedChat = this.props.chats.find((chat) => chat.id === this.props.selectedChatId);
-
-      if (selectedChat) {
-        const chatProfileComponent = new ChatProfile({
-          chatAvatar: selectedChat.avatar,
-          chatTitle: selectedChat.title
-        });
-        chatProfile = chatProfileComponent.getOuterHTML();
-      }
-
-      messages = this.generateMessages();
-    }
-
-    function generateChatPreviews(chats: Chat[], selectedChatId: number | undefined) {
+    function generateChatPreviews(chats: Chat[]) {
       const arr = [];
       for (let i = 0; i < chats.length; i++) {
         let chatPreviewType = '';
-        if (chats[i].id === selectedChatId) {
-          chatPreviewType = 'active';
-        }
         const chatPreviewComponent = new ChatPreview({
           id: chats[i].id,
           title: chats[i].title, 
@@ -174,7 +96,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
       return arr;
     }
 
-    const chatPreviews = generateChatPreviews(this.props.chats, this.props.selectedChatId);
+    const chatPreviews = generateChatPreviews(this.props.chats);
 
     const pageContent = `
       <aside class='sidebar'>
@@ -188,7 +110,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
 
         {{{ search }}}
 
-        <ul class='contacts'>
+        <ul class='chats'>
         
           {{#each chatPreviews}}
             {{{ this }}}
@@ -200,31 +122,9 @@ export class MessengerPage extends Block<MessengerPageProps> {
         
       </aside>
 
-      {{#if selectedChat}}
-
-        <div class="chat">
-
-          {{{ chatProfile }}}
-
-          <ul class="messages">
-
-            {{#each messages}}
-              {{{ this }}}
-            {{/each}}
-            
-          </ul>
-
-          {{{ messageArea }}}
-
-        </div>
-
-      {{else}}
-
-        <div class='change-chat'>
-          <span>Выберите чат, чтобы отправить сообщение</span>
-        </div>
-
-      {{/if}}
+      <div class='change-chat'>
+        <span>Выберите чат, чтобы отправить сообщение</span>
+      </div>
     `; 
 
     const template = Handlebars.compile(pageContent);
@@ -235,40 +135,10 @@ export class MessengerPage extends Block<MessengerPageProps> {
         profileBtn,
         search, 
         chatPreviews,
-        bottomBar,
-        chatProfile,
-        messageArea,
-        messages,
-        selectedChat: !!this.props.selectedChatId
+        bottomBar
       }
     );
 
     return messengerPage;
-  }
-
-  private generateMessages() {
-    const arr = [];
-
-    for (let i = 0; i < 10; i++) {
-      let messageType;
-      let messageText;
-      const sent = Math.random() < 0.5;
-      if (sent) {
-        messageType = 'sent';
-        messageText = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
-      } else {
-        messageType = 'replies';
-        messageText = 'Et harum quidem rerum facilis est et expedita distinctio.';
-      }
-
-      const messageComponent = new Message({
-        messageType: messageType,
-        messageText: messageText
-      });
-      const message = messageComponent.getOuterHTML();
-      arr.push(message);
-
-    }
-    return arr;
   }
 }

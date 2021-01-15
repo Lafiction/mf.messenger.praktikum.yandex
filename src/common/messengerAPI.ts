@@ -188,8 +188,8 @@ export class MessengerAPI {
     });
   }
   
-  createChat(title: string): Promise<void> {  
-    const requestBody = { 
+  createChat(title: string): Promise<number> {  
+    const requestBody = {
       title
     };
     return new Promise((resolve, reject) => {
@@ -197,7 +197,8 @@ export class MessengerAPI {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
-          resolve();
+          const { id: chatId } = JSON.parse(response.responseText);
+          resolve(chatId);
         } else {
           reject(response.responseText);
         }
