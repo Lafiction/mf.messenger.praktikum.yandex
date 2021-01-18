@@ -12,10 +12,16 @@ import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
+interface MessageDescription {
+  text: string;
+  incoming: boolean;
+}
+
 interface ChatPageProps {
   chats: Chat[];
   selectedChatId: number | undefined;
   currentPath: string;
+  messages: MessageDescription[];
 }
 
 export class ChatPage extends Block<ChatPageProps> {
@@ -26,6 +32,7 @@ export class ChatPage extends Block<ChatPageProps> {
       chats: [],
       selectedChatId: undefined,
       currentPath: path,
+      messages: []
     });
   }
 
@@ -91,12 +98,30 @@ export class ChatPage extends Block<ChatPageProps> {
     });
   }
 
+  private onSendMessageClick() {
+    const messageTextInput: HTMLInputElement | null = this.element.querySelector('.message-area__input');
+    if (messageTextInput) {
+
+      if (messageTextInput.value) {
+        let updatedMessages = [
+          ...this.props.messages, 
+          {
+            text: messageTextInput.value,
+            incoming: false,
+          }
+        ];
+
+        this.setProps({ messages: updatedMessages });
+      }
+    }
+  }
+
   componentDidMount() {
     this.element.classList.add('frame');
     this.element.classList.add('messengerPage');
     this.element.addEventListener('click', (event: any) => {
       if (event.target && event.target.classList.contains('profile__btn')) {
-        document.location.href = 'profile';
+        document.location.href = '/profile';
       };
 
       if (event.target && event.target.classList.contains('add-new-chat__btn')) {
@@ -115,6 +140,11 @@ export class ChatPage extends Block<ChatPageProps> {
       if (event.target && event.target.classList.contains('delete_chat_user')) {
         this.onDeleteUserFromChat();
       };
+
+      if (event.target && event.target.classList.contains('message-area__btn')) {
+        this.onSendMessageClick();
+      };
+
     });
 
     this.api.getChatsList().then((chatsData: Chat[]) => {
@@ -123,7 +153,37 @@ export class ChatPage extends Block<ChatPageProps> {
 
       this.setProps({
         chats: chatsData,
-        selectedChatId: currentChatId
+        selectedChatId: currentChatId,
+        messages: [
+          {
+            text: 'сообщение1',
+            incoming: true,
+          },
+          {
+            text: 'сообщение2',
+            incoming: false,
+          },
+          {
+            text: 'сообщение333',
+            incoming: true,
+          },
+          {
+            text: 'сообщение331113',
+            incoming: false,
+          },
+          {
+            text: 'сообщение2222333',
+            incoming: true,
+          },
+          {
+            text: 'сообщение33343435',
+            incoming: true,
+          },
+          {
+            text: 'сообщение35',
+            incoming: true,
+          }
+        ]
       });
     }).catch((error: any) => {
       console.log('Ошибка', error);
@@ -214,14 +274,15 @@ export class ChatPage extends Block<ChatPageProps> {
 
           {{{ chatProfile }}}
 
-          <ul class="messages">
+          <div class="messages-wrapper">
+            <ul class="messages">
 
-            {{#each messages}}
-              {{{ this }}}
-            {{/each}}
-            
-          </ul>
-
+              {{#each messages}}
+                {{{ this }}}
+              {{/each}}
+              
+            </ul>
+          </div>
           {{{ messageArea }}}
 
         </div>
@@ -257,25 +318,20 @@ export class ChatPage extends Block<ChatPageProps> {
   private generateMessages() {
     const arr = [];
 
-    for (let i = 0; i < 10; i++) {
-      let messageType;
-      let messageText;
-      const sent = Math.random() < 0.5;
-      if (sent) {
-        messageType = 'sent';
-        messageText = 'At vero eos et accusamus et iusto odio dignissimos ducimus qui';
-      } else {
-        messageType = 'replies';
-        messageText = 'Et harum quidem rerum facilis est et expedita distinctio.';
-      }
+    for (let i = 0; i < this.props.messages.length; i++) {
+      let messageType = 'outgoing';
+
+      if (this.props.messages[i].incoming) {
+        messageType = 'incoming';
+      } 
 
       const messageComponent = new Message({
         messageType: messageType,
-        messageText: messageText
+        messageText: this.props.messages[i].text
       });
+
       const message = messageComponent.getOuterHTML();
       arr.push(message);
-
     }
     return arr;
   }

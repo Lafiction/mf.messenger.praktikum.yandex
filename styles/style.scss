@@ -441,12 +441,17 @@ input[type=submit] {
   cursor: pointer;
 }
 
-.messages {
+.messages-wrapper {
   height: auto;
-  min-height: calc(100% - 93px);
-  max-height: calc(100% - 93px);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  min-height: calc(100% - 122px);
+  max-height: calc(100% - 122px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  .messages {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 735px) {
@@ -476,21 +481,21 @@ input[type=submit] {
   margin-bottom: 20px;
 }
 
-.messages__item.sent img {
+.messages__item.incoming img {
   margin: 6px 8px 0 0;
 }
 
-.messages__item.sent p {
+.messages__item.incoming p {
   background: var(--bg);
   color: var(--dark);
 }
 
-.messages__item.replies img {
+.messages__item.outgoing img {
   float: right;
   margin: 6px 0 0 8px;
 }
 
-.messages__item.replies p {
+.messages__item.outgoing p {
   background: #c4d5f5;
   float: right;
 }
@@ -520,7 +525,6 @@ input[type=submit] {
   position: absolute;
   bottom: 0;
   width: 100%;
-  z-index: 99;
 }
 
 .message-area__wrap {
