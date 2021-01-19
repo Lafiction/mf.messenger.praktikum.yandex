@@ -262,4 +262,25 @@ export class MessengerAPI {
       });
     });
   }
+
+  getChatToken(chatId: number): Promise<string> {
+    const requestBody = {
+      chatId
+    };
+    return new Promise((resolve, reject) => {
+      this.fetch.post(BASE_URL + 'chats/token/' + chatId, {
+        data: JSON.stringify(requestBody),
+      }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          const { token } = JSON.parse(response.responseText);
+          resolve(token);
+        } else {
+          reject(response.responseText);
+        }
+      })
+      .catch((e) => {
+        reject(e);
+      });
+    });
+  }
 }

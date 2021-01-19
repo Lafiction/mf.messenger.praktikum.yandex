@@ -51,7 +51,6 @@ export class Route {
   }
 
   render(inputPath: string) {
-    console.log('path: ', inputPath);
     if (!this._page) {
       this._page = new this._pageClass(inputPath);
 

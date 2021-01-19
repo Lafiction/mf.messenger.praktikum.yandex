@@ -9,6 +9,7 @@ import { MessageArea } from '../components/messageArea.js';
 import { ChatProfile } from '../components/chatProfile.js';
 import { Router } from '../common/router.js';
 import { MessengerAPI, Chat } from '../common/messengerAPI.js';
+import { getSocket } from '../common/web-socket-client.js';
 
 const Handlebars = (window as any)['Handlebars'];
 
@@ -26,6 +27,7 @@ interface ChatPageProps {
 
 export class ChatPage extends Block<ChatPageProps> {
   private api!: MessengerAPI;
+  private socket: WebSocket | undefined;
 
   constructor(path: string) {
     super('div', {
@@ -100,19 +102,11 @@ export class ChatPage extends Block<ChatPageProps> {
 
   private onSendMessageClick() {
     const messageTextInput: HTMLInputElement | null = this.element.querySelector('.message-area__input');
-    if (messageTextInput) {
-
-      if (messageTextInput.value) {
-        let updatedMessages = [
-          ...this.props.messages, 
-          {
-            text: messageTextInput.value,
-            incoming: false,
-          }
-        ];
-
-        this.setProps({ messages: updatedMessages });
-      }
+    if (messageTextInput && messageTextInput.value && this.socket) {
+      this.socket.send(JSON.stringify({
+        content: messageTextInput.value,
+        type: 'message',
+      }));
     }
   }
 
@@ -151,6 +145,33 @@ export class ChatPage extends Block<ChatPageProps> {
 
       const currentChatId = parseInt(this.props.currentPath.slice(6), 10);
 
+      this.api.getCurrentUserInfo()
+      .then((currentUserInfo) => {
+        return currentUserInfo.id;
+      }).then((currentUserId) => {
+        this.api.getChatToken(currentChatId).then((chatToken: string) => { 
+          getSocket(currentUserId, currentChatId, chatToken).then((socket) => {
+            this.socket = socket;
+
+            this.socket.addEventListener('message', (event) => {
+              const messageData = JSON.parse(event.data);
+              console.log('Получены данные', messageData);
+
+              if (messageData.type === 'message') {
+                let updatedMessages = [
+                  ...this.props.messages, 
+                  {
+                    text: messageData.content,
+                    incoming: false,
+                  }
+                ];
+                this.setProps({ messages: updatedMessages });
+              }  
+            });
+          });
+        });
+      });
+      
       this.setProps({
         chats: chatsData,
         selectedChatId: currentChatId,
