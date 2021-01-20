@@ -1,17 +1,16 @@
-import { Block } from '../common/block.js';
-import { ChatPreview } from '../components/chatPreviews.js';
-import { Search } from '../components/search.js';
-import { ProfileBtn } from '../components/profileBtn.js';
-import { Avatar } from '../components/avatar.js';
-import { BottomBar } from '../components/bottomBar.js';
-import { Message } from '../components/messages.js';
-import { MessageArea } from '../components/messageArea.js';
-import { ChatProfile } from '../components/chatProfile.js';
-import { Router } from '../common/router.js';
-import { MessengerAPI, Chat } from '../common/messengerAPI.js';
-import { getSocket } from '../common/web-socket-client.js';
-
-const { Handlebars } = (window as any);
+import * as Handlebars from 'handlebars';
+import { Block } from '../common/block';
+import { ChatPreview } from '../components/chatPreviews';
+import { Search } from '../components/search';
+import { ProfileBtn } from '../components/profileBtn';
+import { Avatar } from '../components/avatar';
+import { BottomBar } from '../components/bottomBar';
+import { Message } from '../components/messages';
+import { MessageArea } from '../components/messageArea';
+import { ChatProfile } from '../components/chatProfile';
+import { Router } from '../common/router';
+import { MessengerAPI, Chat } from '../common/messengerAPI';
+import { getSocket } from '../common/web-socket-client';
 
 interface MessageDescription {
   text: string;

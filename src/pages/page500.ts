@@ -1,6 +1,5 @@
-import { Block } from '../common/block.js';
-
-const { Handlebars } = (window as any);
+import * as Handlebars from 'handlebars';
+import { Block } from '../common/block';
 
 export class Page500 extends Block<{}> {
   constructor() {

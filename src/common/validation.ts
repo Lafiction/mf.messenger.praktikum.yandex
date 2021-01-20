@@ -1,4 +1,4 @@
-import { getFormData } from '../common/formDataCollector.js';
+import { getFormData } from './formDataCollector';
 
 export function addValidationEventListeners(page: HTMLElement, inputName: string, regex: RegExp) {
   const visibleInput = 'input-requirements__visible';

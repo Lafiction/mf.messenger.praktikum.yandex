@@ -1,8 +1,7 @@
-import { Block } from '../common/block.js';
-import { MessengerAPI, User } from '../common/messengerAPI.js';
-import { Router } from '../common/router.js';
-
-const { Handlebars } = (window as any);
+import * as Handlebars from 'handlebars';
+import { Block } from '../common/block';
+import { MessengerAPI, User } from '../common/messengerAPI';
+import { Router } from '../common/router';
 
 export class ProfilePage extends Block<User> {
   private api!: MessengerAPI;

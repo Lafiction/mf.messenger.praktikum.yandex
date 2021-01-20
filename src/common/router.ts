@@ -1,5 +1,5 @@
-import { Block } from './block.js';
-import { Route } from './route.js';
+import { Block } from './block';
+import { Route } from './route';
 
 export class Router {
   private static instance: Router;

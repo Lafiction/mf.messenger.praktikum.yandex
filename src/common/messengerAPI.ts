@@ -1,5 +1,5 @@
 /* eslint camelcase: 'off' */
-import { HTTPTransport } from './HTTPTransport.js';
+import { HTTPTransport } from './HTTPTransport';
 
 export interface User {
   id: number;

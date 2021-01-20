@@ -1,13 +1,12 @@
-import { Block } from '../common/block.js';
-import { ChatPreview } from '../components/chatPreviews.js';
-import { Search } from '../components/search.js';
-import { ProfileBtn } from '../components/profileBtn.js';
-import { Avatar } from '../components/avatar.js';
-import { BottomBar } from '../components/bottomBar.js';
-import { Router } from '../common/router.js';
-import { MessengerAPI, Chat } from '../common/messengerAPI.js';
-
-const { Handlebars } = (window as any);
+import * as Handlebars from 'handlebars';
+import { Block } from '../common/block';
+import { ChatPreview } from '../components/chatPreviews';
+import { Search } from '../components/search';
+import { ProfileBtn } from '../components/profileBtn';
+import { Avatar } from '../components/avatar';
+import { BottomBar } from '../components/bottomBar';
+import { Router } from '../common/router';
+import { MessengerAPI, Chat } from '../common/messengerAPI';
 
 interface MessengerPageProps {
   chats: Chat[];

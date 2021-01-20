@@ -1,4 +1,4 @@
-import { Block } from '../common/block.js';
+import { Block } from '../common/block';
 
 interface SubmitBtnProps {
   value: string;
