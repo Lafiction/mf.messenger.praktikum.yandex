@@ -11,7 +11,7 @@ import { Router } from '../common/router.js';
 import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 import { getSocket } from '../common/web-socket-client.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 interface MessageDescription {
   text: string;
@@ -27,6 +27,7 @@ interface ChatPageProps {
 
 export class ChatPage extends Block<ChatPageProps> {
   private api!: MessengerAPI;
+
   private socket: WebSocket | undefined;
 
   constructor(path: string) {
@@ -34,7 +35,7 @@ export class ChatPage extends Block<ChatPageProps> {
       chats: [],
       selectedChatId: undefined,
       currentPath: path,
-      messages: []
+      messages: [],
     });
   }
 
@@ -49,12 +50,12 @@ export class ChatPage extends Block<ChatPageProps> {
     if (!newChatTitle) {
       return;
     }
-    
+
     this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
-      router.go('/chat/' + chatId);
+      router.go(`/chat/${chatId}`);
     }).catch((error: any) => {
-      alert('Ошибка' + error);
+      alert(`Ошибка ${error}`);
     });
   }
 
@@ -66,7 +67,7 @@ export class ChatPage extends Block<ChatPageProps> {
     }
 
     const userId = parseInt(newUserId, 10);
-    if (isNaN(userId)) {
+    if (Number.isNaN(userId)) {
       return;
     }
 
@@ -74,8 +75,8 @@ export class ChatPage extends Block<ChatPageProps> {
       return;
     }
 
-    this.api.addUsersToChat([ userId ], this.props.selectedChatId).catch((error: any) => {
-      alert('Ошибка' + error);
+    this.api.addUsersToChat([userId], this.props.selectedChatId).catch((error: any) => {
+      alert(`Ошибка ${error}`);
     });
   }
 
@@ -87,7 +88,7 @@ export class ChatPage extends Block<ChatPageProps> {
     }
 
     const userId = parseInt(userIdToDelete, 10);
-    if (isNaN(userId)) {
+    if (Number.isNaN(userId)) {
       return;
     }
 
@@ -95,8 +96,8 @@ export class ChatPage extends Block<ChatPageProps> {
       return;
     }
 
-    this.api.deleteUsersFromChat([ userId ], this.props.selectedChatId).catch((error: any) => {
-      alert('Ошибка' + error);
+    this.api.deleteUsersFromChat([userId], this.props.selectedChatId).catch((error: any) => {
+      alert(`Ошибка ${error}`);
     });
   }
 
@@ -116,11 +117,11 @@ export class ChatPage extends Block<ChatPageProps> {
     this.element.addEventListener('click', (event: any) => {
       if (event.target && event.target.classList.contains('profile__btn')) {
         document.location.href = '/profile';
-      };
+      }
 
       if (event.target && event.target.classList.contains('add-new-chat__btn')) {
         this.onNewChatClick();
-      };
+      }
 
       if (event.target && event.target.closest('.chat_preview_item')) {
         const chatId = event.target.closest('.chat_preview_item').id;
@@ -129,49 +130,47 @@ export class ChatPage extends Block<ChatPageProps> {
 
       if (event.target && event.target.classList.contains('add_chat_user')) {
         this.onAddUserToChat();
-      };
+      }
 
       if (event.target && event.target.classList.contains('delete_chat_user')) {
         this.onDeleteUserFromChat();
-      };
+      }
 
       if (event.target && event.target.classList.contains('message-area__btn')) {
         this.onSendMessageClick();
-      };
-
+      }
     });
 
     this.api.getChatsList().then((chatsData: Chat[]) => {
-
       const currentChatId = parseInt(this.props.currentPath.slice(6), 10);
 
       this.api.getCurrentUserInfo()
-      .then((currentUserInfo) => {
-        return currentUserInfo.id;
-      }).then((currentUserId) => {
-        this.api.getChatToken(currentChatId).then((chatToken: string) => { 
-          getSocket(currentUserId, currentChatId, chatToken).then((socket) => {
-            this.socket = socket;
+        .then((currentUserInfo) => {
+          return currentUserInfo.id;
+        }).then((currentUserId) => {
+          this.api.getChatToken(currentChatId).then((chatToken: string) => {
+            getSocket(currentUserId, currentChatId, chatToken).then((socket) => {
+              this.socket = socket;
 
-            this.socket.addEventListener('message', (event) => {
-              const messageData = JSON.parse(event.data);
-              console.log('Получены данные', messageData);
+              this.socket.addEventListener('message', (event) => {
+                const messageData = JSON.parse(event.data);
+                console.log('Получены данные', messageData);
 
-              if (messageData.type === 'message') {
-                let updatedMessages = [
-                  ...this.props.messages, 
-                  {
-                    text: messageData.content,
-                    incoming: false,
-                  }
-                ];
-                this.setProps({ messages: updatedMessages });
-              }  
+                if (messageData.type === 'message') {
+                  const updatedMessages = [
+                    ...this.props.messages,
+                    {
+                      text: messageData.content,
+                      incoming: false,
+                    },
+                  ];
+                  this.setProps({ messages: updatedMessages });
+                }
+              });
             });
           });
         });
-      });
-      
+
       this.setProps({
         chats: chatsData,
         selectedChatId: currentChatId,
@@ -203,13 +202,13 @@ export class ChatPage extends Block<ChatPageProps> {
           {
             text: 'сообщение35',
             incoming: true,
-          }
-        ]
+          },
+        ],
       });
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
-  } 
+  }
 
   render() {
     const searchComponent = new Search();
@@ -231,12 +230,14 @@ export class ChatPage extends Block<ChatPageProps> {
     let messages;
 
     if (this.props.selectedChatId) {
-      const selectedChat = this.props.chats.find((chat) => chat.id === this.props.selectedChatId);
+      const selectedChat = this.props.chats.find((chat) => {
+        return chat.id === this.props.selectedChatId;
+      });
 
       if (selectedChat) {
         const chatProfileComponent = new ChatProfile({
           chatAvatar: selectedChat.avatar,
-          chatTitle: selectedChat.title
+          chatTitle: selectedChat.title,
         });
         chatProfile = chatProfileComponent.getOuterHTML();
       }
@@ -253,9 +254,9 @@ export class ChatPage extends Block<ChatPageProps> {
         }
         const chatPreviewComponent = new ChatPreview({
           id: chats[i].id,
-          title: chats[i].title, 
+          title: chats[i].title,
           avatar: chats[i].avatar,
-          chatPreviewType
+          chatPreviewType,
         });
         const chatPreview = chatPreviewComponent.getOuterHTML();
         arr.push(chatPreview);
@@ -315,22 +316,22 @@ export class ChatPage extends Block<ChatPageProps> {
         </div>
 
       {{/if}}
-    `; 
+    `;
 
     const template = Handlebars.compile(pageContent);
 
     const messengerPage = template(
-      { 
-        avatar,  
+      {
+        avatar,
         profileBtn,
-        search, 
+        search,
         chatPreviews,
         bottomBar,
         chatProfile,
         messageArea,
         messages,
-        selectedChat: !!this.props.selectedChatId
-      }
+        selectedChat: !!this.props.selectedChatId,
+      },
     );
 
     return messengerPage;
@@ -344,11 +345,11 @@ export class ChatPage extends Block<ChatPageProps> {
 
       if (this.props.messages[i].incoming) {
         messageType = 'incoming';
-      } 
+      }
 
       const messageComponent = new Message({
-        messageType: messageType,
-        messageText: this.props.messages[i].text
+        messageType,
+        messageText: this.props.messages[i].text,
       });
 
       const message = messageComponent.getOuterHTML();

@@ -6,12 +6,15 @@ import { SubmitBtn } from '../components/submitBtn.js';
 import { MessengerAPI } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class IndexPage extends Block<{}> {
   private loginFieldComponent!: TextField;
+
   private passwordFieldComponent!: TextField;
+
   private submitBtnComponent!: SubmitBtn;
+
   private api!: MessengerAPI;
 
   constructor() {
@@ -30,7 +33,7 @@ export class IndexPage extends Block<{}> {
       const router = new Router('router is already created in app.ts');
       router.go('/messenger');
     }).catch((error: any) => {
-      alert('Ошибка' + error);
+      alert(`Ошибка ${error}`);
       this.api.signOut().catch(() => {});
     });
   }
@@ -42,14 +45,14 @@ export class IndexPage extends Block<{}> {
       fieldType: 'text',
       fieldName: 'login',
       placeholder: 'Логин',
-      required: true
+      required: true,
     });
 
     this.passwordFieldComponent = new TextField({
       fieldType: 'password',
       fieldName: 'password',
       placeholder: 'Пароль',
-      required: true
+      required: true,
     });
 
     this.submitBtnComponent = new SubmitBtn({ value: 'Авторизоваться' });
@@ -76,7 +79,7 @@ export class IndexPage extends Block<{}> {
     this.element.addEventListener('submit', (event) => {
       event.preventDefault();
       this.onSubmit();
-    }); 
+    });
   }
 
   render() {
@@ -116,8 +119,8 @@ export class IndexPage extends Block<{}> {
       {
         loginField,
         passwordField,
-        submitBtn
-      }
+        submitBtn,
+      },
     );
 
     return indexPage;

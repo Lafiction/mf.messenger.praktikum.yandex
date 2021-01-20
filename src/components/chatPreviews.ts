@@ -1,6 +1,6 @@
 import { Block } from '../common/block.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 interface ChatPreviewProps {
   id?: number;
@@ -15,14 +15,14 @@ export class ChatPreview extends Block<ChatPreviewProps> {
   }
 
   render() {
-    this.element.classList.add('chats__item'); 
+    this.element.classList.add('chats__item');
     if (this.props.chatPreviewType.length > 0) {
       this.element.classList.add(this.props.chatPreviewType);
     }
 
     let avatar = 'https://placekitten.com/50/50';
     if (this.props.avatar) {
-      avatar = 'https://ya-praktikum.tech/' + this.props.avatar;
+      avatar = `https://ya-praktikum.tech/${this.props.avatar}`;
     }
 
     const content = `
@@ -38,8 +38,8 @@ export class ChatPreview extends Block<ChatPreviewProps> {
 
     const htmlContent = template({
       id: this.props.id,
-      title: this.props.title, 
-      avatar: avatar
+      title: this.props.title,
+      avatar,
     });
 
     return htmlContent;

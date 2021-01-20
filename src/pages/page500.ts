@@ -1,9 +1,8 @@
 import { Block } from '../common/block.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class Page500 extends Block<{}> {
-
   constructor() {
     super('main', {});
   }
@@ -14,11 +13,10 @@ export class Page500 extends Block<{}> {
   }
 
   render() {
-
     const pageContent = `
       <p class="mistake-page__header">500</p>
       <p>Мы уже фиксим</p> 
-      <a href="/messenger" class="registration">Назад к чатам</a>`; 
+      <a href="/messenger" class="registration">Назад к чатам</a>`;
 
     const template = Handlebars.compile(pageContent);
 

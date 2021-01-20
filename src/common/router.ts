@@ -2,40 +2,43 @@ import { Block } from './block.js';
 import { Route } from './route.js';
 
 export class Router {
-  private static __instance: Router;
+  private static instance: Router;
 
   private routes!: Route[];
+
   private history!: History;
-  private _currentRoute: null | Route = null;
-  private _rootQuery!: string;
+
+  private currentRoute: null | Route = null;
+
+  private rootQuery!: string;
 
   constructor(rootQuery: string) {
-    if (Router.__instance) {
-      return Router.__instance;
+    if (Router.instance) {
+      return Router.instance;
     }
 
     this.routes = [];
     this.history = window.history;
-    this._currentRoute = null;
-    this._rootQuery = rootQuery;
+    this.currentRoute = null;
+    this.rootQuery = rootQuery;
 
-    Router.__instance = this;
+    Router.instance = this;
   }
 
   use(pathname: string, pageClass: new (path: string) => Block<{}>) {
-    const route = new Route(pathname, pageClass, { rootQuery: this._rootQuery });
+    const route = new Route(pathname, pageClass, { rootQuery: this.rootQuery });
     this.routes.push(route);
     return this;
   }
 
   start() {
     window.onpopstate = (event: any) => {
-      this._onRoute(event.currentTarget.location.pathname);
+      this.onRoute(event.currentTarget.location.pathname);
     };
-    this._onRoute(window.location.pathname);
+    this.onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+  onRoute(pathname: string) {
     let route = this.getRoute(pathname);
 
     if (!route) {
@@ -46,17 +49,17 @@ export class Router {
       route = page404;
     }
 
-    if (this._currentRoute) {
-      this._currentRoute.leave();
+    if (this.currentRoute) {
+      this.currentRoute.leave();
     }
 
-    this._currentRoute = route;
+    this.currentRoute = route;
     route.render(pathname);
   }
 
   go(pathname: string) {
-    this.history.pushState({}, "", pathname);
-    this._onRoute(pathname);
+    this.history.pushState({}, '', pathname);
+    this.onRoute(pathname);
   }
 
   back() {
@@ -68,7 +71,7 @@ export class Router {
   }
 
   getRoute(pathname: string) {
-    return this.routes.find(route => route.match(pathname));
+    return this.routes.find((route) => { return route.match(pathname); });
   }
 }
 

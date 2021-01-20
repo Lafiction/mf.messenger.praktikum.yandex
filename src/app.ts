@@ -1,3 +1,5 @@
+/* eslint no-useless-escape: 'off' */
+
 import { Router } from './common/router.js';
 import { IndexPage } from './pages/index.js';
 import { RegistrationPage } from './pages/registration.js';
@@ -9,7 +11,7 @@ import { Page404 } from './pages/page404.js';
 import { Page500 } from './pages/page500.js';
 import { ProfilePage } from './pages/profile.js';
 
-const router = new Router(".app");
+const router = new Router('.app');
 
 router
   .use('/', IndexPage)

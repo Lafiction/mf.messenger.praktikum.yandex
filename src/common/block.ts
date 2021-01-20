@@ -5,70 +5,69 @@ export class Block<Props> {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    FLOW_RENDER: 'flow:render',
   };
 
-  private _element!: HTMLElement;
-  private _meta: {
+  private blockElement!: HTMLElement;
+
+  private meta: {
     tagName: string;
     props: Props;
   };
+
   protected props: Props;
+
   public eventBus: () => EventBus;
 
   constructor(tagName: string = 'div', props: Props) {
     const eventBus = new EventBus();
-    this._meta = {
+    this.meta = {
       tagName,
-      props
+      props,
     };
 
-    this.props = this._makePropsProxy(props);
+    this.props = this.makePropsProxy(props);
 
-    this.eventBus = () => eventBus;
+    this.eventBus = () => { return eventBus; };
 
-    this._registerEvents(eventBus);
+    this.registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _registerEvents(eventBus: EventBus) {
+  private registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDM, this.componentDidMountInternal.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDU, this.componentDidUpdateInternal.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDER, this.renderInternal.bind(this));
   }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+  private createResources() {
+    const { tagName } = this.meta;
+    this.blockElement = this.createDocumentElement(tagName);
   }
 
   init() {
-    this._createResources();
+    this.createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidMount() {
+  private componentDidMountInternal() {
     this.componentDidMount(undefined);
-    // здесь запускается рендер компонента 
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-	// Может переопределять пользователь, необязательно трогать
   componentDidMount(oldProps: any) {
     return oldProps;
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any) {
+  private componentDidUpdateInternal(oldProps: any, newProps: any) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (response) {
-      // здесь запускаем рендер компонента 
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-	// Может переопределять пользователь, необязательно трогать
   componentDidUpdate(oldProps: any, newProps: any) {
     const changedProperties = Object.keys(newProps);
     for (let i = 0; i < changedProperties.length; i++) {
@@ -86,53 +85,43 @@ export class Block<Props> {
       return;
     }
 
-    const oldProps = Object.assign({}, this.props);
+    const oldProps = { ...this.props };
 
     Object.assign(this.props, nextProps);
     this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, nextProps);
   };
 
   get element() {
-    return this._element;
+    return this.blockElement;
   }
 
-  _render() {
+  private renderInternal() {
     const block = this.render();
-    // Этот небезопасный метод для упрощения логики
-    // Используйте шаблонизатор из npm или напишите свой безопасный
-    // Нужно не в строку компилировать (или делать это правильно),
-    // либо сразу в DOM-элементы возвращать из compile DOM-ноду
-    this._element.innerHTML = block;
+    this.blockElement.innerHTML = block;
   }
 
-	// Может переопределять пользователь, необязательно трогать
   render(): string {
-    return ''; 
+    return '';
   }
 
   getContent() {
-    return this.element;
+    return this.blockElement;
   }
 
-  _makePropsProxy(props: Props) {
-    // Можно и так передать this
-    // Такой способ больше не применяется с приходом ES6+
-    // const self = this;
-    
+  private makePropsProxy(props: Props) {
     const proxy = new Proxy(props as Object, {
-      get: function(item: any, property){
+      get(item: any, property) {
         return item[property];
       },
-      deleteProperty: function() { 
+      deleteProperty() {
         throw new Error('Нет доступа');
       },
     });
-    
-    return proxy; 
+
+    return proxy;
   }
 
-  _createDocumentElement(tagName: string): HTMLElement {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private createDocumentElement(tagName: string): HTMLElement {
     return document.createElement(tagName);
   }
 
@@ -145,6 +134,6 @@ export class Block<Props> {
   }
 
   public getOuterHTML() {
-    return this._element.outerHTML;
+    return this.blockElement.outerHTML;
   }
 }

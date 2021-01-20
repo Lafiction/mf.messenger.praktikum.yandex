@@ -14,7 +14,7 @@ export function addValidationEventListeners(page: HTMLElement, inputName: string
       } else {
         validationMsg.classList.add(visibleInput);
       }
-    }  
+    }
   }, true);
 
   page.addEventListener('focus', (event) => {

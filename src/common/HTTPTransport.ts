@@ -3,12 +3,12 @@ enum METHODS {
   PUT = 'PUT',
   POST = 'POST',
   DELETE = 'DELETE'
-};
+}
 
 function queryStringify(data: Record<string, any>) {
   if (typeof data !== 'object') {
-		throw new Error('Data must be object');
-	}
+    throw new Error('Data must be object');
+  }
   const keys = Object.keys(data);
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
@@ -20,19 +20,19 @@ const JSON_CONTENT_TYPE_HEADER = { 'Content-Type': 'application/json' };
 export class HTTPTransport {
   get(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
-  };
+  }
 
   post(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-  };
+  }
 
   put(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-  };
+  }
 
   delete(url: string, options: Record<string, any> = {}) {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
+  }
 
   request(url: string, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
     const { method, data = '', contentTypeIsJson = true } = options;
@@ -55,12 +55,12 @@ export class HTTPTransport {
 
       let fullUrl = url;
       if (method === METHODS.GET && Object.keys(data).length !== 0) {
-        fullUrl = fullUrl + queryStringify(data);
+        fullUrl += queryStringify(data);
       }
-      
+
       xhr.open(method, fullUrl, true);
 
-      xhr.onload = function () {
+      xhr.onload = () => {
         resolve(xhr);
       };
 
@@ -70,7 +70,7 @@ export class HTTPTransport {
 
       if (headers) {
         Object.keys(headers)
-          .forEach(function (key) {
+          .forEach((key) => {
             xhr.setRequestHeader(key, headers[key]);
           });
       }
@@ -81,5 +81,5 @@ export class HTTPTransport {
         xhr.send(data);
       }
     });
-  };
+  }
 }

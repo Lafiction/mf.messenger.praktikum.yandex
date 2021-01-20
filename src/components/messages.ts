@@ -1,6 +1,6 @@
 import { Block } from '../common/block.js';
 
-const Handlebars = (window as any)['Handlebars']; 
+const { Handlebars } = (window as any);
 
 interface MessageProps {
   messageType: string;
@@ -25,7 +25,7 @@ export class Message extends Block<MessageProps> {
     const template = Handlebars.compile(content);
 
     const htmlContent = template({
-      text: this.props.messageText
+      text: this.props.messageText,
     });
 
     return htmlContent;

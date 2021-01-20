@@ -7,7 +7,7 @@ import { BottomBar } from '../components/bottomBar.js';
 import { Router } from '../common/router.js';
 import { MessengerAPI, Chat } from '../common/messengerAPI.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 interface MessengerPageProps {
   chats: Chat[];
@@ -33,12 +33,12 @@ export class MessengerPage extends Block<MessengerPageProps> {
     if (!newChatTitle) {
       return;
     }
-    
+
     this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
-      router.go('/chat/' + chatId);
+      router.go(`/chat/${chatId}`);
     }).catch((error: any) => {
-      alert('Ошибка' + error);
+      alert(`Ошибка ${error}`);
     });
   }
 
@@ -48,15 +48,15 @@ export class MessengerPage extends Block<MessengerPageProps> {
     this.element.addEventListener('click', (event: any) => {
       if (event.target && event.target.classList.contains('profile__btn')) {
         document.location.href = 'profile';
-      };
+      }
 
       if (event.target && event.target.classList.contains('add-new-chat__btn')) {
         this.onNewChatClick();
-      };
+      }
 
       if (event.target && event.target.closest('.chat_preview_item')) {
         const chatId = event.target.closest('.chat_preview_item').id;
-        document.location.href = 'chat/' + chatId;
+        document.location.href = `chat/${chatId}`;
       }
     });
 
@@ -65,7 +65,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
-  } 
+  }
 
   render() {
     const searchComponent = new Search();
@@ -83,12 +83,12 @@ export class MessengerPage extends Block<MessengerPageProps> {
     function generateChatPreviews(chats: Chat[]) {
       const arr = [];
       for (let i = 0; i < chats.length; i++) {
-        let chatPreviewType = '';
+        const chatPreviewType = '';
         const chatPreviewComponent = new ChatPreview({
           id: chats[i].id,
-          title: chats[i].title, 
+          title: chats[i].title,
           avatar: chats[i].avatar,
-          chatPreviewType
+          chatPreviewType,
         });
         const chatPreview = chatPreviewComponent.getOuterHTML();
         arr.push(chatPreview);
@@ -125,18 +125,18 @@ export class MessengerPage extends Block<MessengerPageProps> {
       <div class='change-chat'>
         <span>Выберите чат, чтобы отправить сообщение</span>
       </div>
-    `; 
+    `;
 
     const template = Handlebars.compile(pageContent);
 
     const messengerPage = template(
-      { 
-        avatar,  
+      {
+        avatar,
         profileBtn,
-        search, 
+        search,
         chatPreviews,
-        bottomBar
-      }
+        bottomBar,
+      },
     );
 
     return messengerPage;

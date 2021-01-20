@@ -1,66 +1,71 @@
 import { Block } from './block.js';
 
 export class Route {
-  private _pathname: string;
-  private _pageClass: new (path: string) => Block<{}>;
-  private _page: null | Block<{}>;
-  private _props: { rootQuery: string };
+  private pathname: string;
 
-  constructor(pathname: string, pageClass: new (path: string) => Block<{}>, props: { rootQuery: string }) {
-    this._pathname = pathname;
-    this._pageClass = pageClass;
-    this._page = null;
-    this._props = props;
+  private PageClass: new (path: string) => Block<{}>;
+
+  private page: null | Block<{}>;
+
+  private props: { rootQuery: string };
+
+  constructor(
+    pathname: string,
+    pageClass: new (path: string) => Block<{}>,
+    props: { rootQuery: string },
+  ) {
+    this.pathname = pathname;
+    this.PageClass = pageClass;
+    this.page = null;
+    this.props = props;
   }
 
   navigate(pathname: string) {
     if (this.match(pathname)) {
-      this._pathname = pathname;
+      this.pathname = pathname;
       this.render(pathname);
     }
   }
 
   leave() {
-    if (this._page) {
-      const root = document.querySelector(this._props.rootQuery);
+    if (this.page) {
+      const root = document.querySelector(this.props.rootQuery);
 
       if (root) {
         while (root.firstChild) {
-          root.firstChild.remove()
+          root.firstChild.remove();
         }
-        this._page = null;
+        this.page = null;
       }
     }
   }
 
   match(inputPath: string) {
-    if (this._pathname === '') {
-      return false; 
+    if (this.pathname === '') {
+      return false;
     }
 
-    if (inputPath === this._pathname) {
+    if (inputPath === this.pathname) {
       return true;
     }
 
     try {
-      const pattern = new RegExp('^' + this._pathname + '$');
+      const pattern = new RegExp(`^${this.pathname}$`);
       return !!inputPath.match(pattern);
     } catch (err) {
-      return false; 
+      return false;
     }
   }
 
   render(inputPath: string) {
-    if (!this._page) {
-      this._page = new this._pageClass(inputPath);
+    if (!this.page) {
+      this.page = new this.PageClass(inputPath);
 
-      const root = document.querySelector(this._props.rootQuery);
+      const root = document.querySelector(this.props.rootQuery);
 
       if (root) {
-        root.appendChild(this._page.getContent());
+        root.appendChild(this.page.getContent());
       }
-            
-      return;
     }
   }
-} 
+}

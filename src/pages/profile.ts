@@ -2,7 +2,7 @@ import { Block } from '../common/block.js';
 import { MessengerAPI, User } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class ProfilePage extends Block<User> {
   private api!: MessengerAPI;
@@ -16,7 +16,7 @@ export class ProfilePage extends Block<User> {
       display_name: '',
       login: '',
       email: '',
-      phone: ''
+      phone: '',
     });
   }
 
@@ -41,16 +41,16 @@ export class ProfilePage extends Block<User> {
     newAvatarInput.onchange = (event: any) => {
       const image = event.target.files[0];
       const formData = new FormData();
-      formData.append("avatar", image, "image.jpeg");
+      formData.append('avatar', image, 'image.jpeg');
 
       this.api.uploadUserAvatar(formData).then(() => {
         alert('Аватар изменен');
         const router = new Router('router is already created in app.ts');
         router.go('/profile');
       }).catch((error: any) => {
-        alert('Ошибка' + error);
+        alert(`Ошибка ${error}`);
       });
-    }
+    };
 
     newAvatarInput.click();
   }
@@ -60,7 +60,7 @@ export class ProfilePage extends Block<User> {
     this.element.addEventListener('click', (event: any) => {
       if (event.target && event.target.classList.contains('profile-fields__exit')) {
         this.onExitBtnClick();
-      };
+      }
 
       if (event.target && event.target.classList.contains('avatar__attach')) {
         event.preventDefault();
@@ -78,7 +78,7 @@ export class ProfilePage extends Block<User> {
   private getAvatar(userData: User) {
     let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
     if (userData.avatar) {
-      avatarUrl = 'https://ya-praktikum.tech/' + userData.avatar + '?rand=' + Math.round(Math.random() * 100500);
+      avatarUrl = `https://ya-praktikum.tech/${userData.avatar}?rand=${Math.round(Math.random() * 100500)}`;
     }
     const avatarTemplate = `
       <div class="avatar">
@@ -166,11 +166,10 @@ export class ProfilePage extends Block<User> {
   }
 
   render() {
-
     const avatar = this.getAvatar(this.props);
     const nameField = this.getNameField(this.props);
     const firstNameField = this.getFirstNameField(this.props);
-    const secondNameField = this.getSecondNameField(this.props);    
+    const secondNameField = this.getSecondNameField(this.props);
     const loginField = this.getLoginField(this.props);
     const emailField = this.getEmailField(this.props);
     const phoneField = this.getPhoneField(this.props);
@@ -209,15 +208,15 @@ export class ProfilePage extends Block<User> {
     const template = Handlebars.compile(pageContent);
 
     const profilePage = template(
-      { 
+      {
         avatar,
         nameField,
         firstNameField,
         secondNameField,
         loginField,
         emailField,
-        phoneField
-      }
+        phoneField,
+      },
     );
 
     return profilePage;

@@ -1,9 +1,8 @@
 import { Block } from '../common/block.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class Page404 extends Block<{}> {
-
   constructor() {
     super('main', {});
   }
@@ -14,11 +13,10 @@ export class Page404 extends Block<{}> {
   }
 
   render() {
-
     const pageContent = `
       <p class="mistake-page__header">404</p>
       <p>Такой страницы не существует</p> 
-      <a href="/messenger" class="registration">Назад к чатам</a>`; 
+      <a href="/messenger" class="registration">Назад к чатам</a>`;
 
     const template = Handlebars.compile(pageContent);
 
@@ -27,4 +25,3 @@ export class Page404 extends Block<{}> {
     return page404;
   }
 }
-

@@ -1,4 +1,4 @@
-import { handleOnSubmitForm, getFormData} from '../common/formDataCollector.js';
+import { handleOnSubmitForm, getFormData } from '../common/formDataCollector.js';
 import { addValidationEventListeners } from '../common/validation.js';
 import { Block } from '../common/block.js';
 import { TextField } from '../components/textField.js';
@@ -6,13 +6,17 @@ import { SubmitBtn } from '../components/submitBtn.js';
 import { MessengerAPI, User } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class ChangePasswordPage extends Block<{ avatar: string, fullName: string }> {
   private oldPasswordComponent!: TextField;
+
   private repeatPasswordComponent!: TextField;
+
   private newPasswordComponent!: TextField;
+
   private submitBtnComponent!: SubmitBtn;
+
   private api!: MessengerAPI;
 
   constructor() {
@@ -41,38 +45,38 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
         console.log('Ошибка', error);
       });
     }).catch((error: any) => {
-      alert('Ошибка' + error);
+      alert(`Ошибка ${error}`);
     });
   }
-  
+
   componentDidMount() {
     this.element.classList.add('changePasswordPage');
 
     this.api.getCurrentUserInfo().then((userData: User) => {
       this.setProps({
         avatar: userData.avatar,
-        fullName: userData.first_name + ' ' + userData.second_name
+        fullName: `${userData.first_name} ${userData.second_name}`,
       });
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
-    
-    this.oldPasswordComponent = new TextField({ 
+
+    this.oldPasswordComponent = new TextField({
       fieldType: 'password',
       fieldName: 'oldPassword',
-      placeholder: 'Старый пароль'
-    });
-   
-    this.newPasswordComponent = new TextField({ 
-      fieldType: 'password',
-      fieldName: 'newPassword',
-      placeholder: 'Новый пароль'
+      placeholder: 'Старый пароль',
     });
 
-    this.repeatPasswordComponent = new TextField({ 
+    this.newPasswordComponent = new TextField({
+      fieldType: 'password',
+      fieldName: 'newPassword',
+      placeholder: 'Новый пароль',
+    });
+
+    this.repeatPasswordComponent = new TextField({
       fieldType: 'password',
       fieldName: 'repeatPassword',
-      placeholder: 'Повторите пароль'
+      placeholder: 'Повторите пароль',
     });
 
     this.submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
@@ -104,13 +108,13 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
     this.element.addEventListener('submit', (event) => {
       event.preventDefault();
       this.onSubmit();
-    }); 
+    });
   }
-  
+
   render() {
     let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
     if (this.props.avatar) {
-      avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
+      avatarUrl = `https://ya-praktikum.tech/${this.props.avatar}`;
     }
 
     const oldPasswordFieldHTML = this.oldPasswordComponent.getOuterHTML();
@@ -148,21 +152,21 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
           {{{ submitBtnHTML }}}
         
         </fieldset>
-      </form>`; 
+      </form>`;
 
     const template = Handlebars.compile(pageContent);
 
     const changePasswordPage = template(
-      { 
-        avatarUrl, 
-        fullName: this.props.fullName, 
+      {
+        avatarUrl,
+        fullName: this.props.fullName,
         oldPasswordFieldHTML,
         newPasswordFieldHTML,
         repeatPasswordFieldHTML,
-        submitBtnHTML
-      });
+        submitBtnHTML,
+      },
+    );
 
     return changePasswordPage;
   }
 }
-

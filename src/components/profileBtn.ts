@@ -7,6 +7,6 @@ export class ProfileBtn extends Block<{}> {
 
   render() {
     this.element.classList.add('profile__btn');
-    return `⚙️ Профиль`;
+    return '⚙️ Профиль';
   }
 }

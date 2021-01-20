@@ -1,6 +1,6 @@
 import { Block } from '../common/block.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 interface ChatProfileProps {
   chatAvatar?: string;
@@ -19,7 +19,7 @@ export class ChatProfile extends Block<ChatProfileProps> {
   render() {
     let avatar = 'http://placekitten.com/50/50';
     if (this.props.chatAvatar) {
-      avatar = 'https://ya-praktikum.tech/' + this.props.chatAvatar;
+      avatar = `https://ya-praktikum.tech/${this.props.chatAvatar}`;
     }
 
     const content = `
@@ -34,8 +34,8 @@ export class ChatProfile extends Block<ChatProfileProps> {
     const template = Handlebars.compile(content);
 
     const htmlContent = template({
-      avatar: avatar,
-      title: this.props.chatTitle
+      avatar,
+      title: this.props.chatTitle,
     });
 
     return htmlContent;

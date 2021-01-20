@@ -1,3 +1,4 @@
+/* eslint camelcase: 'off' */
 import { HTTPTransport } from './HTTPTransport.js';
 
 export interface User {
@@ -46,13 +47,13 @@ export class MessengerAPI {
   }
 
   signIn(login: string, password: string): Promise<void> {
-    const requestBody = { 
-      login: login,
-      password: password 
+    const requestBody = {
+      login,
+      password,
     };
 
     return new Promise((resolve, reject) => {
-      this.fetch.post(BASE_URL + 'auth/signin', {
+      this.fetch.post(`${BASE_URL}auth/signin`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -60,8 +61,7 @@ export class MessengerAPI {
         } else {
           reject(response.responseText);
         }
-      })
-      .catch((e) => {
+      }).catch((e) => {
         reject(e);
       });
     });
@@ -69,7 +69,7 @@ export class MessengerAPI {
 
   signOut(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.fetch.post(BASE_URL + 'auth/logout', {})
+      this.fetch.post(`${BASE_URL}auth/logout`, {})
         .then((response) => {
           if (response.status >= 200 && response.status <= 299) {
             resolve();
@@ -85,7 +85,7 @@ export class MessengerAPI {
 
   registration(requestBody: RegisterUserRequest): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.fetch.post(BASE_URL + 'auth/signup', {
+      this.fetch.post(`${BASE_URL}auth/signup`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -93,16 +93,15 @@ export class MessengerAPI {
         } else {
           reject(response.responseText);
         }
-      })
-      .catch((e) => {
+      }).catch((e) => {
         reject(e);
       });
     });
-  } 
+  }
 
   changeUserProfile(requestBody: ChangeProfileRequest): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.fetch.put(BASE_URL + 'user/profile', {
+      this.fetch.put(`${BASE_URL}user/profile`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -116,14 +115,14 @@ export class MessengerAPI {
     });
   }
 
-  changePassword(oldPassword: string, newPassword: string): Promise<void> {  
-    const requestBody = { 
+  changePassword(oldPassword: string, newPassword: string): Promise<void> {
+    const requestBody = {
       oldPassword,
-      newPassword
+      newPassword,
     };
 
     return new Promise((resolve, reject) => {
-      this.fetch.put(BASE_URL + 'user/password', {
+      this.fetch.put(`${BASE_URL}user/password`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -137,11 +136,11 @@ export class MessengerAPI {
     });
   }
 
-  uploadUserAvatar(formData: FormData): Promise<void> { 
+  uploadUserAvatar(formData: FormData): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.fetch.put(BASE_URL + 'user/profile/avatar', {
+      this.fetch.put(`${BASE_URL}user/profile/avatar`, {
         data: formData,
-        contentTypeIsJson: false
+        contentTypeIsJson: false,
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           resolve();
@@ -156,7 +155,7 @@ export class MessengerAPI {
 
   getCurrentUserInfo(): Promise<User> {
     return new Promise((resolve, reject) => {
-      this.fetch.get(BASE_URL + 'auth/user', {})
+      this.fetch.get(`${BASE_URL}auth/user`, {})
         .then((response) => {
           if (response.status >= 200 && response.status <= 299) {
             const userData = JSON.parse(response.responseText);
@@ -171,9 +170,9 @@ export class MessengerAPI {
     });
   }
 
-  getChatsList(): Promise<Chat[]>  {
+  getChatsList(): Promise<Chat[]> {
     return new Promise((resolve, reject) => {
-      this.fetch.get(BASE_URL + 'chats', {})
+      this.fetch.get(`${BASE_URL}chats`, {})
         .then((response) => {
           if (response.status >= 200 && response.status <= 299) {
             const chatsData = JSON.parse(response.responseText);
@@ -187,13 +186,13 @@ export class MessengerAPI {
         });
     });
   }
-  
-  createChat(title: string): Promise<number> {  
+
+  createChat(title: string): Promise<number> {
     const requestBody = {
-      title
+      title,
     };
     return new Promise((resolve, reject) => {
-      this.fetch.post(BASE_URL + 'chats', {
+      this.fetch.post(`${BASE_URL}chats`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -208,28 +207,28 @@ export class MessengerAPI {
     });
   }
 
-  deleteChat(chatId: string): Promise<XMLHttpRequest> {  
-    const requestBody = { 
-      chatId
+  deleteChat(chatId: string): Promise<XMLHttpRequest> {
+    const requestBody = {
+      chatId,
     };
-    const promise = this.fetch.delete(BASE_URL + 'chats', {
+    const promise = this.fetch.delete(`${BASE_URL}chats`, {
       data: JSON.stringify(requestBody),
     });
     return promise;
   }
 
-  getChatUsers(chatId: string): Promise<XMLHttpRequest> {  
-    const url = BASE_URL + 'chats/' + chatId + '/users'
+  getChatUsers(chatId: string): Promise<XMLHttpRequest> {
+    const url = `${BASE_URL}chats/${chatId}/users`;
     return this.fetch.get(url, {});
   }
 
   addUsersToChat(usersIds: number[], chatId: number): Promise<void> {
     const requestBody = {
       users: usersIds,
-      chatId
+      chatId,
     };
     return new Promise((resolve, reject) => {
-      this.fetch.put(BASE_URL + 'chats/users', {
+      this.fetch.put(`${BASE_URL}chats/users`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -243,13 +242,13 @@ export class MessengerAPI {
     });
   }
 
-  deleteUsersFromChat(usersIds: number[], chatId: number): Promise<void> { 
+  deleteUsersFromChat(usersIds: number[], chatId: number): Promise<void> {
     const requestBody = {
       users: usersIds,
-      chatId
+      chatId,
     };
     return new Promise((resolve, reject) => {
-      this.fetch.delete(BASE_URL + 'chats/users', {
+      this.fetch.delete(`${BASE_URL}chats/users`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -265,10 +264,10 @@ export class MessengerAPI {
 
   getChatToken(chatId: number): Promise<string> {
     const requestBody = {
-      chatId
+      chatId,
     };
     return new Promise((resolve, reject) => {
-      this.fetch.post(BASE_URL + 'chats/token/' + chatId, {
+      this.fetch.post(`${BASE_URL}chats/token/${chatId}`, {
         data: JSON.stringify(requestBody),
       }).then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -277,8 +276,7 @@ export class MessengerAPI {
         } else {
           reject(response.responseText);
         }
-      })
-      .catch((e) => {
+      }).catch((e) => {
         reject(e);
       });
     });

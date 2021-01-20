@@ -15,7 +15,7 @@ describe('Router', () => {
 
   afterEach(() => {
     try {
-      (router._onRoute as any).restore();
+      (router.onRoute as any).restore();
     } catch (e) {}
   });
 
@@ -62,15 +62,15 @@ describe('Router', () => {
       expect(window.onpopstate).to.be.instanceOf(Function);
     });
 
-    it('should call _onRoute()', () => {
+    it('should call onRoute()', () => {
       router = new Router('.app');
-      sinon.spy(router, '_onRoute');
+      sinon.spy(router, 'onRoute');
       router.start();
-      expect((router._onRoute as any).calledOnce).to.be.true;
+      expect((router.onRoute as any).calledOnce).to.be.true;
     });
   });
 
-  describe('_onRoute()', () => {
+  describe('onRoute()', () => {
     it('should do nothing if route does not match', () => {
       router = new Router('.app');
       router.use('hello3', TestBlock);
@@ -80,7 +80,7 @@ describe('Router', () => {
       if (route) {
         sinon.spy(route, 'render');
 
-        router._onRoute('test');
+        router.onRoute('test');
 
         expect((route.render as any).called).to.be.false;
       }
@@ -95,7 +95,7 @@ describe('Router', () => {
       if (route) {
         sinon.spy(route, 'render');
         
-        router._onRoute('hello4');
+        router.onRoute('hello4');
 
       
         expect((route.render as any).called).to.be.true;
@@ -113,8 +113,8 @@ describe('Router', () => {
       if (route1) {
         sinon.spy(route1, 'leave')
       
-        router._onRoute('hello5');
-        router._onRoute('hello6');
+        router.onRoute('hello5');
+        router.onRoute('hello6');
 
         expect((route1.leave as any).called).to.be.true;
       }
@@ -135,14 +135,14 @@ describe('Router', () => {
       expect((window.history.pushState as any).calledWith({}, '', 'test')).to.be.true;
     });
 
-    it('should call _onRoute()', () => {
+    it('should call onRoute()', () => {
       router = new Router('.app');
 
-      sinon.spy(router, '_onRoute');
+      sinon.spy(router, 'onRoute');
 
       router.go('test');
 
-      expect((router._onRoute as any).calledWith('test')).to.be.true;
+      expect((router.onRoute as any).calledWith('test')).to.be.true;
     });
   });
 

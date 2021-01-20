@@ -11,4 +11,3 @@ export class Search extends Block<{}> {
             <input class="search__input" type="text" placeholder="Search contacts...">`;
   }
 }
-

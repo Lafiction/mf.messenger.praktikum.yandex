@@ -6,16 +6,23 @@ import { SubmitBtn } from '../components/submitBtn.js';
 import { MessengerAPI, User } from '../common/messengerAPI.js';
 import { Router } from '../common/router.js';
 
-const Handlebars = (window as any)['Handlebars'];
+const { Handlebars } = (window as any);
 
 export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> {
   private nameFieldComponent!: TextField;
+
   private lastNameFieldComponent!: TextField;
+
   private displayNameFieldComponent!: TextField;
+
   private loginFieldComponent!: TextField;
+
   private emailFieldComponent!: TextField;
+
   private phoneFieldComponent!: TextField;
+
   private submitBtnComponent!: SubmitBtn;
+
   private api!: MessengerAPI;
 
   constructor() {
@@ -48,7 +55,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     this.phoneFieldComponent.setProps({ value: userData.phone });
     this.setProps({
       avatar: userData.avatar,
-      fullName: userData.first_name + ' ' + userData.second_name
+      fullName: `${userData.first_name} ${userData.second_name}`,
     });
   }
 
@@ -60,42 +67,42 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     }).catch((error: any) => {
       console.log('Ошибка', error);
     });
-    
-    this.nameFieldComponent = new TextField({ 
+
+    this.nameFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'first_name',
-      placeholder: 'Имя'
+      placeholder: 'Имя',
     });
 
-    this.lastNameFieldComponent = new TextField({ 
+    this.lastNameFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'second_name',
-      placeholder: 'Фамилия'
+      placeholder: 'Фамилия',
     });
 
-    this.displayNameFieldComponent = new TextField({ 
+    this.displayNameFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'display_name',
-      placeholder: 'Отображаемое имя'
+      placeholder: 'Отображаемое имя',
     });
 
-    this.loginFieldComponent = new TextField({ 
+    this.loginFieldComponent = new TextField({
       fieldType: 'text',
       fieldName: 'login',
-      placeholder: 'Логин'
+      placeholder: 'Логин',
     });
 
-    this.emailFieldComponent = new TextField({ 
+    this.emailFieldComponent = new TextField({
       fieldType: 'email',
       fieldName: 'email',
       placeholder: 'Почта',
-      required: true
+      required: true,
     });
 
-    this.phoneFieldComponent = new TextField({ 
+    this.phoneFieldComponent = new TextField({
       fieldType: 'tel',
       fieldName: 'phone',
-      placeholder: 'Телефон'
+      placeholder: 'Телефон',
     });
 
     this.submitBtnComponent = new SubmitBtn({ value: 'Сохранить' });
@@ -137,13 +144,13 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     this.element.addEventListener('submit', (event) => {
       event.preventDefault();
       this.onSubmit();
-    }); 
+    });
   }
 
   render() {
     let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
     if (this.props.avatar) {
-      avatarUrl = 'https://ya-praktikum.tech/' + this.props.avatar;
+      avatarUrl = `https://ya-praktikum.tech/${this.props.avatar}`;
     }
 
     const nameFieldHTML = this.nameFieldComponent.getOuterHTML();
@@ -187,7 +194,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     const template = Handlebars.compile(pageContent);
 
     const changeDataPage = template(
-      { 
+      {
         avatarUrl,
         fullName: this.props.fullName,
         nameFieldHTML,
@@ -196,8 +203,8 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
         loginFieldHTML,
         emailFieldHTML,
         phoneFieldHTML,
-        submitBtnHTML
-      }
+        submitBtnHTML,
+      },
     );
 
     return changeDataPage;

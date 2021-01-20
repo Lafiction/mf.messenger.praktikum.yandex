@@ -4,7 +4,7 @@ interface TextFieldProps {
   fieldType: string;
   fieldName: string;
   placeholder: string;
-  value?: string; 
+  value?: string;
   required?: boolean;
   invalid?: boolean;
 }
