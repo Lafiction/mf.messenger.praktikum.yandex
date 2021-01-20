@@ -1,7 +1,5 @@
-static/js/
-static/**/*.map
-static/*.css.map
-static/*.css
+static/**/*
 
 out/
 node_modules/
+.DS_Store
