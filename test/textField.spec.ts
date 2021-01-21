@@ -7,10 +7,10 @@ describe('TextField component', () => {
       const submitBtn = new TextField({
         fieldType: '',
         fieldName: '',
-        placeholder: ''
+        placeholder: '',
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input type="" name="" placeholder="">`);
+      expect(html).to.equal('<input type="" name="" placeholder="">');
     });
   });
 
@@ -19,10 +19,10 @@ describe('TextField component', () => {
       const submitBtn = new TextField({
         fieldType: 'type',
         fieldName: 'name',
-        placeholder: 'placeholder'
+        placeholder: 'placeholder',
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input type="type" name="name" placeholder="placeholder">`);
+      expect(html).to.equal('<input type="type" name="name" placeholder="placeholder">');
     });
   });
 
@@ -32,10 +32,10 @@ describe('TextField component', () => {
         fieldType: 'type',
         fieldName: 'name',
         placeholder: 'placeholder',
-        value: 'test'
+        value: 'test',
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input type="type" name="name" placeholder="placeholder" value="test">`);
+      expect(html).to.equal('<input type="type" name="name" placeholder="placeholder" value="test">');
     });
   });
 
@@ -46,10 +46,10 @@ describe('TextField component', () => {
         fieldName: 'name',
         placeholder: 'placeholder',
         value: 'test',
-        required: true
+        required: true,
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input type="type" name="name" placeholder="placeholder" value="test" required="">`);
+      expect(html).to.equal('<input type="type" name="name" placeholder="placeholder" value="test" required="">');
     });
 
     it('should not set required if required == false', () => {
@@ -58,10 +58,10 @@ describe('TextField component', () => {
         fieldName: 'name',
         placeholder: 'placeholder',
         value: 'test',
-        required: false
+        required: false,
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input type="type" name="name" placeholder="placeholder" value="test">`);
+      expect(html).to.equal('<input type="type" name="name" placeholder="placeholder" value="test">');
     });
   });
 
@@ -71,10 +71,10 @@ describe('TextField component', () => {
         fieldType: 'type',
         fieldName: 'name',
         placeholder: 'placeholder',
-        invalid: true
+        invalid: true,
       });
       const html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input class="input__invalid" type="type" name="name" placeholder="placeholder">`);
+      expect(html).to.equal('<input class="input__invalid" type="type" name="name" placeholder="placeholder">');
     });
 
     it('should remove class input__invalid when invalid is set to false through props', () => {
@@ -82,15 +82,15 @@ describe('TextField component', () => {
         fieldType: 'type',
         fieldName: 'name',
         placeholder: 'placeholder',
-        invalid: true
+        invalid: true,
       });
       let html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input class="input__invalid" type="type" name="name" placeholder="placeholder">`);
+      expect(html).to.equal('<input class="input__invalid" type="type" name="name" placeholder="placeholder">');
 
       submitBtn.setProps({ invalid: false });
 
       html = submitBtn.getOuterHTML();
-      expect(html).to.equal(`<input class="" type="type" name="name" placeholder="placeholder">`);
+      expect(html).to.equal('<input class="" type="type" name="name" placeholder="placeholder">');
     });
   });
 });

@@ -21,7 +21,7 @@ describe('ChatProfile component', () => {
     it('should generate correct html', () => {
       const chatProfile = new ChatProfile({
         chatAvatar: 'test',
-        chatTitle: 'title'
+        chatTitle: 'title',
       });
       const html = chatProfile.getOuterHTML();
       expect(html).to.equal(`<div class="chat__profile">

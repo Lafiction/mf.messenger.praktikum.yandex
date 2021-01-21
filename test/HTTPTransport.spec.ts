@@ -9,8 +9,8 @@ describe('HTTPTransport', () => {
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
-    xhr.onCreate = (xhr: any) => {
-      requests.push(xhr);
+    xhr.onCreate = (xhr1: any) => {
+      requests.push(xhr1);
     };
   });
 
@@ -21,50 +21,50 @@ describe('HTTPTransport', () => {
   describe('delete()', () => {
     it('should set xhr timeout', () => {
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com');
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].timeout).to.equal(5000);
 
       transport.delete('http://example.com', { timeout: 100500 });
-      
+
       expect(requests.length).to.equal(2);
       expect(requests[1].timeout).to.equal(100500);
     });
 
     it('should set xhr withCredentials', () => {
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com');
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].withCredentials).to.be.true;
     });
 
     it('should set xhr url', () => {
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com');
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].url).to.equal('http://example.com');
     });
 
     it('should send request with type DELETE', () => {
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com');
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].method).to.equal('DELETE');
     });
 
     it('should send provided data', () => {
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com', { data: 'test' });
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].requestBody).to.equal('test');
     });
@@ -73,29 +73,29 @@ describe('HTTPTransport', () => {
       const headers = {
         'Content-Type': 'text/plain;charset=utf-8',
         foo: 'bar',
-        baz: 'test'
+        baz: 'test',
       };
       const transport = new HTTPTransport();
-      
+
       transport.delete('http://example.com', { headers });
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].requestHeaders).to.deep.equal(headers);
     });
 
     it('should return promise', () => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.delete('http://example.com', { data: 'test' });
-      
+
       expect(result).to.be.instanceOf(Promise);
     });
 
     it('should resolve with xhr instance', (done) => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.delete('http://example.com', { data: 'test' });
-      
+
       result.then((response) => {
         expect(response).to.be.instanceOf(XMLHttpRequest);
         done();
@@ -106,9 +106,9 @@ describe('HTTPTransport', () => {
 
     it('should reject if request is failed', (done) => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.delete('http://example.com', { data: 'test' });
-      
+
       result.then(() => {
         assert.fail('Request should fail');
       }).catch(() => {
@@ -124,13 +124,13 @@ describe('HTTPTransport', () => {
       const headers = {
         'Content-Type': 'text/plain;charset=utf-8',
         foo: 'bar',
-        baz: 'test'
+        baz: 'test',
       };
 
       const transport = new HTTPTransport();
-      
+
       transport.post('http://example.com', { data: 'test', headers });
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].withCredentials).to.be.true;
       expect(requests[0].method).to.equal('POST');
@@ -141,9 +141,9 @@ describe('HTTPTransport', () => {
 
     it('should resolve with xhr instance', (done) => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.post('http://example.com', { data: 'test' });
-      
+
       expect(result).to.be.instanceOf(Promise);
       result.then((response) => {
         expect(response).to.be.instanceOf(XMLHttpRequest);
@@ -161,13 +161,13 @@ describe('HTTPTransport', () => {
       const headers = {
         'Content-Type': 'text/plain;charset=utf-8',
         foo: 'bar',
-        baz: 'test'
+        baz: 'test',
       };
 
       const transport = new HTTPTransport();
-      
+
       transport.put('http://example.com', { data: 'test', headers });
-      
+
       expect(requests.length).to.equal(1);
       expect(requests[0].withCredentials).to.be.true;
       expect(requests[0].method).to.equal('PUT');
@@ -178,9 +178,9 @@ describe('HTTPTransport', () => {
 
     it('should resolve with xhr instance', (done) => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.put('http://example.com', { data: 'test' });
-      
+
       expect(result).to.be.instanceOf(Promise);
       result.then((response) => {
         expect(response).to.be.instanceOf(XMLHttpRequest);
@@ -198,11 +198,11 @@ describe('HTTPTransport', () => {
       const headers = {
         'Content-Type': 'text/plain;charset=utf-8',
         foo: 'bar',
-        baz: 'test'
+        baz: 'test',
       };
 
       const transport = new HTTPTransport();
-      
+
       transport.get('http://example.com', { headers });
       expect(requests.length).to.equal(1);
       expect(requests[0].withCredentials).to.be.true;
@@ -216,16 +216,16 @@ describe('HTTPTransport', () => {
       const headers = {
         'Content-Type': 'text/plain;charset=utf-8',
         foo: 'bar',
-        baz: 'test'
+        baz: 'test',
       };
 
       const data = {
         foo: 'bar',
-        baz: 1
+        baz: 1,
       };
 
       const transport = new HTTPTransport();
-      
+
       transport.get('http://example.com', { data, headers });
       expect(requests.length).to.equal(1);
       expect(requests[0].url).to.equal('http://example.com?foo=bar&baz=1');
@@ -234,9 +234,9 @@ describe('HTTPTransport', () => {
 
     it('should resolve with xhr instance', (done) => {
       const transport = new HTTPTransport();
-      
+
       const result = transport.get('http://example.com');
-      
+
       expect(result).to.be.instanceOf(Promise);
       result.then((response) => {
         expect(response).to.be.instanceOf(XMLHttpRequest);

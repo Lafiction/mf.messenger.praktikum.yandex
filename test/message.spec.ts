@@ -6,7 +6,7 @@ describe('Message component', () => {
     it('should generate correct html', () => {
       const message = new Message({
         messageType: '',
-        messageText: ''
+        messageText: '',
       });
       const html = message.getOuterHTML();
       expect(html).to.equal(`<li class="messages__item">
@@ -19,7 +19,7 @@ describe('Message component', () => {
     it('should generate correct html', () => {
       const message = new Message({
         messageType: 'type',
-        messageText: 'text'
+        messageText: 'text',
       });
       const html = message.getOuterHTML();
       expect(html).to.equal(`<li class="messages__item type">

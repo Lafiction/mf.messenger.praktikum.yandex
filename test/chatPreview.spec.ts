@@ -37,7 +37,7 @@ describe('ChatPreview component', () => {
       const chatPreview = new ChatPreview({
         id: 123,
         title: 'test',
-        chatPreviewType: ''
+        chatPreviewType: '',
       });
       const html = chatPreview.getOuterHTML();
       expect(html).to.equal(`<li class="chats__item">

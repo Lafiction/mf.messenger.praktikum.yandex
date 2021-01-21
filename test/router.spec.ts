@@ -1,3 +1,5 @@
+/* eslint no-empty: 'off' */
+
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Block } from '../src/common/block';
@@ -40,7 +42,7 @@ describe('Router', () => {
     it('should return router instance', () => {
       router = new Router('.app');
       const returned = router.use('hello1', TestBlock);
-      
+
       expect(returned).to.be.instanceOf(Router);
     });
 
@@ -94,10 +96,9 @@ describe('Router', () => {
 
       if (route) {
         sinon.spy(route, 'render');
-        
+
         router.onRoute('hello4');
 
-      
         expect((route.render as any).called).to.be.true;
       }
     });
@@ -111,8 +112,7 @@ describe('Router', () => {
       const route1 = router.getRoute('hello5');
 
       if (route1) {
-        sinon.spy(route1, 'leave')
-      
+        sinon.spy(route1, 'leave');
         router.onRoute('hello5');
         router.onRoute('hello6');
 
@@ -176,4 +176,3 @@ describe('Router', () => {
     });
   });
 });
-
