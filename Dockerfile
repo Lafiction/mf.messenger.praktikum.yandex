@@ -8,8 +8,9 @@ COPY . /
 RUN npm ci
 RUN npm run build
 
+ENV listen_port=$PORT
 # При старте контейнер начнёт общаться через 4000 порт
-EXPOSE 4000
+EXPOSE $listen_port
 
 # При старте контейнер выполнит эту команду – запустит наше приложение
 CMD [ "npm", "start" ]
