@@ -52,67 +52,25 @@ export class MessengerAPI {
       password,
     };
 
-    return new Promise((resolve, reject) => {
-      this.fetch.post(`${BASE_URL}auth/signin`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+    return this.fetch.post(`${BASE_URL}auth/signin`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   signOut(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.fetch.post(`${BASE_URL}auth/logout`, {})
-        .then((response) => {
-          if (response.status >= 200 && response.status <= 299) {
-            resolve();
-          } else {
-            reject(response.responseText);
-          }
-        })
-        .catch((e) => {
-          reject(e);
-        });
-    });
+    return this.fetch.post(`${BASE_URL}auth/logout`, {}).then(() => {});
   }
 
   registration(requestBody: RegisterUserRequest): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.fetch.post(`${BASE_URL}auth/signup`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+    return this.fetch.post(`${BASE_URL}auth/signup`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   changeUserProfile(requestBody: ChangeProfileRequest): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.fetch.put(`${BASE_URL}user/profile`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+    return this.fetch.put(`${BASE_URL}user/profile`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   changePassword(oldPassword: string, newPassword: string): Promise<void> {
@@ -121,69 +79,29 @@ export class MessengerAPI {
       newPassword,
     };
 
-    return new Promise((resolve, reject) => {
-      this.fetch.put(`${BASE_URL}user/password`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+    return this.fetch.put(`${BASE_URL}user/password`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   uploadUserAvatar(formData: FormData): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.fetch.put(`${BASE_URL}user/profile/avatar`, {
-        data: formData,
-        contentTypeIsJson: false,
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+    return this.fetch.put(`${BASE_URL}user/profile/avatar`, {
+      data: formData,
+      contentTypeIsJson: false,
+    }).then(() => {});
   }
 
   getCurrentUserInfo(): Promise<User> {
-    return new Promise((resolve, reject) => {
-      this.fetch.get(`${BASE_URL}auth/user`, {})
-        .then((response) => {
-          if (response.status >= 200 && response.status <= 299) {
-            const userData = JSON.parse(response.responseText);
-            resolve(userData);
-          } else {
-            reject(response.responseText);
-          }
-        })
-        .catch((e) => {
-          reject(e);
-        });
+    return this.fetch.get(`${BASE_URL}auth/user`, {}).then((responseText) => {
+      const userData = JSON.parse(responseText);
+      return userData;
     });
   }
 
   getChatsList(): Promise<Chat[]> {
-    return new Promise((resolve, reject) => {
-      this.fetch.get(`${BASE_URL}chats`, {})
-        .then((response) => {
-          if (response.status >= 200 && response.status <= 299) {
-            const chatsData = JSON.parse(response.responseText);
-            resolve(chatsData);
-          } else {
-            reject(response.responseText);
-          }
-        })
-        .catch((e) => {
-          reject(e);
-        });
+    return this.fetch.get(`${BASE_URL}chats`, {}).then((responseText) => {
+      const chatsData = JSON.parse(responseText);
+      return chatsData;
     });
   }
 
@@ -191,35 +109,13 @@ export class MessengerAPI {
     const requestBody = {
       title,
     };
-    return new Promise((resolve, reject) => {
-      this.fetch.post(`${BASE_URL}chats`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          const { id: chatId } = JSON.parse(response.responseText);
-          resolve(chatId);
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
-  }
 
-  deleteChat(chatId: string): Promise<XMLHttpRequest> {
-    const requestBody = {
-      chatId,
-    };
-    const promise = this.fetch.delete(`${BASE_URL}chats`, {
+    return this.fetch.post(`${BASE_URL}chats`, {
       data: JSON.stringify(requestBody),
+    }).then((responseText) => {
+      const { id: chatId } = JSON.parse(responseText);
+      return chatId;
     });
-    return promise;
-  }
-
-  getChatUsers(chatId: string): Promise<XMLHttpRequest> {
-    const url = `${BASE_URL}chats/${chatId}/users`;
-    return this.fetch.get(url, {});
   }
 
   addUsersToChat(usersIds: number[], chatId: number): Promise<void> {
@@ -227,19 +123,10 @@ export class MessengerAPI {
       users: usersIds,
       chatId,
     };
-    return new Promise((resolve, reject) => {
-      this.fetch.put(`${BASE_URL}chats/users`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+
+    return this.fetch.put(`${BASE_URL}chats/users`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   deleteUsersFromChat(usersIds: number[], chatId: number): Promise<void> {
@@ -247,38 +134,22 @@ export class MessengerAPI {
       users: usersIds,
       chatId,
     };
-    return new Promise((resolve, reject) => {
-      this.fetch.delete(`${BASE_URL}chats/users`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          resolve();
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
-    });
+
+    return this.fetch.delete(`${BASE_URL}chats/users`, {
+      data: JSON.stringify(requestBody),
+    }).then(() => {});
   }
 
   getChatToken(chatId: number): Promise<string> {
     const requestBody = {
       chatId,
     };
-    return new Promise((resolve, reject) => {
-      this.fetch.post(`${BASE_URL}chats/token/${chatId}`, {
-        data: JSON.stringify(requestBody),
-      }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          const { token } = JSON.parse(response.responseText);
-          resolve(token);
-        } else {
-          reject(response.responseText);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
+
+    return this.fetch.post(`${BASE_URL}chats/token/${chatId}`, {
+      data: JSON.stringify(requestBody),
+    }).then((responseText) => {
+      const { token } = JSON.parse(responseText);
+      return token;
     });
   }
 }

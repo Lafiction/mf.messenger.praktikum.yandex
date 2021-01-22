@@ -91,13 +91,13 @@ describe('HTTPTransport', () => {
       expect(result).to.be.instanceOf(Promise);
     });
 
-    it('should resolve with xhr instance', (done) => {
+    it('should resolve with response body', (done) => {
       const transport = new HTTPTransport();
 
       const result = transport.delete('http://example.com', { data: 'test' });
 
       result.then((response) => {
-        expect(response).to.be.instanceOf(XMLHttpRequest);
+        expect(response).to.equal('OK');
         done();
       });
 
@@ -139,16 +139,14 @@ describe('HTTPTransport', () => {
       expect(requests[0].requestHeaders).to.deep.equal(headers);
     });
 
-    it('should resolve with xhr instance', (done) => {
+    it('should resolve with response body', (done) => {
       const transport = new HTTPTransport();
 
       const result = transport.post('http://example.com', { data: 'test' });
 
       expect(result).to.be.instanceOf(Promise);
       result.then((response) => {
-        expect(response).to.be.instanceOf(XMLHttpRequest);
-        expect(response.status).to.equal(200);
-        expect(response.responseText).to.equal('OK');
+        expect(response).to.equal('OK');
         done();
       });
 
@@ -176,16 +174,14 @@ describe('HTTPTransport', () => {
       expect(requests[0].requestHeaders).to.deep.equal(headers);
     });
 
-    it('should resolve with xhr instance', (done) => {
+    it('should resolve with response body', (done) => {
       const transport = new HTTPTransport();
 
       const result = transport.put('http://example.com', { data: 'test' });
 
       expect(result).to.be.instanceOf(Promise);
       result.then((response) => {
-        expect(response).to.be.instanceOf(XMLHttpRequest);
-        expect(response.status).to.equal(200);
-        expect(response.responseText).to.equal('OK');
+        expect(response).to.equal('OK');
         done();
       });
 
@@ -232,16 +228,11 @@ describe('HTTPTransport', () => {
       expect(requests[0].requestBody).to.equal(undefined);
     });
 
-    it('should resolve with xhr instance', (done) => {
+    it('should resolve with response body', (done) => {
       const transport = new HTTPTransport();
 
-      const result = transport.get('http://example.com');
-
-      expect(result).to.be.instanceOf(Promise);
-      result.then((response) => {
-        expect(response).to.be.instanceOf(XMLHttpRequest);
-        expect(response.status).to.equal(200);
-        expect(response.responseText).to.equal('OK');
+      transport.get('http://example.com').then((response) => {
+        expect(response).to.equal('OK');
         done();
       });
 

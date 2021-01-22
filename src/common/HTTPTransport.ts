@@ -34,7 +34,7 @@ export class HTTPTransport {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   }
 
-  request(url: string, options: Record<string, any>, timeout = 5000): Promise<XMLHttpRequest> {
+  request(url: string, options: Record<string, any>, timeout = 5000): Promise<string> {
     const { method, data = '', contentTypeIsJson = true } = options;
     let { headers } = options;
 
@@ -48,7 +48,7 @@ export class HTTPTransport {
       };
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: (value: XMLHttpRequest) => void, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.timeout = timeout;
       xhr.withCredentials = true;
@@ -80,6 +80,12 @@ export class HTTPTransport {
       } else {
         xhr.send(data);
       }
+    }).then((response: XMLHttpRequest) => {
+      if (response.status >= 200 && response.status <= 299) {
+        return response.responseText;
+      }
+
+      throw new Error(response.responseText);
     });
   }
 }
