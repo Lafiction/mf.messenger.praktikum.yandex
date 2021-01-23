@@ -111,10 +111,9 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
   }
 
   render() {
-    let avatarUrl = 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
-    if (this.props.avatar) {
-      avatarUrl = `https://ya-praktikum.tech/${this.props.avatar}`;
-    }
+    const avatarUrl = this.props.avatar
+      ? `https://ya-praktikum.tech/${this.props.avatar}`
+      : 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png';
 
     const oldPasswordFieldHTML = this.oldPasswordComponent.getOuterHTML();
     const newPasswordFieldHTML = this.newPasswordComponent.getOuterHTML();
