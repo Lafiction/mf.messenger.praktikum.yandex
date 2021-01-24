@@ -28,7 +28,7 @@ export class ProfilePage extends Block<User> {
     this.api.signOut().then(() => {
       const router = new Router('router is already created in app.ts');
       router.go('/');
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
   }
@@ -46,7 +46,7 @@ export class ProfilePage extends Block<User> {
         alert('Аватар изменен');
         const router = new Router('router is already created in app.ts');
         router.go('/profile');
-      }).catch((error: any) => {
+      }).catch((error: Error) => {
         alert(`Ошибка ${error}`);
       });
     };
@@ -69,7 +69,7 @@ export class ProfilePage extends Block<User> {
 
     this.api.getCurrentUserInfo().then((userData: User) => {
       this.setProps(userData);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
   }

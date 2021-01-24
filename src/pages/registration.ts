@@ -42,7 +42,7 @@ export class RegistrationPage extends Block<{}> {
       const router = new Router('router is already created in app.ts');
       alert('Вы зарегистрированы');
       router.go('/messenger');
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       alert(`Ошибка ${error}`);
       this.api.signOut().catch(() => {});
     });

@@ -31,7 +31,7 @@ export class IndexPage extends Block<{}> {
     this.api.signIn(data.login, data.password).then(() => {
       const router = new Router('router is already created in app.ts');
       router.go('/messenger');
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       alert(`Ошибка ${error}`);
       this.api.signOut().catch(() => {});
     });

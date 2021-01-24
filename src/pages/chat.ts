@@ -53,7 +53,7 @@ export class ChatPage extends Block<ChatPageProps> {
     this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
       router.go(`/chat/${chatId}`);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       alert(`Ошибка ${error}`);
     });
   }
@@ -74,7 +74,7 @@ export class ChatPage extends Block<ChatPageProps> {
       return;
     }
 
-    this.api.addUsersToChat([userId], this.props.selectedChatId).catch((error: any) => {
+    this.api.addUsersToChat([userId], this.props.selectedChatId).catch((error: Error) => {
       alert(`Ошибка ${error}`);
     });
   }
@@ -95,7 +95,7 @@ export class ChatPage extends Block<ChatPageProps> {
       return;
     }
 
-    this.api.deleteUsersFromChat([userId], this.props.selectedChatId).catch((error: any) => {
+    this.api.deleteUsersFromChat([userId], this.props.selectedChatId).catch((error: Error) => {
       alert(`Ошибка ${error}`);
     });
   }
@@ -204,7 +204,7 @@ export class ChatPage extends Block<ChatPageProps> {
           },
         ],
       });
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
   }

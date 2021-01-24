@@ -36,7 +36,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
     this.api.createChat(newChatTitle).then((chatId: number) => {
       const router = new Router('router is already created in app.ts');
       router.go(`/chat/${chatId}`);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       alert(`Ошибка ${error}`);
     });
   }
@@ -61,7 +61,7 @@ export class MessengerPage extends Block<MessengerPageProps> {
 
     this.api.getChatsList().then((chatsData: Chat[]) => {
       this.setProps({ chats: chatsData });
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
   }

@@ -40,7 +40,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
       const router = new Router('router is already created in app.ts');
       alert('Данные изменены');
       router.go('/profile');
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
   }
@@ -63,7 +63,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
 
     this.api.getCurrentUserInfo().then((userData: User) => {
       this.setUserInfo(userData);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
 

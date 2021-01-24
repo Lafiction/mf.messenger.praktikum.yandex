@@ -40,10 +40,10 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
       alert('Пароль изменен');
       this.api.signOut().then(() => {
         router.go('/');
-      }).catch((error: any) => {
+      }).catch((error: Error) => {
         console.log('Ошибка', error);
       });
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       alert(`Ошибка ${error}`);
     });
   }
@@ -56,7 +56,7 @@ export class ChangePasswordPage extends Block<{ avatar: string, fullName: string
         avatar: userData.avatar,
         fullName: `${userData.first_name} ${userData.second_name}`,
       });
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       console.log('Ошибка', error);
     });
 
