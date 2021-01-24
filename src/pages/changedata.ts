@@ -6,6 +6,7 @@ import { TextField } from '../components/textField';
 import { SubmitBtn } from '../components/submitBtn';
 import { MessengerAPI, User } from '../common/messengerAPI';
 import { Router } from '../common/router';
+import { loginRegexp } from '../common/constants';
 
 export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> {
   private nameFieldComponent!: TextField;
@@ -137,7 +138,7 @@ export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> 
     handleOnSubmitForm(this.element);
 
     if (this.element) {
-      addValidationEventListeners(this.element, 'login', /^[a-zа-я0-9_]+$/i);
+      addValidationEventListeners(this.element, 'login', loginRegexp);
     }
 
     this.element.addEventListener('submit', (event) => {
