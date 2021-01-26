@@ -39,6 +39,14 @@ module.exports = {
       node: {
         extensions: ['.js', '.ts'],
       },
+      alias: {
+        map: [
+          ['@common', './src/common'],
+          ['@pages', './src/pages'],
+          ['@components', './src/components'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json'],
+      },
     },
   },
   overrides: [

@@ -1,5 +1,5 @@
 import * as Handlebars from 'handlebars';
-import { Block } from '../common/block';
+import { Block } from '@common/block';
 
 interface MessageProps {
   messageType: string;

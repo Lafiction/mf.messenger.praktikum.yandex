@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+    },
     "checkJs": true,
     "outDir": "out",
     "target": "es2016",
@@ -12,8 +18,13 @@
     "alwaysStrict": true,
     "strictNullChecks": true,
     "sourceMap": true,
+    "strict": true,
+    "lib": ["es2016", "dom"],
     "esModuleInterop": true,
     "types": ["handlebars", "mocha", "chai"],
+    "typeRoots": [
+      "../node_modules/@types"
+    ]
   },
   "include": [
     "src/**/*",

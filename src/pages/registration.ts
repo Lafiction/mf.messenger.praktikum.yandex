@@ -1,12 +1,12 @@
 import * as Handlebars from 'handlebars';
-import { handleOnSubmitForm, getFormData } from '../common/formDataCollector';
-import { addValidationEventListeners } from '../common/validation';
-import { Block } from '../common/block';
-import { TextField } from '../components/textField';
-import { SubmitBtn } from '../components/submitBtn';
-import { MessengerAPI } from '../common/messengerAPI';
-import { Router } from '../common/router';
-import { loginRegexp, passwordRegexp } from '../common/constants';
+import { handleOnSubmitForm, getFormData } from '@common/formDataCollector';
+import { addValidationEventListeners } from '@common/validation';
+import { Block } from '@common/block';
+import { TextField } from '@components/textField';
+import { SubmitBtn } from '@components/submitBtn';
+import { MessengerAPI } from '@common/messengerAPI';
+import { Router } from '@common/router';
+import { loginRegexp, passwordRegexp } from '@common/constants';
 
 export class RegistrationPage extends Block<{}> {
   private nameFieldComponent!: TextField;

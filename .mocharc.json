@@ -1,5 +1,5 @@
 {
-  "extension": ["js"],
-  "spec": "out/**/*.spec.js",
-  "require": ["global-jsdom/register"]
+  "extension": ["ts"],
+  "spec": "test/**/*.spec.ts",
+  "require": ["ts-node/register", "tsconfig-paths/register", "global-jsdom/register"]
 }

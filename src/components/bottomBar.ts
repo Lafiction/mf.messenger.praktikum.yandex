@@ -1,4 +1,4 @@
-import { Block } from '../common/block';
+import { Block } from '@common/block';
 
 export class BottomBar extends Block<{}> {
   constructor() {

@@ -1,4 +1,4 @@
-import { Block } from '../common/block';
+import { Block } from '@common/block';
 
 interface TextFieldProps {
   fieldType: string;

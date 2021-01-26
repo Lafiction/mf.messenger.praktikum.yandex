@@ -1,11 +1,11 @@
 import * as Handlebars from 'handlebars';
-import { handleOnSubmitForm, getFormData } from '../common/formDataCollector';
-import { addValidationEventListeners } from '../common/validation';
-import { Block } from '../common/block';
-import { TextField } from '../components/textField';
-import { SubmitBtn } from '../components/submitBtn';
-import { MessengerAPI, User } from '../common/messengerAPI';
-import { Router } from '../common/router';
+import { handleOnSubmitForm, getFormData } from '@common/formDataCollector';
+import { addValidationEventListeners } from '@common/validation';
+import { Block } from '@common/block';
+import { TextField } from '@components/textField';
+import { SubmitBtn } from '@components/submitBtn';
+import { MessengerAPI, User } from '@common/messengerAPI';
+import { Router } from '@common/router';
 
 export class ChangePasswordPage extends Block<{ avatar: string, fullName: string }> {
   private oldPasswordComponent!: TextField;

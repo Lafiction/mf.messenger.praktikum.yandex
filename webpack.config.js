@@ -17,6 +17,9 @@ module.exports = {
     fallback: { fs: false },
     alias: {
       handlebars: 'handlebars/dist/handlebars.js',
+      '@common': path.resolve(__dirname, '/src/common/'),
+      '@pages': path.resolve(__dirname, '/src/pages/'),
+      '@components': path.resolve(__dirname, '/src/components/'),
     },
   },
   module: {

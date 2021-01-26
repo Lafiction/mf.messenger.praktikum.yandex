@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+    },
     "checkJs": true,
     "outDir": "static/js",
     "target": "es2016",

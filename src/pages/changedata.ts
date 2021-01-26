@@ -1,12 +1,12 @@
 import * as Handlebars from 'handlebars';
-import { handleOnSubmitForm, getFormData } from '../common/formDataCollector';
-import { addValidationEventListeners } from '../common/validation';
-import { Block } from '../common/block';
-import { TextField } from '../components/textField';
-import { SubmitBtn } from '../components/submitBtn';
-import { MessengerAPI, User } from '../common/messengerAPI';
-import { Router } from '../common/router';
-import { loginRegexp } from '../common/constants';
+import { handleOnSubmitForm, getFormData } from '@common/formDataCollector';
+import { addValidationEventListeners } from '@common/validation';
+import { Block } from '@common/block';
+import { TextField } from '@components/textField';
+import { SubmitBtn } from '@components/submitBtn';
+import { MessengerAPI, User } from '@common/messengerAPI';
+import { Router } from '@common/router';
+import { loginRegexp } from '@common/constants';
 
 export class ChangeDataPage extends Block<{ avatar: string, fullName: string }> {
   private nameFieldComponent!: TextField;
